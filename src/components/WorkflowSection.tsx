@@ -11,8 +11,8 @@ export const WorkflowSection: React.FC = () => {
           <div className="art-workflow-statement">
             <span className="section-kicker">ENGINEERING PHILOSOPHY</span>
             <h2 className="art-workflow-title">
-              <span className="workflow-title-line1">BUILT AROUND THE WORKFLOW.</span>
-              <span className="workflow-title-line2">NOT AROUND THE BOX.</span>
+              <span className="workflow-title-line1">BUILT AROUND THE WORKFLOW</span>
+              <span className="workflow-title-line2">NOT AROUND THE BOX</span>
             </h2>
 
             <div className="art-workflow-divider" />
@@ -49,7 +49,7 @@ export const WorkflowSection: React.FC = () => {
                 <HardDrive size={22} />
               </div>
               <div>
-                <h4>Scale-Out ZFS & NVMe</h4>
+                <h4>Scale-Out ZFS &amp; NVMe</h4>
                 <p>High-IOPS caching pools preventing multi-user I/O lockup during heavy composite renders.</p>
               </div>
             </div>
