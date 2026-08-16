@@ -34,9 +34,17 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       // High-Precision Section ScrollSpy for landing view ('home')
       if (activeView === 'home') {
+        // ALWAYS FORCE HOME WHEN AT TOP OF PAGE (< 100px)
+        if (scrollPos < 100) {
+          setActiveSection('HOME');
+          return;
+        }
+
         const totalHeight = document.documentElement.scrollHeight;
         const windowHeight = window.innerHeight;
-        const isAtBottom = (scrollPos + windowHeight) >= (totalHeight - 60);
+        
+        // Bottom of page check (ONLY VALID WHEN SCROLLED PAST 300px)
+        const isAtBottom = scrollPos > 300 && (scrollPos + windowHeight) >= (totalHeight - 80);
 
         const contactEl = document.getElementById('contact');
         const solutionsEl = document.getElementById('solutions');
@@ -46,7 +54,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         const solutionsTop = solutionsEl ? solutionsEl.getBoundingClientRect().top : Infinity;
         const servicesTop = servicesEl ? servicesEl.getBoundingClientRect().top : Infinity;
 
-        // Viewport trigger threshold (350px from top of window)
+        // Viewport trigger threshold (360px from top of window)
         const threshold = Math.min(360, windowHeight * 0.4);
 
         if (isAtBottom || contactTop <= threshold) {
