@@ -18,33 +18,54 @@ export const Navbar: React.FC<NavbarProps> = ({
 }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<'HOME' | 'SOLUTIONS' | 'SERVICES' | 'CONTACT'>('HOME');
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPos = 
-        window.scrollY || 
-        window.pageYOffset || 
-        document.documentElement.scrollTop || 
-        document.body.scrollTop || 
-        0;
-        
-      if (scrollPos > 10) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
+      const scrollPos = window.scrollY || document.documentElement.scrollTop || 0;
+      
+      // Laser line & solid background activation on scroll
+      setScrolled(scrollPos > 15);
+
+      // Dynamic Section ScrollSpy for both desktop and mobile
+      if (activeView === 'home') {
+        const totalHeight = document.documentElement.scrollHeight;
+        const windowHeight = window.innerHeight;
+
+        // Bottom of page detection (Contact)
+        if (scrollPos + windowHeight >= totalHeight - 120) {
+          setActiveSection('CONTACT');
+          return;
+        }
+
+        const offsetThreshold = windowHeight * 0.35;
+        const contactEl = document.getElementById('contact');
+        const servicesEl = document.getElementById('services');
+        const solutionsEl = document.getElementById('solutions');
+        const homeEl = document.getElementById('home');
+
+        if (contactEl && contactEl.getBoundingClientRect().top <= offsetThreshold) {
+          setActiveSection('CONTACT');
+        } else if (servicesEl && servicesEl.getBoundingClientRect().top <= offsetThreshold) {
+          setActiveSection('SERVICES');
+        } else if (solutionsEl && solutionsEl.getBoundingClientRect().top <= offsetThreshold) {
+          setActiveSection('SOLUTIONS');
+        } else if (homeEl) {
+          setActiveSection('HOME');
+        }
       }
     };
 
     handleScroll();
 
-    window.addEventListener('scroll', handleScroll, { passive: true, capture: true });
-    document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll, { passive: true });
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      document.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
     };
-  }, []);
+  }, [activeView]);
 
   const handleNavClick = (label: string, href: string) => {
     setMobileOpen(false);
@@ -55,15 +76,15 @@ export const Navbar: React.FC<NavbarProps> = ({
     }
 
     if (label === 'HOME') {
+      setActiveSection('HOME');
       onNavigateHome();
       return;
     }
 
     // For SOLUTIONS, SERVICES, CONTACT
+    setActiveSection(label as any);
     onNavigateSection(href);
   };
-
-
 
   return (
     <header className={`master-navbar ${scrolled ? 'scrolled' : ''}`}>
@@ -88,7 +109,13 @@ export const Navbar: React.FC<NavbarProps> = ({
         <nav className="desktop-nav" aria-label="Main Navigation">
           <ul className="nav-items-list">
             {navigationConfig.items.map((item) => {
-              const active = item.label === 'ABOUT' ? activeView === 'about' : (activeView === 'home' && item.label === 'HOME');
+              let active = false;
+              if (item.label === 'ABOUT') {
+                active = activeView === 'about';
+              } else if (activeView === 'home') {
+                active = activeSection === item.label;
+              }
+
               return (
                 <li key={item.label} className="nav-item">
                   <a
@@ -122,9 +149,22 @@ export const Navbar: React.FC<NavbarProps> = ({
       {mobileOpen && (
         <div className="mobile-overlay" onClick={() => setMobileOpen(false)}>
           <div className="mobile-menu-box" onClick={(e) => e.stopPropagation()}>
+            <div className="mobile-menu-header">
+              <span className="mobile-menu-title">NAVIGATION</span>
+              <button className="mobile-close-btn" onClick={() => setMobileOpen(false)}>
+                <X size={24} />
+              </button>
+            </div>
+            
             <ul className="mobile-menu-list">
               {navigationConfig.items.map((item) => {
-                const active = item.label === 'ABOUT' ? activeView === 'about' : (activeView === 'home' && item.label === 'HOME');
+                let active = false;
+                if (item.label === 'ABOUT') {
+                  active = activeView === 'about';
+                } else if (activeView === 'home') {
+                  active = activeSection === item.label;
+                }
+
                 return (
                   <li key={item.label}>
                     <a
@@ -135,7 +175,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                         handleNavClick(item.label, item.href);
                       }}
                     >
-                      {item.label}
+                      <span>{item.label}</span>
+                      {active && <span className="mobile-active-dot" />}
                     </a>
                   </li>
                 );

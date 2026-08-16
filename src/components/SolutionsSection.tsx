@@ -1,16 +1,14 @@
 import React from 'react';
-import { 
-  ArrowUpRight
-} from 'lucide-react';
+import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import './SolutionsSection.css';
 
 export const SolutionsSection: React.FC = () => {
-  const solutionsData = [
+  const solutions = [
     {
       id: 'boutique-studio',
-      badge: '5–25 ARTIST SEATS',
+      badge: '5–20 ARTIST SEATS',
       title: 'Boutique Studio Architecture',
-      desc: 'Engineered for small-to-mid facilities that require smooth 4K playback for comp and 3D animation without enterprise datacenter complexity.',
+      desc: 'Turnkey high-throughput pipeline designed for mid-sized VFX & animation facilities requiring uncompressed 4K EXR playback without massive infrastructure complexity.',
       highlights: [
         '20 TB Tier-0 NVMe local cache',
         '25GbE direct artist access',
@@ -42,37 +40,39 @@ export const SolutionsSection: React.FC = () => {
   ];
 
   return (
-    <section className="art-solutions-section section-with-bg">
-      <div className="container relative-z">
+    <section id="solutions" className="art-solutions-section section-with-bg">
+      <div className="container">
         {/* Section Header */}
         <div className="art-section-header text-center">
-          <span className="section-kicker">ENGINEERED ARCHITECTURES</span>
-          <h2 className="section-title">SOLUTIONS BY STUDIO STAGE</h2>
+          <span className="section-kicker">TAILORED ARCHITECTURES</span>
+          <h2 className="section-title">ENGINEERED FOR YOUR STUDIO SIZE</h2>
           <p className="section-description">
-            Tailored infrastructure blueprints built for post-production facilities, boutique VFX shops, and enterprise render farms.
+            Scalable infrastructure blueprints crafted specifically for the technical demands of visual effects, post-production, and virtual production environments.
           </p>
         </div>
 
-        {/* 3-Column Solutions Glass Grid */}
+        {/* 3-Column Glass Card Showcase */}
         <div className="solutions-glass-grid">
-          {solutionsData.map((sol) => (
-            <a key={sol.id} href="#contact" className="corp-panel solution-strip">
-              <div>
-                <div className="strip-top">
-                  <span className="strip-tag">{sol.badge}</span>
-                  <ArrowUpRight size={20} className="strip-action" />
-                </div>
-
-                <h3 className="strip-title">{sol.title}</h3>
-                <p className="strip-summary">{sol.desc}</p>
-              </div>
+          {solutions.map((item) => (
+            <div key={item.id} className="corp-panel solution-strip">
+              <div className="strip-badge">{item.badge}</div>
+              <h3 className="strip-title">{item.title}</h3>
+              <p className="strip-desc">{item.desc}</p>
 
               <div className="strip-highlights">
-                {sol.highlights.map((item, idx) => (
-                  <span key={idx} className="strip-badge">{item}</span>
+                {item.highlights.map((h, i) => (
+                  <div key={i} className="highlight-row">
+                    <CheckCircle2 size={16} className="highlight-icon" />
+                    <span>{h}</span>
+                  </div>
                 ))}
               </div>
-            </a>
+
+              <a href="#contact" className="btn-corporate-secondary strip-cta">
+                <span>VIEW ARCHITECTURE BLUEPRINT</span>
+                <ArrowRight size={16} className="btn-icon" />
+              </a>
+            </div>
           ))}
         </div>
       </div>
