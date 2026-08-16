@@ -28,6 +28,11 @@
   --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.5);
   --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.7);
 
+  /* Navbar Height Control */
+  --navbar-height-desktop: 80px;
+  --navbar-height-mobile: 64px;
+  --navbar-height: var(--navbar-height-desktop);
+
   /* Fonts */
   --font-heading: 'Inter', system-ui, -apple-system, sans-serif;
   --font-body: 'Inter', system-ui, -apple-system, sans-serif;

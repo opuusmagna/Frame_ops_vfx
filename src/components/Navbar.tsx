@@ -54,7 +54,6 @@ export const Navbar: React.FC = () => {
             alt="Frame Ops VFX Official Logo"
             className="brand-logo-img dark-mode-logo"
           />
-          <span className="brand-logo-text">FRAME OPS VFX</span>
         </a>
 
         {/* Desktop Nav Items */}

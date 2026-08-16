@@ -1,5 +1,5 @@
 import React from 'react';
-import { Cpu, ShieldCheck, Activity, Database, Wrench, FileCheck, Users, ArrowRight } from 'lucide-react';
+import { Cpu, ShieldCheck, Activity, Database, Wrench, FileCheck, Users, ArrowRight, Info } from 'lucide-react';
 import { useLanguage } from '../context/useLanguage';
 import './ManagedServicesPage.css';
 
@@ -54,6 +54,14 @@ export const ManagedServicesPage: React.FC = () => {
         <section className="ms-section corp-panel highlight-box">
           <h2 className="ms-section-title">{m.opsTitle}</h2>
           <p className="ms-ops-desc">{m.opsDesc}</p>
+        </section>
+
+        {/* Visible Professional Commercial Note */}
+        <section className="ms-section corp-panel commercial-note-box">
+          <div className="commercial-note-header">
+            <Info size={20} className="info-icon" />
+            <p className="commercial-note-text">{m.commercialNote}</p>
+          </div>
         </section>
 
         {/* Contextual CTA */}

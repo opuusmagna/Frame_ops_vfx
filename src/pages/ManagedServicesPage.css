@@ -59,6 +59,30 @@
   background: rgba(0, 229, 255, 0.04);
 }
 
+.commercial-note-box {
+  background: rgba(8, 119, 255, 0.06);
+  border: 1px solid rgba(8, 119, 255, 0.3);
+}
+
+.commercial-note-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.commercial-note-header .info-icon {
+  color: var(--accent-cyan, #00e5ff);
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+}
+
+.commercial-note-text {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+  margin: 0;
+}
+
 .ms-ops-desc {
   font-size: 1.05rem;
   color: rgba(255, 255, 255, 0.85);
