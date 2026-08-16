@@ -1,4 +1,10 @@
-/* Responsive Scaling & Media Queries */
+/* Master Global Responsive Styling for Frame Ops VFX Web - 100% Fluid Mobile Support (Galaxy S10+, iPhones, Android) */
+
+/* Global Anti-Overflow Rules */
+html, body, #root {
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+}
 
 /* Typography Scaling with Clamp */
 :root {
@@ -8,7 +14,7 @@
   --body-size: clamp(0.95rem, 0.5vw + 0.8rem, 1.15rem);
 }
 
-/* Tablet (768px - 1024px) */
+/* Tablet Layout (768px - 1024px) */
 @media (max-width: 1024px) {
   .hero-grid {
     grid-template-columns: 1fr !important;
@@ -29,30 +35,320 @@
     max-width: 640px;
     margin: 0 auto;
   }
+
+  .services-showcase-layout,
+  .configurator-grid,
+  .about-bio-grid,
+  .about-pillars-grid,
+  .about-milestones-grid {
+    grid-template-columns: 1fr !important;
+  }
 }
 
-/* Mobile (390px - 768px) */
+/* Mobile Layout for Smartphones (<= 768px, Galaxy S10+, iPhones, Android) */
 @media (max-width: 768px) {
-  .hero-ctas {
-    flex-direction: column;
-    width: 100%;
+  /* Layout Padding Container Fixes */
+  .container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    box-sizing: border-box !important;
   }
 
-  .btn-primary, .btn-secondary {
-    width: 100%;
+  section {
+    padding-top: 3.5rem !important;
+    padding-bottom: 3.5rem !important;
   }
 
-  .nav-menu-desktop {
-    display: none !important;
+  .art-section-header {
+    margin-bottom: 2.5rem !important;
+    padding: 0 0.5rem !important;
   }
 
-  .nav-mobile-toggle {
-    display: flex !important;
+  .section-title,
+  .about-section-title {
+    font-size: clamp(1.5rem, 6vw, 2.1rem) !important;
+    line-height: 1.2 !important;
+    word-break: break-word !important;
   }
 
-  .cyber-frame-specs {
+  .section-description {
+    font-size: 0.95rem !important;
+    line-height: 1.6 !important;
+  }
+
+  /* Services Section Mobile Fixes */
+  .services-showcase-layout {
     grid-template-columns: 1fr !important;
-    font-size: 0.75rem;
+    gap: 1.5rem !important;
+  }
+
+  .service-tab-button {
+    padding: 1rem 1.15rem !important;
+    gap: 0.85rem !important;
+  }
+
+  .tab-icon-box {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  .tab-title {
+    font-size: 0.975rem !important;
+  }
+
+  .tab-subtitle {
+    font-size: 0.75rem !important;
+  }
+
+  .service-detail-box {
+    padding: 1.6rem 1.25rem !important;
+  }
+
+  .detail-title {
+    font-size: 1.45rem !important;
+  }
+
+  .detail-subtitle {
+    font-size: 0.85rem !important;
+    margin-bottom: 1.25rem !important;
+  }
+
+  .detail-description {
+    font-size: 0.95rem !important;
+    margin-bottom: 1.75rem !important;
+  }
+
+  .detail-capabilities-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.85rem !important;
+  }
+
+  /* Spec Configurator Section Mobile Fixes */
+  .configurator-container {
+    padding: 1rem 0.5rem !important;
+    margin-top: 0 !important;
+  }
+
+  .configurator-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+
+  .config-controls, 
+  .config-output {
+    padding: 1.35rem 1.15rem !important;
+  }
+
+  .dept-header-row {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.75rem !important;
+  }
+
+  .dept-title-box {
+    width: 100% !important;
+  }
+
+  .counter-box {
+    width: 100% !important;
+    justify-content: space-between !important;
+    box-sizing: border-box !important;
+  }
+
+  .counter-val {
+    flex-grow: 1 !important;
+  }
+
+  .tier-toggle-row {
+    flex-direction: column !important;
+    gap: 0.5rem !important;
+  }
+
+  .proportional-bar-box {
+    padding: 0.75rem 0.85rem !important;
+  }
+
+  .bar-legend {
+    gap: 0.4rem 0.65rem !important;
+  }
+
+  /* Workload Intelligence Section Mobile Fixes */
+  .tab-header-bar.grid-5-cols,
+  .tab-header-bar.grid-4-cols {
+    grid-template-columns: 1fr !important;
+  }
+
+  .tab-header-btn {
+    padding: 0.85rem 0.75rem !important;
+    font-size: 0.825rem !important;
+    justify-content: flex-start !important;
+    text-align: left !important;
+    border-bottom: 1px solid var(--border-subtle) !important;
+    border-left: 3px solid transparent !important;
+  }
+
+  .tab-header-btn.active {
+    border-bottom-color: transparent !important;
+    border-left-color: #00f0ff !important;
+  }
+
+  .intelligence-profile-body {
+    padding: 1.5rem 1.15rem !important;
+  }
+
+  .profile-name {
+    font-size: 1.5rem !important;
+  }
+
+  .profile-overview-text {
+    font-size: 0.95rem !important;
+    line-height: 1.65 !important;
+    margin-bottom: 2rem !important;
+  }
+
+  .profile-specs-grid,
+  .benchmarks-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  .profile-spec-card {
+    padding: 1rem 1.15rem !important;
+  }
+
+  .profile-benchmarks-box {
+    padding: 1.35rem 1.15rem !important;
+  }
+
+  .benchmark-bullet {
+    font-size: 0.875rem !important;
+  }
+
+  /* Solutions Section Mobile Fixes */
+  .solutions-glass-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem !important;
+  }
+
+  .solution-strip {
+    padding: 1.5rem 1.25rem !important;
+  }
+
+  .strip-title {
+    font-size: 1.2rem !important;
+  }
+
+  /* Security Matrix Section Mobile Fixes */
+  .security-controls-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem !important;
+  }
+
+  .security-control-card {
+    padding: 1.5rem 1.25rem !important;
+  }
+
+  /* Architecture Flow Section Mobile Fixes */
+  .flow-diagram-grid,
+  .nodes-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem !important;
+  }
+
+  .flow-node-card {
+    padding: 1.5rem 1.25rem !important;
+  }
+
+  /* Bottleneck Analyzer Section Mobile Fixes */
+  .bottleneck-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem !important;
+  }
+
+  .bottleneck-card {
+    padding: 1.5rem 1.25rem !important;
+  }
+
+  /* Why Frame Ops Section Mobile Fixes */
+  .why-reasons-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem !important;
+  }
+
+  .why-card {
+    padding: 1.5rem 1.25rem !important;
+  }
+
+  /* About Page Mobile Fixes */
+  .about-embedded-page {
+    padding-top: 5.5rem !important;
+  }
+
+  .about-hero-section {
+    padding: 2.5rem 0 2rem 0 !important;
+  }
+
+  .about-hero-title {
+    font-size: clamp(1.6rem, 7vw, 2.2rem) !important;
+  }
+
+  .about-hero-subtitle {
+    font-size: 0.95rem !important;
+  }
+
+  .about-bio-grid,
+  .about-pillars-grid,
+  .about-milestones-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem !important;
+  }
+
+  .about-bio-content,
+  .about-manifesto-card,
+  .pillar-card,
+  .milestone-item {
+    padding: 1.5rem 1.15rem !important;
+  }
+
+  .about-bio-heading {
+    font-size: 1.4rem !important;
+  }
+
+  .manifesto-quote {
+    font-size: 1.1rem !important;
+  }
+
+  /* Contact Section Mobile Fixes */
+  .contact-grid {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+
+  .contact-form-box,
+  .contact-info-box {
+    padding: 1.5rem 1.15rem !important;
+  }
+
+  /* Footer Mobile Fixes */
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+    text-align: center !important;
+  }
+
+  .footer-brand,
+  .footer-column {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+
+  .footer-bottom {
+    flex-direction: column !important;
+    gap: 1rem !important;
+    text-align: center !important;
   }
 }
 
