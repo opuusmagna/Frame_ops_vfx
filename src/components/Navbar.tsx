@@ -18,7 +18,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState<'HOME' | 'SOLUTIONS' | 'SERVICES' | 'CONTACT'>('HOME');
+  const [activeSection, setActiveSection] = useState<'HOME' | 'SERVICES' | 'SOLUTIONS' | 'CONTACT'>('HOME');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,25 +43,25 @@ export const Navbar: React.FC<NavbarProps> = ({
         const totalHeight = document.documentElement.scrollHeight;
         const windowHeight = window.innerHeight;
         
-        // Bottom of page check (ONLY VALID WHEN SCROLLED PAST 300px)
-        const isAtBottom = scrollPos > 300 && (scrollPos + windowHeight) >= (totalHeight - 80);
+        // True end-of-page check (when scrolled to the very bottom 60px)
+        const isAtBottom = scrollPos > 300 && (scrollPos + windowHeight) >= (totalHeight - 60);
 
-        const contactEl = document.getElementById('contact');
-        const solutionsEl = document.getElementById('solutions');
         const servicesEl = document.getElementById('services');
+        const solutionsEl = document.getElementById('solutions');
+        const contactEl = document.getElementById('contact');
 
-        const contactTop = contactEl ? contactEl.getBoundingClientRect().top : Infinity;
-        const solutionsTop = solutionsEl ? solutionsEl.getBoundingClientRect().top : Infinity;
-        const servicesTop = servicesEl ? servicesEl.getBoundingClientRect().top : Infinity;
+        const sTop = servicesEl ? servicesEl.getBoundingClientRect().top : Infinity;
+        const solTop = solutionsEl ? solutionsEl.getBoundingClientRect().top : Infinity;
+        const cTop = contactEl ? contactEl.getBoundingClientRect().top : Infinity;
 
-        // Viewport trigger threshold (360px from top of window)
-        const threshold = Math.min(360, windowHeight * 0.4);
+        // Precise trigger line: 200px below top navbar
+        const triggerLine = Math.min(220, windowHeight * 0.25);
 
-        if (isAtBottom || contactTop <= threshold) {
+        if (isAtBottom || cTop <= triggerLine) {
           setActiveSection('CONTACT');
-        } else if (solutionsTop <= threshold) {
+        } else if (solTop <= triggerLine) {
           setActiveSection('SOLUTIONS');
-        } else if (servicesTop <= threshold) {
+        } else if (sTop <= triggerLine) {
           setActiveSection('SERVICES');
         } else {
           setActiveSection('HOME');
@@ -96,7 +96,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       return;
     }
 
-    // For SOLUTIONS, SERVICES, CONTACT
+    // For SERVICES, SOLUTIONS, CONTACT
     setActiveSection(label as any);
     onNavigateSection(href);
   };
