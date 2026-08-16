@@ -15,6 +15,12 @@ export const en = {
     ctaPrimary: 'REQUEST A TECHNICAL ASSESSMENT',
     ctaSecondary: 'EXPLORE SOLUTIONS',
     tagline: 'TECHNOLOGY BEHIND THE FRAME',
+    ticker: {
+      t1: '10/25/40/100GbE Switching',
+      t2: 'ZFS & NVMe Storage',
+      t3: 'Deadline Render Farms',
+      t4: '3-2-1-1 Isolated or Immutable Backup',
+    },
   },
   commercialModels: {
     kicker: 'B2B ENGAGEMENT MODELS',

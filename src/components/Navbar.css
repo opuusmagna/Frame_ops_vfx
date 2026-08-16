@@ -9,7 +9,7 @@
   padding: 0 4rem;
   display: flex;
   align-items: center;
-  background: rgba(3, 5, 10, 0.95);
+  background: rgba(3, 5, 10, 0.98);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid transparent;
@@ -67,7 +67,7 @@
 }
 
 .brand-logo-img.dark-mode-logo {
-  height: 42px;
+  height: 52px;
   width: auto;
   object-fit: contain;
   filter: invert(1) hue-rotate(180deg) contrast(1.3) brightness(1.2) drop-shadow(0 0 15px rgba(8, 119, 255, 0.4));
@@ -76,7 +76,7 @@
 }
 
 .master-navbar.scrolled .brand-logo-img.dark-mode-logo {
-  height: 36px;
+  height: 44px;
 }
 
 .brand-logo-container:hover .brand-logo-img {
@@ -317,11 +317,13 @@
 /* Mobile Responsive Adjustments (< 1024px) */
 @media (max-width: 1024px) {
   .master-navbar {
-    padding: 1.25rem 1.5rem;
+    height: var(--navbar-height-mobile, 64px);
+    padding: 0 1.5rem;
   }
   
   .master-navbar.scrolled {
-    padding: 0.85rem 1.5rem;
+    height: 58px;
+    padding: 0 1.5rem;
   }
 
   .desktop-nav {
@@ -333,15 +335,12 @@
   }
 
   .brand-logo-img.dark-mode-logo {
-    height: 70px;
+    height: 38px;
   }
 
   .master-navbar.scrolled .brand-logo-img.dark-mode-logo {
-    height: 54px;
+    height: 32px;
   }
 
-  .brand-logo-text {
-    font-size: 0.95rem;
-  }
 }
 

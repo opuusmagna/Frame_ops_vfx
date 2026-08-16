@@ -15,6 +15,12 @@ export const es = {
     ctaPrimary: 'SOLICITAR DIAGNÓSTICO TÉCNICO',
     ctaSecondary: 'EXPLORAR SOLUCIONES',
     tagline: 'TECHNOLOGY BEHIND THE FRAME',
+    ticker: {
+      t1: 'Conmutación 10/25/40/100GbE',
+      t2: 'Almacenamiento ZFS y NVMe',
+      t3: 'Granjas de render con Deadline',
+      t4: 'Protección 3-2-1-1 aislada o inmutable',
+    },
   },
   commercialModels: {
     kicker: 'MODELOS DE CONTRATACIÓN B2B',
@@ -22,7 +28,7 @@ export const es = {
     subtitle: 'Desde el diagnóstico inicial hasta la gestión continua, adaptamos nuestra intervención a la madurez tecnológica de tu infraestructura.',
     assess: {
       tag: '01 / AUDITORÍA & BLUEPRINT',
-      title: 'Assess',
+      title: 'Diagnosticar',
       description: 'Inventario, análisis de cuellos de botella y diseño de la arquitectura objetivo.',
       features: [
         'Inventario y descubrimiento técnico',
@@ -34,7 +40,7 @@ export const es = {
     },
     build: {
       tag: '02 / DISEÑO E IMPLANTACIÓN',
-      title: 'Build',
+      title: 'Implantar',
       description: 'Despliegue de infraestructura, redes de alta velocidad y render farms.',
       features: [
         'Redes 10/25/40/100GbE y switching core',
@@ -46,7 +52,7 @@ export const es = {
     },
     protect: {
       tag: '03 / RESILIENCIA & SEGURIDAD',
-      title: 'Protect',
+      title: 'Proteger',
       description: 'Protección de datos inmutable, recuperación de desastres y alineación TPN.',
       features: [
         'Estrategia de backup inmutable 3-2-1-1',
@@ -58,7 +64,7 @@ export const es = {
     },
     operate: {
       tag: '04 / SERVICIOS GESTIONADOS',
-      title: 'Operate',
+      title: 'Operar',
       description: 'Monitorización proactiva, mantenimiento preventivo y soporte especializado.',
       features: [
         'Supervisión proactiva y telemetría de red',
@@ -155,13 +161,13 @@ export const es = {
   },
   workload: {
     kicker: 'TELEMETRÍA Y ARQUITECTURA',
-    title: 'Workload Architecture Blueprints',
-    subtitle: 'Especificaciones técnicas de infraestructura dimensionadas según las necesidades de E/S y renderizado de cada herramienta.',
+    title: 'PERFILES DE ARQUITECTURA POR CARGA DE TRABAJO',
+    subtitle: 'Referencias técnicas orientativas según los patrones de E/S, concurrencia y renderizado de cada herramienta. El dimensionamiento final requiere analizar el entorno del estudio.',
     tabs: {
-      nuke: 'Foundry Nuke 2D Playout',
-      houdini: 'Houdini Heavy FX & Sims',
-      maya: 'Maya / Arnold / V-Ray 3D',
-      unreal: 'Unreal Engine VP (ICVFX)',
+      nuke: 'Foundry Nuke (Compositing)',
+      houdini: 'Houdini (FX e Intensivas)',
+      maya: 'Maya / Arnold (3D y Render)',
+      unreal: 'Unreal Engine (ICVFX / VP)',
     },
     netLabel: 'Arquitectura de Red',
     storageLabel: 'Almacenamiento y Caché',

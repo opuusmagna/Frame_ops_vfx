@@ -218,8 +218,21 @@
 
 @media (max-width: 1024px) {
   .contact-layout {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
     gap: 2.5rem;
+  }
+  .contact-info-col {
+    display: contents;
+  }
+  .contact-info-header {
+    order: 1;
+  }
+  .contact-form-col {
+    order: 2;
+  }
+  .contact-cards-list {
+    order: 3;
   }
 }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShieldCheck, ArrowRight, Server, Cpu, Database, Network } from 'lucide-react';
+import { ShieldCheck, ArrowRight } from 'lucide-react';
 import { useLanguage } from '../context/useLanguage';
 import './Hero.css';
 
@@ -61,26 +61,23 @@ export const Hero: React.FC = () => {
 
           {/* Technical Specs Ticker / Pillars Overview */}
           <div className="hero-tech-ticker">
-            <div className="ticker-item">
-              <Network size={16} />
-              <span>10/25/40/100GbE Switching</span>
-            </div>
-            <div className="ticker-separator">•</div>
-            <div className="ticker-item">
-              <Database size={16} />
-              <span>ZFS &amp; NVMe Storage</span>
-            </div>
-            <div className="ticker-separator">•</div>
-            <div className="ticker-item">
-              <Cpu size={16} />
-              <span>Deadline Render Farms</span>
-            </div>
-            <div className="ticker-separator">•</div>
-            <div className="ticker-item">
-              <Server size={16} />
-              <span>3-2-1-1 Immutable Backup</span>
-            </div>
+          <div className="ticker-item">
+            <span className="ticker-bullet" />
+            <span>{h.ticker.t1}</span>
           </div>
+          <div className="ticker-item">
+            <span className="ticker-bullet" />
+            <span>{h.ticker.t2}</span>
+          </div>
+          <div className="ticker-item">
+            <span className="ticker-bullet" />
+            <span>{h.ticker.t3}</span>
+          </div>
+          <div className="ticker-item">
+            <span className="ticker-bullet" />
+            <span>{h.ticker.t4}</span>
+          </div>
+        </div>
         </div>
       </div>
     </section>
