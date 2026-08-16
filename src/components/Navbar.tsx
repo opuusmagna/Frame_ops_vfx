@@ -27,13 +27,19 @@ export const Navbar: React.FC<NavbarProps> = ({
       // Laser line & solid background activation on scroll
       setScrolled(scrollPos > 15);
 
-      // Dynamic Section ScrollSpy for both desktop and mobile
+      // Dynamic Section ScrollSpy for landing view ('home')
       if (activeView === 'home') {
+        // At top of page (< 100px), ALWAYS highlight HOME
+        if (scrollPos < 100) {
+          setActiveSection('HOME');
+          return;
+        }
+
         const totalHeight = document.documentElement.scrollHeight;
         const windowHeight = window.innerHeight;
 
         // Bottom of page detection (Contact)
-        if (scrollPos + windowHeight >= totalHeight - 120) {
+        if (scrollPos + windowHeight >= totalHeight - 100) {
           setActiveSection('CONTACT');
           return;
         }
@@ -42,7 +48,6 @@ export const Navbar: React.FC<NavbarProps> = ({
         const contactEl = document.getElementById('contact');
         const servicesEl = document.getElementById('services');
         const solutionsEl = document.getElementById('solutions');
-        const homeEl = document.getElementById('home');
 
         if (contactEl && contactEl.getBoundingClientRect().top <= offsetThreshold) {
           setActiveSection('CONTACT');
@@ -50,7 +55,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           setActiveSection('SERVICES');
         } else if (solutionsEl && solutionsEl.getBoundingClientRect().top <= offsetThreshold) {
           setActiveSection('SOLUTIONS');
-        } else if (homeEl) {
+        } else {
           setActiveSection('HOME');
         }
       }
