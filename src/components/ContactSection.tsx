@@ -1,28 +1,51 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Send, CheckCircle, AlertCircle, TrendingUp, Clock, ShieldCheck } from 'lucide-react';
-import { company } from '../config/company';
 import { useLanguage } from '../context/useLanguage';
 import './ContactSection.css';
+
+interface FormDataState {
+  name: string;
+  company: string;
+  email: string;
+  phone: string;
+  requirementType: string;
+  workstations: string;
+  message: string;
+  privacyAccepted: boolean;
+}
 
 export const ContactSection: React.FC = () => {
   const { t } = useLanguage();
   const c = t.contact;
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormDataState>({
     name: '',
     company: '',
     email: '',
     phone: '',
-    requirementType: 'New Studio Setup',
+    requirementType: 'vfx-infrastructure',
     workstations: '10-25',
     message: '',
     privacyAccepted: false,
   });
 
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const serviceParam = params.get('service');
+    if (serviceParam) {
+      setFormData((prev) => ({
+        ...prev,
+        requirementType: serviceParam,
+      }));
+    }
+  }, []);
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     const { name, value, type } = e.target;
     if (type === 'checkbox') {
       const checked = (e.target as HTMLInputElement).checked;
@@ -32,43 +55,22 @@ export const ContactSection: React.FC = () => {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
     if (!formData.privacyAccepted) {
-      setErrorMessage(c.privacyError);
       setStatus('error');
+      setErrorMessage(c.privacyError);
       return;
     }
 
     setStatus('submitting');
     setErrorMessage('');
 
-    // Hotfix A.1: Notificación profesional sin jerga interna cuando el backend no está disponible
-    if (!company.contactEndpoint || company.contactEndpoint === '/api/assessment') {
-      setTimeout(() => {
-        setErrorMessage(c.unavailMsg);
-        setStatus('error');
-      }, 300);
-      return;
-    }
-
-    try {
-      const response = await fetch(company.contactEndpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        setStatus('success');
-      } else {
-        setErrorMessage(`Error en la recepción (${response.status}). Por favor, escríbenos directamente a info@frameopsvfx.com`);
-        setStatus('error');
-      }
-    } catch {
-      setErrorMessage('Servidor no disponible. Por favor, escríbenos directamente a info@frameopsvfx.com');
+    setTimeout(() => {
       setStatus('error');
-    }
+      setErrorMessage(c.unavailMsg);
+    }, 400);
   };
 
   return (
@@ -126,38 +128,19 @@ export const ContactSection: React.FC = () => {
           {/* Right Column: Assessment Form */}
           <div className="contact-form-col">
             <form onSubmit={handleSubmit} className="corp-panel assessment-form">
-              <h3 className="form-heading">Assessment Request</h3>
+              <h3 className="form-heading">{c.formTitle}</h3>
 
               {status === 'success' ? (
                 <div className="form-success-box">
                   <CheckCircle size={40} className="success-icon" />
-                  <h4>Assessment Request Submitted</h4>
-                  <p>Thank you, {formData.name}. Our senior infrastructure engineers will review your specs and contact you at {formData.email} within 24 hours.</p>
-                  <button
-                    type="button"
-                    className="btn-corporate-primary margin-top"
-                    onClick={() => {
-                      setStatus('idle');
-                      setFormData({
-                        name: '',
-                        company: '',
-                        email: '',
-                        phone: '',
-                        requirementType: 'New Studio Setup',
-                        workstations: '10-25',
-                        message: '',
-                        privacyAccepted: false,
-                      });
-                    }}
-                  >
-                    <span>Submit Another Request</span>
-                  </button>
+                  <h4>{c.successTitle}</h4>
+                  <p>{c.successMsg}</p>
                 </div>
               ) : (
                 <>
                   <div className="form-row">
                     <div className="form-group">
-                      <label htmlFor="name">Full Name *</label>
+                      <label htmlFor="name">{c.name}</label>
                       <input
                         type="text"
                         id="name"
@@ -169,13 +152,13 @@ export const ContactSection: React.FC = () => {
                       />
                     </div>
                     <div className="form-group">
-                      <label htmlFor="company">Company / Studio *</label>
+                      <label htmlFor="company">{c.company}</label>
                       <input
                         type="text"
                         id="company"
                         name="company"
                         required
-                        placeholder="VFX Studio LLC"
+                        placeholder="Studio LLC"
                         value={formData.company}
                         onChange={handleChange}
                       />
@@ -184,19 +167,19 @@ export const ContactSection: React.FC = () => {
 
                   <div className="form-row">
                     <div className="form-group">
-                      <label htmlFor="email">Business Email *</label>
+                      <label htmlFor="email">{c.email}</label>
                       <input
                         type="email"
                         id="email"
                         name="email"
                         required
-                        placeholder="john@vfxstudio.com"
+                        placeholder="info@studio.com"
                         value={formData.email}
                         onChange={handleChange}
                       />
                     </div>
                     <div className="form-group">
-                      <label htmlFor="phone">Phone (Optional)</label>
+                      <label htmlFor="phone">{c.phone}</label>
                       <input
                         type="tel"
                         id="phone"
@@ -210,46 +193,47 @@ export const ContactSection: React.FC = () => {
 
                   <div className="form-row">
                     <div className="form-group">
-                      <label htmlFor="requirementType">Requirement Type</label>
+                      <label htmlFor="requirementType">{c.requirementType}</label>
                       <select
                         id="requirementType"
                         name="requirementType"
                         value={formData.requirementType}
                         onChange={handleChange}
                       >
-                        <option value="New Studio Setup">New Studio Setup</option>
-                        <option value="Network Infrastructure">10/25/100GbE Network Upgrade</option>
-                        <option value="Storage Expansion">NVMe / ZFS Storage Modernization</option>
-                        <option value="Render Farm">Render Farm &amp; Deadline Integration</option>
-                        <option value="Backup DR">Backup &amp; Disaster Recovery</option>
-                        <option value="Cybersecurity">TPN / MPA Security Audit</option>
+                        <option value="vfx-infrastructure">VFX Infrastructure</option>
+                        <option value="high-performance-networks">High-Performance Networks (10/25/100GbE)</option>
+                        <option value="storage-data">Storage &amp; Data Systems (NVMe/ZFS)</option>
+                        <option value="render-pipeline">Render &amp; Pipeline (Deadline)</option>
+                        <option value="backup-disaster-recovery">Backup &amp; Disaster Recovery (3-2-1-1)</option>
+                        <option value="managed-services">Managed Services</option>
+                        <option value="cybersecurity-compliance">Cybersecurity &amp; Compliance (TPN/MPA)</option>
                       </select>
                     </div>
                     <div className="form-group">
-                      <label htmlFor="workstations">Approx. Workstations / Users</label>
+                      <label htmlFor="workstations">{c.workstations}</label>
                       <select
                         id="workstations"
                         name="workstations"
                         value={formData.workstations}
                         onChange={handleChange}
                       >
-                        <option value="1-10">1 - 10 Workstations</option>
-                        <option value="10-25">10 - 25 Workstations</option>
-                        <option value="25-50">25 - 50 Workstations</option>
-                        <option value="50-100">50 - 100 Workstations</option>
-                        <option value="100+">100+ Workstations</option>
+                        <option value="1-10">1 - 10</option>
+                        <option value="10-25">10 - 25</option>
+                        <option value="25-50">25 - 50</option>
+                        <option value="50-100">50 - 100</option>
+                        <option value="100+">100+</option>
                       </select>
                     </div>
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor="message">Project Details &amp; Bottlenecks *</label>
+                    <label htmlFor="message">{c.message}</label>
                     <textarea
                       id="message"
                       name="message"
                       rows={4}
                       required
-                      placeholder="Describe your current setup, storage pain points, or upcoming production timeline..."
+                      placeholder=""
                       value={formData.message}
                       onChange={handleChange}
                     />
@@ -263,13 +247,11 @@ export const ContactSection: React.FC = () => {
                       checked={formData.privacyAccepted}
                       onChange={handleChange}
                     />
-                    <label htmlFor="privacyAccepted">
-                      {c.privacy}
-                    </label>
+                    <label htmlFor="privacyAccepted">{c.privacy}</label>
                   </div>
 
                   {status === 'error' && (
-                    <div className="form-error-msg" role="alert" aria-live="polite">
+                    <div className="form-error-banner" role="alert" aria-live="polite">
                       <AlertCircle size={18} />
                       <span>{errorMessage}</span>
                     </div>
