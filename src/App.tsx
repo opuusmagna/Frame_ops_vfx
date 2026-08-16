@@ -37,11 +37,23 @@ export const App: React.FC = () => {
   }, []);
 
   const handleNavigateHome = () => {
-    setActiveView('home');
-    if (window.location.hash !== '#home') {
-      window.history.pushState(null, '', '#home');
+    if (activeView !== 'home') {
+      setActiveView('home');
     }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    
+    // Clean hash from URL bar
+    window.history.pushState(null, '', window.location.pathname);
+
+    setTimeout(() => {
+      const homeEl = document.getElementById('home');
+      if (homeEl) {
+        homeEl.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+      }
+    }, 30);
   };
 
   const handleNavigateAbout = () => {
@@ -50,6 +62,8 @@ export const App: React.FC = () => {
       window.history.pushState(null, '', '#about');
     }
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
   };
 
   const handleNavigateSection = (href: string) => {
