@@ -1,0 +1,100 @@
+/* Enterprise UI Components & Clean Effects */
+
+/* Corporate Glass Panel */
+.corp-panel {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.corp-panel:hover {
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+/* Primary Enterprise Button */
+.btn-corporate-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.95rem 2.25rem;
+  background: var(--blue);
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-size: 0.925rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  border: 1px solid var(--blue);
+  border-radius: 4px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.25s ease;
+}
+
+.btn-corporate-primary:hover {
+  background: var(--blue-hover);
+  border-color: var(--blue-hover);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.btn-corporate-primary .btn-icon {
+  transition: transform 0.25s ease;
+}
+
+.btn-corporate-primary:hover .btn-icon {
+  transform: translateX(4px);
+}
+
+/* Secondary Enterprise Button */
+.btn-corporate-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.95rem 2.25rem;
+  background: rgba(18, 22, 32, 0.6);
+  color: var(--text-white);
+  font-family: var(--font-heading);
+  font-size: 0.925rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  backdrop-filter: blur(10px);
+  transition: all 0.25s ease;
+}
+
+.btn-corporate-secondary:hover {
+  border-color: var(--border-hover);
+  background: rgba(26, 32, 46, 0.8);
+  color: #ffffff;
+}
+
+/* Clean Metallic Section Divider */
+.corp-section-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--border-subtle) 30%, rgba(0, 102, 255, 0.3) 50%, var(--border-subtle) 70%, transparent 100%);
+  margin: 0 auto;
+}
+
+/* Technical Kicker Badge */
+.corp-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.85rem;
+  background: rgba(0, 102, 255, 0.08);
+  border: 1px solid rgba(0, 102, 255, 0.25);
+  color: var(--blue-accent);
+  font-family: var(--font-mono);
+  font-size: 0.775rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 3px;
+}

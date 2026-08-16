@@ -1,0 +1,98 @@
+/* Corporate WhyFrameOpsSection Styling - Progressive Charge Lines */
+.art-why-section {
+  position: relative;
+  padding: 8rem 0;
+  background-color: var(--bg-1);
+}
+
+.why-grid-layout {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  align-items: stretch;
+}
+
+.why-card-item {
+  padding: 2.75rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  backdrop-filter: blur(12px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.why-card-item:hover {
+  background: var(--surface-hover);
+  border-color: var(--blue);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 102, 255, 0.2);
+}
+
+.why-number {
+  font-family: var(--font-heading);
+  font-size: 3.5rem;
+  font-weight: 900;
+  line-height: 1;
+  background: linear-gradient(135deg, #0877ff 0%, #00f0ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 16px rgba(8, 119, 255, 0.5));
+  margin-bottom: 1.25rem;
+}
+
+.why-card-title {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 1.25rem;
+  line-height: 1.3;
+  min-height: 3.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Progressive Charge Line Container */
+.why-line-container {
+  width: 100%;
+  max-width: 120px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  margin-bottom: 1.75rem;
+  overflow: hidden;
+}
+
+.why-line-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #0877ff 0%, #00f0ff 100%);
+  box-shadow: 0 0 10px #00f0ff, 0 0 20px #0877ff;
+  border-radius: 2px;
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.why-card-desc {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
+@media (max-width: 1100px) {
+  .why-grid-layout {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .why-card-title {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .why-grid-layout {
+    grid-template-columns: 1fr;
+  }
+}

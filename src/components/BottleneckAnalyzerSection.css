@@ -1,0 +1,229 @@
+/* Corporate BottleneckAnalyzerSection Styling - Symmetrical 100% Equal Height Columns */
+.art-bottleneck-section {
+  position: relative;
+  padding: 8rem 0;
+  background-color: var(--bg-1);
+}
+
+/* Master Integrated Card Container */
+.diagnostic-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Diagnostic Card Body Content */
+.diagnostic-card-body {
+  padding: 3rem 2.5rem;
+}
+
+.diagnostic-badge {
+  font-family: var(--font-mono);
+  font-size: 0.775rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--blue-accent);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.diagnostic-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 2rem;
+  line-height: 1.2;
+}
+
+.diagnostic-body-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 2.5rem;
+  align-items: stretch; /* 100% Equal Height Columns */
+}
+
+/* Diagnostic Boxes (Left Column) */
+.diagnostic-details-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.diag-box {
+  padding: 1.35rem 1.5rem;
+  border-radius: 6px;
+  background: var(--bg-0);
+  border: 1px solid var(--border-subtle);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.diag-box-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.diag-box-header h4 {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.diag-box p {
+  font-size: 0.925rem;
+  color: var(--text-silver);
+  line-height: 1.6;
+}
+
+/* Problem Box Styling */
+.problem-box {
+  border-left: 3px solid #ff4d4d;
+}
+.problem-box .diag-box-header h4, .icon-warning {
+  color: #ff4d4d;
+}
+
+/* Failure Box Styling */
+.failure-box {
+  border-left: 3px solid #ffaa00;
+}
+.failure-box .diag-box-header h4, .icon-failure {
+  color: #ffaa00;
+}
+
+/* Solution Box Styling */
+.solution-box {
+  border-left: 3px solid var(--blue-accent);
+  background: rgba(0, 102, 255, 0.08);
+}
+.solution-box .diag-box-header h4, .icon-solution {
+  color: var(--blue-accent);
+}
+
+/* Right Metrics Column */
+.diagnostic-metrics-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.metrics-meter-card {
+  background: var(--bg-0);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  padding: 1.35rem 1.5rem;
+}
+
+.meter-card-title {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--blue-accent);
+  margin-bottom: 1.15rem;
+}
+
+.meter-group {
+  margin-bottom: 0.85rem;
+}
+
+.meter-group:last-child {
+  margin-bottom: 0;
+}
+
+.meter-label-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-silver);
+  margin-bottom: 0.35rem;
+}
+
+.meter-val {
+  font-family: var(--font-mono);
+  color: var(--blue-accent);
+}
+
+.meter-track {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.meter-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.4s ease;
+}
+
+.read-fill { background: linear-gradient(90deg, var(--blue), var(--blue-accent)); }
+.write-fill { background: linear-gradient(90deg, #ffaa00, #ff4d4d); }
+.net-fill { background: linear-gradient(90deg, var(--blue), #00f0ff); }
+.compute-fill { background: linear-gradient(90deg, #38bdf8, #0877ff); }
+
+/* Takeaways Box */
+.takeaways-box {
+  background: var(--bg-0);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  padding: 1.35rem 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.takeaways-title {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--blue-accent);
+  margin-bottom: 1rem;
+}
+
+.takeaways-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.takeaway-bullet {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+  color: var(--text-silver);
+  line-height: 1.45;
+}
+
+.takeaway-icon {
+  color: var(--blue-accent);
+  margin-top: 0.12rem;
+  flex-shrink: 0;
+}
+
+@media (max-width: 1200px) {
+  .grid-5-cols {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .diagnostic-body-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .grid-5-cols {
+    grid-template-columns: 1fr;
+  }
+}

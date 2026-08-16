@@ -1,0 +1,35 @@
+:root {
+  /* Palette - Enterprise High-End B2B */
+  --bg-0: #07090e;
+  --bg-1: #0d1017;
+  --bg-2: #121620;
+  --surface: rgba(18, 22, 32, 0.7);
+  --surface-hover: rgba(26, 32, 46, 0.85);
+  
+  /* Primary Royal Accents */
+  --blue: #0066ff;
+  --blue-hover: #1e75ff;
+  --blue-accent: #38bdf8;
+  --blue-dark: #0044b3;
+  
+  /* Typography Colors */
+  --text-white: #ffffff;
+  --text-silver: #e2e8f0;
+  --text-muted: #94a3b8;
+  --text-dim: #64748b;
+
+  /* Subtle 1px Borders */
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(0, 102, 255, 0.35);
+  --border-hover: rgba(56, 189, 248, 0.4);
+
+  /* Clean Professional Shadows */
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.7);
+
+  /* Fonts */
+  --font-heading: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}

@@ -1,0 +1,115 @@
+/* SecurityMatrixSection Styling - Perfect Symmetrical 3x2 Grid */
+.art-security-section {
+  position: relative;
+  padding: 8rem 0;
+  background-color: var(--bg-0);
+}
+
+.security-controls-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Fixed 3x2 Grid on Desktop */
+  gap: 2rem;
+  margin-bottom: 3.5rem;
+}
+
+.security-matrix-card {
+  padding: 2.25rem 2rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.matrix-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.matrix-icon-box {
+  width: 48px;
+  height: 48px;
+  background: rgba(8, 119, 255, 0.1);
+  border: 1px solid var(--line-blue);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--cyan);
+}
+
+.matrix-cat-tag {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--blue);
+}
+
+.matrix-card-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-white);
+  margin-bottom: 0.75rem;
+}
+
+.matrix-card-desc {
+  font-size: 0.925rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* Security SLA Banner */
+.security-sla-banner {
+  padding: 2.25rem 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sla-metric {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+}
+
+.sla-value {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--cyan);
+  margin-bottom: 0.25rem;
+}
+
+.sla-label {
+  font-family: var(--font-mono);
+  font-size: 0.775rem;
+  color: var(--text-muted);
+}
+
+.sla-divider {
+  width: 1px;
+  height: 40px;
+  background: var(--line-blue);
+}
+
+@media (max-width: 1024px) {
+  .security-controls-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2x3 Grid on Tablet */
+  }
+  .security-sla-banner {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .sla-divider {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .security-controls-grid {
+    grid-template-columns: 1fr; /* 1 Column on Mobile */
+  }
+}

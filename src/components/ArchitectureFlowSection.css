@@ -1,0 +1,136 @@
+/* Corporate ArchitectureFlowSection Styling */
+.art-flow-section {
+  position: relative;
+  padding: 8rem 0;
+  background-color: var(--bg-1);
+}
+
+.circuit-flow-container {
+  margin-bottom: 3.5rem;
+}
+
+.circuit-nodes-grid {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.circuit-node-item {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-top: 3px solid var(--blue);
+  border-radius: 4px;
+  padding: 1.5rem 1.15rem;
+  backdrop-filter: blur(12px);
+  transition: all 0.25s ease;
+}
+
+.circuit-node-item:hover {
+  border-color: var(--border-hover);
+  border-top-color: var(--blue-accent);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+
+.node-header {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.5rem;
+}
+
+.node-number {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--blue-accent);
+}
+
+.node-title {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--text-white);
+  line-height: 1.2;
+}
+
+.node-subtitle {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+  display: block;
+}
+
+.node-arrow-sep {
+  color: var(--blue);
+  flex-shrink: 0;
+}
+
+/* Security Umbrella Bar */
+.flow-umbrella-bar {
+  padding: 2rem 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.umbrella-col {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex: 1;
+}
+
+.umbrella-icon-cyan {
+  color: var(--blue-accent);
+  flex-shrink: 0;
+}
+
+.umbrella-icon-blue {
+  color: var(--blue);
+  flex-shrink: 0;
+}
+
+.umbrella-title {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--text-white);
+  margin-bottom: 0.25rem;
+}
+
+.umbrella-desc {
+  font-family: var(--font-mono);
+  font-size: 0.825rem;
+  color: var(--text-muted);
+}
+
+.umbrella-divider {
+  width: 1px;
+  height: 48px;
+  background: var(--border-subtle);
+}
+
+@media (max-width: 1100px) {
+  .circuit-nodes-grid {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .node-arrow-sep {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .flow-umbrella-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .umbrella-divider {
+    display: none;
+  }
+}
