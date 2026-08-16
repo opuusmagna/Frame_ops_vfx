@@ -35,7 +35,7 @@ export const Footer: React.FC = () => {
 
         {/* Bottom Copyright */}
         <div className="footer-bottom-bar">
-          <p>© {new Date().getFullYear()} FRAME OPS VFX. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} FRAME OPS VFX - All rights reserved</p>
         </div>
       </div>
     </footer>
