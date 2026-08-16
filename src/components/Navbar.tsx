@@ -32,36 +32,25 @@ export const Navbar: React.FC<NavbarProps> = ({
       // Laser line & solid background activation on scroll (UNTOUCHED)
       setScrolled(scrollPos > 15);
 
-      // High-Precision Section ScrollSpy for landing view ('home')
+      // High-Precision Viewport Intersection ScrollSpy
       if (activeView === 'home') {
-        // ALWAYS FORCE HOME WHEN AT TOP OF PAGE (< 100px)
-        if (scrollPos < 100) {
-          setActiveSection('HOME');
-          return;
-        }
-
-        const totalHeight = document.documentElement.scrollHeight;
-        const windowHeight = window.innerHeight;
-        
-        // True end-of-page check (when scrolled to the very bottom 60px)
-        const isAtBottom = scrollPos > 300 && (scrollPos + windowHeight) >= (totalHeight - 60);
+        const viewportCenter = window.innerHeight * 0.45;
 
         const servicesEl = document.getElementById('services');
         const solutionsEl = document.getElementById('solutions');
         const contactEl = document.getElementById('contact');
 
-        const sTop = servicesEl ? servicesEl.getBoundingClientRect().top : Infinity;
-        const solTop = solutionsEl ? solutionsEl.getBoundingClientRect().top : Infinity;
-        const cTop = contactEl ? contactEl.getBoundingClientRect().top : Infinity;
+        const isVisible = (el: HTMLElement | null) => {
+          if (!el) return false;
+          const rect = el.getBoundingClientRect();
+          return rect.top <= viewportCenter && rect.bottom >= 120;
+        };
 
-        // Precise trigger line: 200px below top navbar
-        const triggerLine = Math.min(220, windowHeight * 0.25);
-
-        if (isAtBottom || cTop <= triggerLine) {
+        if (isVisible(contactEl)) {
           setActiveSection('CONTACT');
-        } else if (solTop <= triggerLine) {
+        } else if (isVisible(solutionsEl)) {
           setActiveSection('SOLUTIONS');
-        } else if (sTop <= triggerLine) {
+        } else if (isVisible(servicesEl)) {
           setActiveSection('SERVICES');
         } else {
           setActiveSection('HOME');
