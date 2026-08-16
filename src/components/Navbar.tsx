@@ -34,20 +34,26 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       // High-Precision Section ScrollSpy for landing view ('home')
       if (activeView === 'home') {
-        const midScreen = window.innerHeight * 0.45;
         const totalHeight = document.documentElement.scrollHeight;
         const windowHeight = window.innerHeight;
-        const isAtBottom = (scrollPos + windowHeight) >= (totalHeight - 80);
+        const isAtBottom = (scrollPos + windowHeight) >= (totalHeight - 60);
 
         const contactEl = document.getElementById('contact');
         const solutionsEl = document.getElementById('solutions');
         const servicesEl = document.getElementById('services');
 
-        if (isAtBottom || (contactEl && contactEl.getBoundingClientRect().top <= midScreen)) {
+        const contactTop = contactEl ? contactEl.getBoundingClientRect().top : Infinity;
+        const solutionsTop = solutionsEl ? solutionsEl.getBoundingClientRect().top : Infinity;
+        const servicesTop = servicesEl ? servicesEl.getBoundingClientRect().top : Infinity;
+
+        // Viewport trigger threshold (350px from top of window)
+        const threshold = Math.min(360, windowHeight * 0.4);
+
+        if (isAtBottom || contactTop <= threshold) {
           setActiveSection('CONTACT');
-        } else if (solutionsEl && solutionsEl.getBoundingClientRect().top <= midScreen) {
+        } else if (solutionsTop <= threshold) {
           setActiveSection('SOLUTIONS');
-        } else if (servicesEl && servicesEl.getBoundingClientRect().top <= midScreen) {
+        } else if (servicesTop <= threshold) {
           setActiveSection('SERVICES');
         } else {
           setActiveSection('HOME');
