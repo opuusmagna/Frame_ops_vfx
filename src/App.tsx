@@ -18,6 +18,8 @@ import { Footer } from './components/Footer';
 import { AboutPage } from './pages/AboutPage';
 import { BackupDisasterRecoveryPage } from './pages/BackupDisasterRecoveryPage';
 import { ManagedServicesPage } from './pages/ManagedServicesPage';
+import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
+import { TermsPage } from './pages/TermsPage';
 
 import './styles/global.css';
 import './styles/effects.css';
@@ -34,8 +36,10 @@ const MainContent: React.FC = () => {
   const isBackupDR = cleanPath === '/es/servicios/backup-disaster-recovery/' || cleanPath === '/en/services/backup-disaster-recovery/';
   const isManagedServices = cleanPath === '/es/servicios-gestionados/' || cleanPath === '/en/managed-services/';
   const isContact = cleanPath === '/es/contacto/' || cleanPath === '/en/contact/';
+  const isPrivacy = cleanPath === '/es/privacidad/' || cleanPath === '/en/privacy/';
+  const isTerms = cleanPath === '/es/terminos/' || cleanPath === '/en/terms/';
 
-  const isKnownRoute = isHome || isAbout || isServices || isBackupDR || isManagedServices || isContact;
+  const isKnownRoute = isHome || isAbout || isServices || isBackupDR || isManagedServices || isContact || isPrivacy || isTerms;
 
   return (
     <div className="app-main">
@@ -70,6 +74,10 @@ const MainContent: React.FC = () => {
           <div style={{ paddingTop: '5rem' }}>
             <ContactSection />
           </div>
+        ) : isPrivacy ? (
+          <PrivacyPolicyPage />
+        ) : isTerms ? (
+          <TermsPage />
         ) : (
           /* Home Landing */
           <>

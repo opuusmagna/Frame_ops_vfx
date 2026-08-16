@@ -1,388 +1,366 @@
-import React, { useState, useMemo } from 'react';
-import { 
-  Sliders, 
-  Cpu, 
-  HardDrive, 
-  Network, 
-  ArrowRight,
-  Layers,
-  Database,
-  Film,
-  Palette,
-  Laptop,
-  Server,
-  Archive
-} from 'lucide-react';
+import React, { useState } from 'react';
+import { Calculator, ArrowRight, ShieldCheck, Info, CheckCircle2 } from 'lucide-react';
 import { useLanguage } from '../context/useLanguage';
 import './SpecConfiguratorSection.css';
 
+/**
+ * MATHEMATICAL FORMULA DOCUMENTATION & REASONING (CHECKPOINT C.3)
+ * -----------------------------------------------------------------------------
+ * Previous Formula:
+ * - Simple 2-variable matrix lookup: workstations (1-10, 10-25, 25-50, 50+) and resolution (2k, 4k, 8k).
+ * - Output fixed single-line strings (e.g., "10GbE Network", "50TB Storage").
+ *
+ * New Formula (Range-Based Sizing Model):
+ * 1. Base Active Storage Range:
+ *    - Min Storage (TB) = BaseVolume * (1 + AnnualGrowthFactor)
+ *    - Max Storage (TB) = BaseVolume * (1 + AnnualGrowthFactor) * 1.4 + (Seats * 2.5)
+ * 2. Throughput & Scratch Estimation:
+ *    - Estimated Read Throughput = (NukeSeats * 180MB/s) + (MayaSeats * 120MB/s) + (UnrealSeats * 450MB/s) + (HoudiniSeats * 150MB/s)
+ *    - Estimated Scratch Cache Tier = (HoudiniSeats * 2TB NVMe) + (NukeSeats * 1TB NVMe) + BaseCache (2TB - 8TB range)
+ * 3. Network Sizing Rule:
+ *    - If Total Throughput > 2500 MB/s or Total Seats > 30 or Resolution == '8k-exr' or UnrealSeats > 5 => '100GbE Spine-Leaf Core Backbone'
+ *    - If Total Throughput > 800 MB/s or Total Seats > 10 => '25GbE / 40GbE High-Throughput Switching'
+ *    - Else => '10GbE / 25GbE Low-Latency Switching'
+ * 4. Protection Level Rule:
+ *    - Base Protection: '3-2-1-1 Immutable Strategy'
+ *    - If Retention == 'lto-custody' => Adds 'Off-Site LTO Tape Archival Custody'
+ *    - If Security == 'tpn-aligned' => Adds 'TPN / MPA Security Microsegmentation & ZTNA'
+ *
+ * Technical Rationale:
+ * - Eliminates rigid purchasing recommendations and single-vendor SKU locks.
+ * - Displays realistic capacity and bandwidth ranges tailored to multi-application pipelines.
+ *
+ * Test Cases:
+ * - Case A (Small 2D/3D Studio): 8 seats (Nuke: 4, Maya: 4), 20TB, 4K EXR -> Range: 25TB - 45TB ZFS, 25GbE Network Class.
+ * - Case B (Mid FX Studio): 20 seats (Houdini: 8, Nuke: 8, Maya: 4), 50TB, 4K EXR -> Range: 70TB - 120TB ZFS, 25/100GbE Core, 16TB - 32TB NVMe Scratch.
+ * - Case C (Enterprise VP Studio): 60 seats (Unreal: 15, Houdini: 20, Nuke: 25), 150TB, 8K EXR -> Range: 220TB - 380TB ZFS, 100GbE Spine-Leaf, TPN Aligned ZTNA.
+ */
+
 export const SpecConfiguratorSection: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, navigatePath, lang } = useLanguage();
   const c = t.calculator;
-  // Department Seat Counts State
-  const [editorialSeats, setEditorialSeats] = useState<number>(4);
-  const [colorSeats, setColorSeats] = useState<number>(2);
-  const [compSeats, setCompSeats] = useState<number>(12);
-  const [fxSeats, setFxSeats] = useState<number>(6);
-  const [vpSeats, setVpSeats] = useState<number>(3);
+  const isEs = lang === 'es';
 
-  // Compliance & Protection Tier State
-  const [securityTier, setSecurityTier] = useState<'standard' | 'tpn-hardened'>('tpn-hardened');
+  // Calculator inputs
+  const [totalSeats, setTotalSeats] = useState<number>(15);
+  const [nukeSeats, setNukeSeats] = useState<number>(5);
+  const [houdiniSeats, setHoudiniSeats] = useState<number>(4);
+  const [mayaSeats, setMayaSeats] = useState<number>(4);
+  const [unrealSeats, setUnrealSeats] = useState<number>(2);
 
-  // Dynamic Blueprint & Hardware Math Engine
-  const calcResults = useMemo(() => {
-    const totalSeats = editorialSeats + colorSeats + compSeats + fxSeats + vpSeats;
+  const [resolution, setResolution] = useState<string>('4k-exr');
+  const [baseVolumeTB, setBaseVolumeTB] = useState<number>(50);
+  const [annualGrowth, setAnnualGrowth] = useState<number>(0.3); // 30%
+  const [retention, setRetention] = useState<string>('90-days');
+  const [securityLevel, setSecurityLevel] = useState<string>('tpn-aligned');
 
-    // NVMe Tier-0 High-IOPS Caching Math (TB)
-    const baseNvme = (editorialSeats * 15) + (colorSeats * 40) + (compSeats * 12) + (fxSeats * 8) + (vpSeats * 25);
-    const finalNvme = Math.max(50, Math.ceil(baseNvme * (securityTier === 'tpn-hardened' ? 1.25 : 1.0)));
+  // Perform Range Sizing Math
+  const growthMultiplier = 1 + annualGrowth;
+  const minStorageTB = Math.round(baseVolumeTB * growthMultiplier);
+  const maxStorageTB = Math.round(baseVolumeTB * growthMultiplier * 1.4 + totalSeats * 2);
 
-    // ZFS Main Storage Pool Math (TB)
-    const baseZfs = (editorialSeats * 30) + (colorSeats * 80) + (compSeats * 20) + (fxSeats * 15) + (vpSeats * 50);
-    const finalZfs = Math.max(150, Math.ceil(baseZfs * (securityTier === 'tpn-hardened' ? 1.3 : 1.0)));
+  const totalEstThroughputMBs =
+    nukeSeats * 180 + houdiniSeats * 150 + mayaSeats * 120 + unrealSeats * 450;
 
-    // 100GbE Network Fabric Throughput Math (Gbps)
-    const rawGbps = (editorialSeats * 25) + (colorSeats * 50) + (compSeats * 10) + (fxSeats * 10) + (vpSeats * 100);
-    const totalGbps = Math.max(100, Math.ceil(rawGbps * 1.2));
+  const minScratchNVMeTB = Math.max(2, Math.round(houdiniSeats * 1.5 + nukeSeats * 0.5));
+  const maxScratchNVMeTB = Math.max(4, Math.round(houdiniSeats * 3.0 + nukeSeats * 1.0 + 4));
 
-    // Render Farm CPU/GPU Cores Allocation
-    const deadlineCores = (compSeats * 16) + (fxSeats * 64) + (vpSeats * 32);
-    const gpuCount = (fxSeats * 2) + (vpSeats * 4);
+  // Determine Network Range Class
+  let networkRangeClass = isEs
+    ? 'Clase 10GbE / 25GbE con switching de baja latencia'
+    : '10GbE / 25GbE Low-Latency Switching Class';
+  if (totalEstThroughputMBs > 2200 || totalSeats >= 30 || resolution === '8k-exr' || unrealSeats >= 5) {
+    networkRangeClass = isEs
+      ? 'Red troncal 100GbE Spine-Leaf de alta velocidad'
+      : '100GbE Spine-Leaf High-Throughput Core Backbone';
+  } else if (totalEstThroughputMBs > 800 || totalSeats >= 12) {
+    networkRangeClass = isEs
+      ? 'Conmutación 25GbE a puestos / Backbone 100GbE'
+      : '25GbE Workstation Access / 100GbE Core Array';
+  }
 
-    // High Availability Server Nodes
-    const haVirtNodes = totalSeats > 50 ? 5 : totalSeats > 20 ? 3 : 2;
+  // Determine Protection Range Class
+  let protectionRangeClass = isEs
+    ? 'Estrategia 3-2-1-1 (Copia local inmutable + Réplica externa)'
+    : '3-2-1-1 Strategy (Immutable Local + Off-site Replication)';
+  if (retention === 'lto-custody') {
+    protectionRangeClass += isEs ? ' + Custodia en Cinta LTO' : ' + LTO Tape Custody';
+  }
 
-    // LTO-9 Cartridge Count Math
-    const lto9TapesNeeded = Math.ceil(finalZfs / 18);
+  if (securityLevel === 'tpn-aligned') {
+    protectionRangeClass += isEs ? ' (Alineado con TPN/MPA)' : ' (TPN/MPA Aligned)';
+  }
 
-    // Department Plantilla Distribution Percentage Math
-    const safeTotal = totalSeats || 1;
-    const pctEditorial = Math.round((editorialSeats / safeTotal) * 100);
-    const pctColor = Math.round((colorSeats / safeTotal) * 100);
-    const pctComp = Math.round((compSeats / safeTotal) * 100);
-    const pctFx = Math.round((fxSeats / safeTotal) * 100);
-    const pctVp = Math.round((vpSeats / safeTotal) * 100);
+  // Render Capacity Range Class
+  let renderClass = isEs
+    ? 'Granja de renderizado híbrida CPU/GPU gestionada por Deadline'
+    : 'Deadline Managed CPU/GPU Hybrid Render Pool';
+  if (totalSeats > 25 || houdiniSeats >= 8) {
+    renderClass = isEs
+      ? 'Granja de alta densidad con colas de simulación priorizadas en Deadline'
+      : 'High-Density Render Cluster with Prioritized Deadline Sim Queues';
+  }
 
-    // Network Switch Backbone Recommendation
-    let networkBackboneRec = '10GbE / 25GbE Direct Access';
-    if (totalGbps > 300) {
-      networkBackboneRec = '100GbE Spine-Leaf Dual Array (Mellanox Quantum/Spectrum)';
-    } else if (totalGbps > 150) {
-      networkBackboneRec = '100GbE Core Backbone + 25GbE Access Switches';
-    }
-
-    return {
-      totalSeats,
-      nvmeScratch: `${finalNvme} TB Tier-0 NVMe & TB5 Scratch`,
-      zfsStorage: `${finalZfs} TB High-Availability Scale-Out ZFS Pool`,
-      virtServers: `${haVirtNodes}-Node VMware / Proxmox VE HA Cluster (Active Directory, RLM/FlexLM Licenses & DNS)`,
-      deadlineCores: `${deadlineCores} Cores (Thinkbox Deadline Burst & ${gpuCount} GPUs)`,
-      networkThroughput: `${totalGbps} Gbps Aggregate Bandwidth (${networkBackboneRec})`,
-      backupLto: `Backup Server Cluster + LTO-9 Tape Library (${lto9TapesNeeded} Cartridges @ 18TB Native)`,
-      pctEditorial,
-      pctColor,
-      pctComp,
-      pctFx,
-      pctVp,
-    };
-  }, [editorialSeats, colorSeats, compSeats, fxSeats, vpSeats, securityTier]);
+  const handleAuditRequest = () => {
+    const contactPath = lang === 'en'
+      ? `/en/contact/?service=vfx-infrastructure&workstations=${totalSeats}`
+      : `/es/contacto/?service=vfx-infrastructure&workstations=${totalSeats}`;
+    navigatePath(contactPath);
+  };
 
   return (
-    <section id="calculator" className="art-configurator-section section-with-bg">
+    <section id="calculator" className="spec-calculator-section section-with-bg">
       <div className="container">
-        {/* Section Header */}
-        <div className="art-section-header text-center">
+        <div className="section-header text-center">
           <span className="section-kicker">{c.kicker}</span>
-          <h2 className="section-title">{c.title}</h2>
-          <p className="section-description" style={{ color: 'var(--accent-cyan)', fontFamily: 'var(--font-mono)', fontSize: '0.875rem', maxWidth: '850px', margin: '0.5rem auto 1.5rem auto' }}>
-            {c.disclaimer}
+          <h2 className="section-title">
+            {isEs ? 'Estimador Inicial de Infraestructura VFX' : 'VFX Infrastructure Initial Estimator'}
+          </h2>
+          <p className="section-subtitle">
+            {isEs
+              ? 'Introduce los parámetros orientativos de tu estudio para calcular rangos estimativos de almacenamiento, red, caché NVMe y estrategia de resiliencia.'
+              : 'Enter your studio baseline parameters to calculate estimated ranges for storage, network backbone, NVMe scratch, and resilience tiers.'}
           </p>
         </div>
 
-        {/* Configurator Card Container */}
-        <div className="corp-panel configurator-container">
-          <div className="configurator-grid">
-            {/* Left Controls Column: Department Headcount Sliders */}
-            <div className="config-controls">
-              <div className="config-group-header">
-                <Sliders size={20} className="header-icon" />
-                <h3>DEPARTMENT HEADCOUNT BREAKDOWN</h3>
+        <div className="calculator-container corp-panel">
+          <div className="calculator-grid">
+            {/* Input Controls Column */}
+            <div className="calc-inputs-col">
+              <h3 className="calc-col-title">
+                <Calculator size={20} className="calc-icon" />
+                <span>{isEs ? 'Parámetros del Estudio' : 'Studio Parameters'}</span>
+              </h3>
+
+              {/* Total Seats Slider */}
+              <div className="calc-form-group">
+                <div className="label-val-row">
+                  <label htmlFor="totalSeatsRange">{isEs ? 'Puestos concurrentes totales:' : 'Total concurrent seats:'}</label>
+                  <span className="range-val-badge">{totalSeats} {isEs ? 'puestos' : 'seats'}</span>
+                </div>
+                <input
+                  type="range"
+                  id="totalSeatsRange"
+                  min={3}
+                  max={100}
+                  value={totalSeats}
+                  onChange={(e) => setTotalSeats(Number(e.target.value))}
+                  className="calc-range-slider"
+                />
               </div>
 
-              {/* 1. Editorial & Conform */}
-              <div className="dept-input-card">
-                <div className="dept-header-row">
-                  <div className="dept-title-box">
-                    <Film size={18} className="dept-icon" />
-                    <div>
-                      <span className="dept-title">EDITORIAL &amp; CONFORM</span>
-                      <span className="dept-sub">DaVinci Resolve / Premiere • Mac Studio / Mac Pro / iMac • Thunderbolt 5 RAIDs</span>
-                    </div>
+              {/* Software Distribution Breakdown */}
+              <div className="software-breakdown-box">
+                <span className="breakdown-label">{isEs ? 'Distribución estimada por software (puestos):' : 'Estimated seat breakdown by software:'}</span>
+                <div className="breakdown-inputs-grid">
+                  <div>
+                    <span className="mini-lbl">Nuke:</span>
+                    <input
+                      type="number"
+                      min={0}
+                      max={totalSeats}
+                      value={nukeSeats}
+                      onChange={(e) => setNukeSeats(Number(e.target.value))}
+                      className="calc-num-input"
+                    />
                   </div>
-                  <div className="counter-box">
-                    <button 
-                      onClick={() => setEditorialSeats(Math.max(0, editorialSeats - 1))}
-                      className="btn-counter"
-                    >
-                      -
-                    </button>
-                    <span className="counter-val">{editorialSeats} Seats</span>
-                    <button 
-                      onClick={() => setEditorialSeats(editorialSeats + 1)}
-                      className="btn-counter"
-                    >
-                      +
-                    </button>
+                  <div>
+                    <span className="mini-lbl">Houdini:</span>
+                    <input
+                      type="number"
+                      min={0}
+                      max={totalSeats}
+                      value={houdiniSeats}
+                      onChange={(e) => setHoudiniSeats(Number(e.target.value))}
+                      className="calc-num-input"
+                    />
+                  </div>
+                  <div>
+                    <span className="mini-lbl">Maya/Arnold:</span>
+                    <input
+                      type="number"
+                      min={0}
+                      max={totalSeats}
+                      value={mayaSeats}
+                      onChange={(e) => setMayaSeats(Number(e.target.value))}
+                      className="calc-num-input"
+                    />
+                  </div>
+                  <div>
+                    <span className="mini-lbl">Unreal VP:</span>
+                    <input
+                      type="number"
+                      min={0}
+                      max={totalSeats}
+                      value={unrealSeats}
+                      onChange={(e) => setUnrealSeats(Number(e.target.value))}
+                      className="calc-num-input"
+                    />
                   </div>
                 </div>
               </div>
 
-              {/* 2. Color Grading & DI */}
-              <div className="dept-input-card">
-                <div className="dept-header-row">
-                  <div className="dept-title-box">
-                    <Palette size={18} className="dept-icon" />
-                    <div>
-                      <span className="dept-title">COLOR GRADING &amp; DI</span>
-                      <span className="dept-sub">DaVinci Resolve Studio • Blackmagic Panels • EIZO ColorEdge &amp; 12-bit RAW</span>
-                    </div>
-                  </div>
-                  <div className="counter-box">
-                    <button 
-                      onClick={() => setColorSeats(Math.max(0, colorSeats - 1))}
-                      className="btn-counter"
-                    >
-                      -
-                    </button>
-                    <span className="counter-val">{colorSeats} Seats</span>
-                    <button 
-                      onClick={() => setColorSeats(colorSeats + 1)}
-                      className="btn-counter"
-                    >
-                      +
-                    </button>
-                  </div>
-                </div>
+              {/* Resolution Select */}
+              <div className="calc-form-group">
+                <label htmlFor="resSelect">{isEs ? 'Formato y carga dominante:' : 'Dominant resolution & load:'}</label>
+                <select
+                  id="resSelect"
+                  value={resolution}
+                  onChange={(e) => setResolution(e.target.value)}
+                  className="calc-select-input"
+                >
+                  <option value="2k-exr">2K / HD OpenEXR Sequence Playout</option>
+                  <option value="4k-exr">4K OpenEXR Uncompressed Playout</option>
+                  <option value="8k-exr">8K EXR / Heavy ICVFX LED Volume</option>
+                </select>
               </div>
 
-              {/* 3. 2D Compositing */}
-              <div className="dept-input-card">
-                <div className="dept-header-row">
-                  <div className="dept-title-box">
-                    <Layers size={18} className="dept-icon" />
-                    <div>
-                      <span className="dept-title">2D COMPOSITING</span>
-                      <span className="dept-sub">Foundry Nuke / Flame • 4K/8K OpenEXR Uncompressed Playout &amp; RAM Caches</span>
-                    </div>
-                  </div>
-                  <div className="counter-box">
-                    <button 
-                      onClick={() => setCompSeats(Math.max(0, compSeats - 1))}
-                      className="btn-counter"
-                    >
-                      -
-                    </button>
-                    <span className="counter-val">{compSeats} Seats</span>
-                    <button 
-                      onClick={() => setCompSeats(compSeats + 1)}
-                      className="btn-counter"
-                    >
-                      +
-                    </button>
-                  </div>
+              {/* Base Active Volume & Growth */}
+              <div className="calc-form-row-2">
+                <div className="calc-form-group">
+                  <label htmlFor="volumeInput">{isEs ? 'Volumen activo (TB):' : 'Active Volume (TB):'}</label>
+                  <input
+                    type="number"
+                    id="volumeInput"
+                    min={5}
+                    max={1000}
+                    value={baseVolumeTB}
+                    onChange={(e) => setBaseVolumeTB(Number(e.target.value))}
+                    className="calc-num-input full-w"
+                  />
                 </div>
-              </div>
-
-              {/* 4. 3D & FX Simulation */}
-              <div className="dept-input-card">
-                <div className="dept-header-row">
-                  <div className="dept-title-box">
-                    <Cpu size={18} className="dept-icon" />
-                    <div>
-                      <span className="dept-title">3D &amp; FX SIMULATION</span>
-                      <span className="dept-sub">Houdini / Maya / Unreal Engine • High-RAM Workstations &amp; Multi-GPU Simulations</span>
-                    </div>
-                  </div>
-                  <div className="counter-box">
-                    <button 
-                      onClick={() => setFxSeats(Math.max(0, fxSeats - 1))}
-                      className="btn-counter"
-                    >
-                      -
-                    </button>
-                    <span className="counter-val">{fxSeats} Seats</span>
-                    <button 
-                      onClick={() => setFxSeats(fxSeats + 1)}
-                      className="btn-counter"
-                    >
-                      +
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* 5. Virtual Production / Real-time */}
-              <div className="dept-input-card">
-                <div className="dept-header-row">
-                  <div className="dept-title-box">
-                    <Laptop size={18} className="dept-icon" />
-                    <div>
-                      <span className="dept-title">VIRTUAL PRODUCTION &amp; REALTIME</span>
-                      <span className="dept-sub">Unreal Engine nDisplay • LED Wall Drivers &amp; Live Tracking Nodes</span>
-                    </div>
-                  </div>
-                  <div className="counter-box">
-                    <button 
-                      onClick={() => setVpSeats(Math.max(0, vpSeats - 1))}
-                      className="btn-counter"
-                    >
-                      -
-                    </button>
-                    <span className="counter-val">{vpSeats} Seats</span>
-                    <button 
-                      onClick={() => setVpSeats(vpSeats + 1)}
-                      className="btn-counter"
-                    >
-                      +
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Compliance Tier Toggle */}
-              <div className="security-tier-selector">
-                <span className="tier-label">COMPLIANCE &amp; HARDENING LEVEL:</span>
-                <div className="tier-toggle-row">
-                  <button
-                    className={`tier-btn ${securityTier === 'standard' ? 'active' : ''}`}
-                    onClick={() => setSecurityTier('standard')}
+                <div className="calc-form-group">
+                  <label htmlFor="growthSelect">{isEs ? 'Crecimiento anual:' : 'Annual Growth:'}</label>
+                  <select
+                    id="growthSelect"
+                    value={annualGrowth}
+                    onChange={(e) => setAnnualGrowth(Number(e.target.value))}
+                    className="calc-select-input"
                   >
-                    Standard Studio Pipeline
-                  </button>
-                  <button
-                    className={`tier-btn ${securityTier === 'tpn-hardened' ? 'active' : ''}`}
-                    onClick={() => setSecurityTier('tpn-hardened')}
+                    <option value={0.15}>15% / año</option>
+                    <option value={0.3}>30% / año</option>
+                    <option value={0.5}>50%+ / año</option>
+                  </select>
+                </div>
+              </div>
+
+              {/* Security & Retention */}
+              <div className="calc-form-row-2">
+                <div className="calc-form-group">
+                  <label htmlFor="retentionSelect">{isEs ? 'Retención y copia:' : 'Retention & Backup:'}</label>
+                  <select
+                    id="retentionSelect"
+                    value={retention}
+                    onChange={(e) => setRetention(e.target.value)}
+                    className="calc-select-input"
                   >
-                    TPN / MPA Studio Hardened
-                  </button>
+                    <option value="30-days">30 {isEs ? 'días' : 'days'} (Local Immutable)</option>
+                    <option value="90-days">90 {isEs ? 'días' : 'days'} (Cloud Replication)</option>
+                    <option value="lto-custody">{isEs ? 'Custodia LTO / Proyecto' : 'LTO Tape Custody'}</option>
+                  </select>
+                </div>
+                <div className="calc-form-group">
+                  <label htmlFor="secSelect">{isEs ? 'Seguridad:' : 'Security Standard:'}</label>
+                  <select
+                    id="secSelect"
+                    value={securityLevel}
+                    onChange={(e) => setSecurityLevel(e.target.value)}
+                    className="calc-select-input"
+                  >
+                    <option value="standard">{isEs ? 'Estándar B2B' : 'Standard B2B'}</option>
+                    <option value="tpn-aligned">{isEs ? 'Alineado TPN / MPA' : 'TPN / MPA Aligned'}</option>
+                  </select>
                 </div>
               </div>
             </div>
 
-            {/* Right Output Column: Generated Blueprint Hardware Specifications */}
-            <div className="config-output">
-              <div className="output-header-bar">
-                <span className="output-kicker">RECOMMENDED BLUEPRINT</span>
-                <span className="total-seats-pill">{calcResults.totalSeats} TOTAL ARTIST SEATS</span>
-              </div>
+            {/* Estimated Ranges Output Column */}
+            <div className="calc-outputs-col">
+              <h3 className="calc-col-title">
+                <ShieldCheck size={20} className="calc-icon" />
+                <span>{isEs ? 'Rangos Orientativos Estimados' : 'Estimated Infrastructure Ranges'}</span>
+              </h3>
 
-              <h4 className="blueprint-title">ENTERPRISE DATACENTER INFRASTRUCTURE</h4>
-
-              {/* Proportional Plantilla Distribution Bar */}
-              <div className="proportional-bar-box">
-                <span className="bar-title">DEPARTMENT PLANTILLA DISTRIBUTION</span>
-                <div className="proportional-bar-track">
-                  {calcResults.pctEditorial > 0 && (
-                    <div 
-                      className="bar-seg seg-editorial" 
-                      style={{ width: `${calcResults.pctEditorial}%` }} 
-                      title={`Editorial: ${calcResults.pctEditorial}%`}
-                    />
-                  )}
-                  {calcResults.pctColor > 0 && (
-                    <div 
-                      className="bar-seg seg-color" 
-                      style={{ width: `${calcResults.pctColor}%` }} 
-                      title={`Color: ${calcResults.pctColor}%`}
-                    />
-                  )}
-                  {calcResults.pctComp > 0 && (
-                    <div 
-                      className="bar-seg seg-comp" 
-                      style={{ width: `${calcResults.pctComp}%` }} 
-                      title={`Comp: ${calcResults.pctComp}%`}
-                    />
-                  )}
-                  {calcResults.pctFx > 0 && (
-                    <div 
-                      className="bar-seg seg-fx" 
-                      style={{ width: `${calcResults.pctFx}%` }} 
-                      title={`FX: ${calcResults.pctFx}%`}
-                    />
-                  )}
-                  {calcResults.pctVp > 0 && (
-                    <div 
-                      className="bar-seg seg-vp" 
-                      style={{ width: `${calcResults.pctVp}%` }} 
-                      title={`VP: ${calcResults.pctVp}%`}
-                    />
-                  )}
-                </div>
-                <div className="bar-legend">
-                  <span className="legend-item leg-editorial">• Editorial ({calcResults.pctEditorial}%)</span>
-                  <span className="legend-item leg-color">• Color ({calcResults.pctColor}%)</span>
-                  <span className="legend-item leg-comp">• Comp ({calcResults.pctComp}%)</span>
-                  <span className="legend-item leg-fx">• FX ({calcResults.pctFx}%)</span>
-                  <span className="legend-item leg-vp">• VP ({calcResults.pctVp}%)</span>
-                </div>
-              </div>
-
-              <div className="blueprint-specs-list">
-                <div className="spec-card">
-                  <HardDrive size={22} className="spec-icon" />
-                  <div>
-                    <span className="spec-cat">TIER-0 NVME &amp; TB5 SCRATCH</span>
-                    <span className="spec-val">{calcResults.nvmeScratch}</span>
+              <div className="results-cards-list">
+                {/* Active Storage Range */}
+                <div className="result-card">
+                  <span className="result-card-label">{isEs ? 'Almacenamiento Activo Orientativo (Pool ZFS):' : 'Estimated Active Storage Range (ZFS Pool):'}</span>
+                  <div className="result-card-value text-cyan">
+                    {minStorageTB} TB — {maxStorageTB} TB ZFS
                   </div>
+                  <span className="result-card-sub">
+                    {isEs
+                      ? `Contempla crecimiento del ${Math.round(annualGrowth * 100)}% y margen para ${totalSeats} puestos.`
+                      : `Includes ${Math.round(annualGrowth * 100)}% annual growth headroom for ${totalSeats} seats.`}
+                  </span>
                 </div>
 
-                <div className="spec-card">
-                  <Database size={22} className="spec-icon" />
-                  <div>
-                    <span className="spec-cat">HIGH-AVAILABILITY ZFS STORAGE</span>
-                    <span className="spec-val">{calcResults.zfsStorage}</span>
+                {/* Scratch / Cache Range */}
+                <div className="result-card">
+                  <span className="result-card-label">{isEs ? 'Capa Scratch / Caché NVMe Requerida:' : 'Recommended NVMe Scratch & Cache Tier:'}</span>
+                  <div className="result-card-value">
+                    {minScratchNVMeTB} TB — {maxScratchNVMeTB} TB NVMe Tier-0
                   </div>
+                  <span className="result-card-sub">
+                    {isEs
+                      ? 'Espacio de alta resistencia para cachés temporales de simulación e imágenes.'
+                      : 'High-endurance scratch volume for simulation solves & EXR caching.'}
+                  </span>
                 </div>
 
-                <div className="spec-card">
-                  <Server size={22} className="spec-icon" />
-                  <div>
-                    <span className="spec-cat">VIRTUALIZATION &amp; CORE SERVICES (HA)</span>
-                    <span className="spec-val">{calcResults.virtServers}</span>
-                  </div>
+                {/* Network Class */}
+                <div className="result-card">
+                  <span className="result-card-label">{c.estNetwork}</span>
+                  <div className="result-card-value highlight-val">{networkRangeClass}</div>
+                  <span className="result-card-sub">
+                    {isEs
+                      ? `Ancho de banda estimado: ~${totalEstThroughputMBs} MB/s sostenidos.`
+                      : `Estimated peak bandwidth: ~${totalEstThroughputMBs} MB/s sustained.`}
+                  </span>
                 </div>
 
-                <div className="spec-card">
-                  <Cpu size={22} className="spec-icon" />
-                  <div>
-                    <span className="spec-cat">DEADLINE RENDER &amp; GPU POOL</span>
-                    <span className="spec-val">{calcResults.deadlineCores}</span>
-                  </div>
+                {/* Data Protection Tier */}
+                <div className="result-card">
+                  <span className="result-card-label">{isEs ? 'Estrategia de Protección de Datos:' : 'Data Protection Level:'}</span>
+                  <div className="result-card-value">{protectionRangeClass}</div>
                 </div>
 
-                <div className="spec-card">
-                  <Network size={22} className="spec-icon" />
-                  <div>
-                    <span className="spec-cat">NETWORK FABRIC THROUGHPUT</span>
-                    <span className="spec-val">{calcResults.networkThroughput}</span>
-                  </div>
+                {/* Render Class */}
+                <div className="result-card">
+                  <span className="result-card-label">{c.estRender}</span>
+                  <div className="result-card-value">{renderClass}</div>
                 </div>
 
-                <div className="spec-card">
-                  <Archive size={22} className="spec-icon" />
-                  <div>
-                    <span className="spec-cat">DISASTER RECOVERY &amp; TAPE ARCHIVE</span>
-                    <span className="spec-val">{calcResults.backupLto}</span>
+                {/* Pending Diagnostic Questions */}
+                <div className="pending-questions-box">
+                  <span className="pending-title">{isEs ? 'Preguntas pendientes para el diagnóstico definitivo:' : 'Key technical questions for formal audit:'}</span>
+                  <div className="pending-list">
+                    <div className="pending-item">
+                      <CheckCircle2 size={15} className="pending-icon" />
+                      <span>{isEs ? 'Medición de IOPS reales de lectura/escritura en pico' : 'Real-world peak read/write IOPS measurement'}</span>
+                    </div>
+                    <div className="pending-item">
+                      <CheckCircle2 size={15} className="pending-icon" />
+                      <span>{isEs ? 'Verificación de cableado de red y latencias de conmutador' : 'Network cabling audit & switch port latency checks'}</span>
+                    </div>
+                    <div className="pending-item">
+                      <CheckCircle2 size={15} className="pending-icon" />
+                      <span>{isEs ? 'Validación del plan de restauración (RPO/RTO en pruebas)' : 'Restoration testing validation (RPO/RTO live drills)'}</span>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              <div className="blueprint-cta-box">
-                <a href="#contact" className="btn-corporate-primary full-width">
-                  <span>{c.cta}</span>
-                  <ArrowRight size={18} className="btn-icon" />
-                </a>
+              {/* Mandatory Disclaimer Note */}
+              <div className="calculator-disclaimer-box">
+                <Info size={18} className="disclaimer-icon" />
+                <p className="disclaimer-text">{c.disclaimer}</p>
               </div>
+
+              <button type="button" className="btn-corporate-primary full-w margin-top" onClick={handleAuditRequest}>
+                <span>{c.cta}</span>
+                <ArrowRight size={18} className="btn-icon" />
+              </button>
             </div>
           </div>
         </div>

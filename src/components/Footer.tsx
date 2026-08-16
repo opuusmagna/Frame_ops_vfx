@@ -5,7 +5,7 @@ import type { Language } from '../context/LanguageContext';
 import './Footer.css';
 
 export const Footer: React.FC = () => {
-  const { t, lang, switchLanguage } = useLanguage();
+  const { t, lang, switchLanguage, navigatePath } = useLanguage();
   const f = t.footer;
 
   const handleToggleLang = () => {
@@ -35,6 +35,15 @@ export const Footer: React.FC = () => {
 
         <div className="footer-bottom">
           <p>© {new Date().getFullYear()} Frame Ops VFX. {f.rights}</p>
+          <div className="footer-legal-links">
+            <button type="button" className="legal-footer-link" onClick={() => navigatePath(lang === 'en' ? '/en/privacy/' : '/es/privacidad/')}>
+              {f.privacy}
+            </button>
+            <span className="legal-sep">•</span>
+            <button type="button" className="legal-footer-link" onClick={() => navigatePath(lang === 'en' ? '/en/terms/' : '/es/terminos/')}>
+              {f.terms}
+            </button>
+          </div>
         </div>
       </div>
     </footer>

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Send, CheckCircle, AlertCircle, TrendingUp, Clock, ShieldCheck } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Send, CheckCircle, AlertCircle, TrendingUp, Clock, ShieldCheck, Lock } from 'lucide-react';
 import { useLanguage } from '../context/useLanguage';
 import './ContactSection.css';
 
@@ -9,14 +9,19 @@ interface FormDataState {
   email: string;
   phone: string;
   requirementType: string;
+  issue: string;
   workstations: string;
+  timeline: string;
   message: string;
   privacyAccepted: boolean;
 }
 
 export const ContactSection: React.FC = () => {
-  const { t, lang } = useLanguage();
+  const { t, lang, navigatePath } = useLanguage();
   const c = t.contact;
+  const isEs = lang === 'es';
+
+  const alertRef = useRef<HTMLDivElement>(null);
 
   const [formData, setFormData] = useState<FormDataState>({
     name: '',
@@ -24,7 +29,9 @@ export const ContactSection: React.FC = () => {
     email: '',
     phone: '',
     requirementType: 'vfx-infrastructure',
+    issue: 'general',
     workstations: '10-25',
+    timeline: 'immediate',
     message: '',
     privacyAccepted: false,
   });
@@ -35,12 +42,15 @@ export const ContactSection: React.FC = () => {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const serviceParam = params.get('service');
-    if (serviceParam) {
-      setFormData((prev) => ({
-        ...prev,
-        requirementType: serviceParam,
-      }));
-    }
+    const issueParam = params.get('issue');
+    const wsParam = params.get('workstations');
+
+    setFormData((prev) => ({
+      ...prev,
+      ...(serviceParam ? { requirementType: serviceParam } : {}),
+      ...(issueParam ? { issue: issueParam } : {}),
+      ...(wsParam ? { workstations: wsParam } : {}),
+    }));
   }, []);
 
   const handleChange = (
@@ -55,25 +65,110 @@ export const ContactSection: React.FC = () => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const validateEmail = (emailStr: string): boolean => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailStr);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!formData.privacyAccepted) {
       setStatus('error');
-      setErrorMessage(c.privacyError);
+      setErrorMessage(
+        isEs
+          ? 'Por favor, acepte la política de privacidad para enviar su solicitud.'
+          : 'Please accept the privacy consent to submit your request.'
+      );
+      if (alertRef.current) alertRef.current.focus();
+      return;
+    }
+
+    if (!validateEmail(formData.email)) {
+      setStatus('error');
+      setErrorMessage(
+        isEs
+          ? 'Por favor, introduzca una dirección de correo profesional válida.'
+          : 'Please enter a valid business email address.'
+      );
+      if (alertRef.current) alertRef.current.focus();
       return;
     }
 
     setStatus('submitting');
     setErrorMessage('');
 
-    setTimeout(() => {
+    const endpoint = import.meta.env.VITE_CONTACT_ENDPOINT;
+
+    // Rule: If endpoint is missing/unconfigured, handle gracefully without setTimeout mock success!
+    if (!endpoint || endpoint.trim() === '') {
       setStatus('error');
-      setErrorMessage(c.unavailMsg);
-    }, 400);
+      setErrorMessage(
+        isEs
+          ? 'El envío automatizado no está configurado actualmente en este entorno. Por favor, envíe su solicitud directamente a info@frameopsvfx.com. Sus datos introducidos se han conservado en el formulario.'
+          : 'Automated submission endpoint is unconfigured in this environment. Please send your request directly to info@frameopsvfx.com. Your entered data has been preserved.'
+      );
+      if (alertRef.current) alertRef.current.focus();
+      return;
+    }
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 8000); // 8s timeout
+
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          submittedAt: new Date().toISOString(),
+          language: lang,
+        }),
+        signal: controller.signal,
+      });
+
+      clearTimeout(timeoutId);
+
+      // Strict Rule: Show success ONLY when response.ok === true!
+      if (response.ok) {
+        setStatus('success');
+      } else {
+        const errorData = await response.json().catch(() => ({}));
+        setStatus('error');
+        setErrorMessage(
+          errorData.message ||
+            (isEs
+              ? 'No se pudo procesar la solicitud en el servidor. Por favor, inténtelo de nuevo o contacte con info@frameopsvfx.com.'
+              : 'Server could not process submission. Please try again or contact info@frameopsvfx.com.')
+        );
+        if (alertRef.current) alertRef.current.focus();
+      }
+    } catch (err: any) {
+      clearTimeout(timeoutId);
+      setStatus('error');
+      if (err.name === 'AbortError') {
+        setErrorMessage(
+          isEs
+            ? 'La petición ha superado el tiempo de espera. Por favor, reintente o contacte con info@frameopsvfx.com.'
+            : 'Request timed out. Please try again or contact info@frameopsvfx.com.'
+        );
+      } else {
+        setErrorMessage(
+          isEs
+            ? 'Error de red o conexión. Por favor, compruebe su conexión o escriba a info@frameopsvfx.com.'
+            : 'Network connection error. Please check your connection or email info@frameopsvfx.com.'
+        );
+      }
+      if (alertRef.current) alertRef.current.focus();
+    }
   };
 
-  const isEs = lang === 'es';
+  const handleOpenPrivacy = (e: React.MouseEvent) => {
+    e.preventDefault();
+    navigatePath(isEs ? '/es/privacidad/' : '/en/privacy/');
+  };
 
   return (
     <section id="contact" className="art-contact-section section-with-bg">
@@ -137,12 +232,12 @@ export const ContactSection: React.FC = () => {
 
           {/* Right Column: Assessment Form */}
           <div className="contact-form-col">
-            <form onSubmit={handleSubmit} className="corp-panel assessment-form">
+            <form onSubmit={handleSubmit} className="corp-panel assessment-form" noValidate>
               <h3 className="form-heading">{c.formTitle}</h3>
 
               {status === 'success' ? (
-                <div className="form-success-box">
-                  <CheckCircle size={40} className="success-icon" />
+                <div className="form-success-box" role="alert" aria-live="polite">
+                  <CheckCircle size={44} className="success-icon" />
                   <h4>{c.successTitle}</h4>
                   <p>{c.successMsg}</p>
                 </div>
@@ -156,6 +251,7 @@ export const ContactSection: React.FC = () => {
                         id="name"
                         name="name"
                         required
+                        maxLength={100}
                         placeholder={isEs ? 'Juan Pérez' : 'John Doe'}
                         value={formData.name}
                         onChange={handleChange}
@@ -168,6 +264,7 @@ export const ContactSection: React.FC = () => {
                         id="company"
                         name="company"
                         required
+                        maxLength={100}
                         placeholder={isEs ? 'Estudio VFX S.L.' : 'VFX Studio LLC'}
                         value={formData.company}
                         onChange={handleChange}
@@ -183,6 +280,7 @@ export const ContactSection: React.FC = () => {
                         id="email"
                         name="email"
                         required
+                        maxLength={120}
                         placeholder={isEs ? 'contacto@estudiovfx.com' : 'contact@vfxstudio.com'}
                         value={formData.email}
                         onChange={handleChange}
@@ -194,6 +292,7 @@ export const ContactSection: React.FC = () => {
                         type="tel"
                         id="phone"
                         name="phone"
+                        maxLength={30}
                         placeholder="+34 600 000 000"
                         value={formData.phone}
                         onChange={handleChange}
@@ -220,6 +319,25 @@ export const ContactSection: React.FC = () => {
                       </select>
                     </div>
                     <div className="form-group">
+                      <label htmlFor="issue">{isEs ? 'Problemática o Software:' : 'Primary Issue / Software:'}</label>
+                      <select
+                        id="issue"
+                        name="issue"
+                        value={formData.issue}
+                        onChange={handleChange}
+                      >
+                        <option value="general">{isEs ? 'Diagnóstico General' : 'General Diagnostic'}</option>
+                        <option value="nuke-io">{isEs ? 'Reproducción Nuke 4K / Lectura EXR' : 'Nuke 4K EXR Read Playout'}</option>
+                        <option value="houdini-cache">{isEs ? 'Caché de Simulación Houdini' : 'Houdini FX Sim Caching'}</option>
+                        <option value="maya-3d">{isEs ? 'Carga 3D Maya & Texturas' : 'Maya 3D & Texture Assembly'}</option>
+                        <option value="deadline-farm">{isEs ? 'Saturación en Granja Deadline' : 'Deadline Render Farm Lockups'}</option>
+                        <option value="unreal-vp">{isEs ? 'Producción Virtual Unreal Engine (ICVFX)' : 'Unreal Engine Virtual Production (ICVFX)'}</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="form-row">
+                    <div className="form-group">
                       <label htmlFor="workstations">{c.workstations}</label>
                       <select
                         id="workstations"
@@ -234,6 +352,19 @@ export const ContactSection: React.FC = () => {
                         <option value="100+">100+</option>
                       </select>
                     </div>
+                    <div className="form-group">
+                      <label htmlFor="timeline">{isEs ? 'Plazo del proyecto:' : 'Project Timeline:'}</label>
+                      <select
+                        id="timeline"
+                        name="timeline"
+                        value={formData.timeline}
+                        onChange={handleChange}
+                      >
+                        <option value="immediate">{isEs ? 'Inmediato (< 1 mes)' : 'Immediate (< 1 month)'}</option>
+                        <option value="1-3-months">{isEs ? '1 - 3 meses' : '1 - 3 months'}</option>
+                        <option value="planning">{isEs ? 'Fase de planificación' : 'Planning stage'}</option>
+                      </select>
+                    </div>
                   </div>
 
                   <div className="form-group">
@@ -243,12 +374,14 @@ export const ContactSection: React.FC = () => {
                       name="message"
                       rows={4}
                       required
+                      maxLength={600}
                       placeholder={isEs ? 'Describe tu infraestructura actual, cuellos de botella de almacenamiento o plazo del proyecto...' : 'Describe your current setup, storage bottlenecks, or upcoming project timeline...'}
                       value={formData.message}
                       onChange={handleChange}
                     />
                   </div>
 
+                  {/* Mandatory Unchecked Privacy Checkbox */}
                   <div className="form-checkbox-group">
                     <input
                       type="checkbox"
@@ -257,12 +390,30 @@ export const ContactSection: React.FC = () => {
                       checked={formData.privacyAccepted}
                       onChange={handleChange}
                     />
-                    <label htmlFor="privacyAccepted">{c.privacy}</label>
+                    <label htmlFor="privacyAccepted">
+                      {isEs ? (
+                        <>
+                          He leído la{' '}
+                          <a href="/es/privacidad/" onClick={handleOpenPrivacy} className="privacy-link">
+                            información sobre privacidad
+                          </a>{' '}
+                          y autorizo el tratamiento de mis datos para responder a esta solicitud.
+                        </>
+                      ) : (
+                        <>
+                          I have read the{' '}
+                          <a href="/en/privacy/" onClick={handleOpenPrivacy} className="privacy-link">
+                            privacy information
+                          </a>{' '}
+                          and authorize the processing of my data to respond to this request.
+                        </>
+                      )}
+                    </label>
                   </div>
 
                   {status === 'error' && (
-                    <div className="form-error-banner" role="alert" aria-live="polite">
-                      <AlertCircle size={18} />
+                    <div className="form-error-banner" role="alert" aria-live="polite" ref={alertRef} tabIndex={-1}>
+                      <AlertCircle size={20} className="error-banner-icon" />
                       <span>{errorMessage}</span>
                     </div>
                   )}
@@ -272,6 +423,7 @@ export const ContactSection: React.FC = () => {
                     className="btn-corporate-primary form-submit-btn"
                     disabled={status === 'submitting'}
                   >
+                    <Lock size={16} className="btn-lock-icon" />
                     <span>{status === 'submitting' ? c.submitting : c.submit}</span>
                     <Send size={18} className="btn-icon" />
                   </button>

@@ -38,6 +38,8 @@ export const BottleneckAnalyzerSection: React.FC = () => {
             'NVMe Tier-0 cache offloading random read I/O',
           ],
       serviceKey: 'vfx-infrastructure',
+      issueKey: 'nuke-io',
+      ctaLabel: isEs ? 'Solicitar análisis de E/S para Nuke' : 'Request Nuke I/O Analysis',
     },
     {
       id: 'houdini',
@@ -66,6 +68,8 @@ export const BottleneckAnalyzerSection: React.FC = () => {
             'ZFS write acceleration preventing multi-user I/O stalls',
           ],
       serviceKey: 'storage-data',
+      issueKey: 'houdini-cache',
+      ctaLabel: isEs ? 'Evaluar caché y almacenamiento para Houdini' : 'Evaluate Houdini Cache & Storage',
     },
     {
       id: 'maya',
@@ -94,6 +98,8 @@ export const BottleneckAnalyzerSection: React.FC = () => {
             'Multi-pass AOV render output streaming without queue bottlenecks',
           ],
       serviceKey: 'render-pipeline',
+      issueKey: 'maya-3d',
+      ctaLabel: isEs ? 'Revisar infraestructura 3D y renderizado' : 'Review 3D & Rendering Setup',
     },
     {
       id: 'deadline',
@@ -122,6 +128,8 @@ export const BottleneckAnalyzerSection: React.FC = () => {
             'Multi-GPU render farm clusters with monitored node health',
           ],
       serviceKey: 'render-pipeline',
+      issueKey: 'deadline-farm',
+      ctaLabel: isEs ? 'Auditar granja de render y Deadline' : 'Audit Render Farm & Deadline',
     },
     {
       id: 'unreal',
@@ -150,6 +158,8 @@ export const BottleneckAnalyzerSection: React.FC = () => {
             'Real-time texture streaming into Unreal Engine memory',
           ],
       serviceKey: 'high-performance-networks',
+      issueKey: 'unreal-vp',
+      ctaLabel: isEs ? 'Evaluar infraestructura para producción virtual' : 'Evaluate Virtual Production Setup',
     },
   ];
 
@@ -157,8 +167,8 @@ export const BottleneckAnalyzerSection: React.FC = () => {
 
   const handleCtaClick = () => {
     const contactPath = lang === 'en'
-      ? `/en/contact/?service=${diag.serviceKey}`
-      : `/es/contacto/?service=${diag.serviceKey}`;
+      ? `/en/contact/?service=${diag.serviceKey}&issue=${diag.issueKey}`
+      : `/es/contacto/?service=${diag.serviceKey}&issue=${diag.issueKey}`;
     navigatePath(contactPath);
   };
 
@@ -296,7 +306,7 @@ export const BottleneckAnalyzerSection: React.FC = () => {
 
             <div className="text-center margin-top">
               <button type="button" className="btn-corporate-primary" onClick={handleCtaClick}>
-                <span>{b.cta}</span>
+                <span>{diag.ctaLabel}</span>
                 <ArrowRight size={16} />
               </button>
             </div>
