@@ -13,6 +13,7 @@
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid transparent;
+  isolation: isolate;
   transition: background 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
               height 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
               padding 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
@@ -37,11 +38,12 @@
   transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
 }
 
-/* Scrolled State: Solid Dark Background & Expanding Laser Line on BOTH Desktop and Mobile! */
+/* Scrolled State: 100% Opaque Solid Dark Background & Expanding Laser Line */
 .master-navbar.scrolled {
   height: 70px;
   padding: 0 4rem;
-  background: #03050a;
+  background: #03050a !important;
+  background-color: #03050a !important;
   border-bottom: 1px solid rgba(8, 119, 255, 0.4);
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.98);
 }
