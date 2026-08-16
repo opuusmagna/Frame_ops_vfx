@@ -22,80 +22,51 @@ export const SpecConfiguratorSection: React.FC = () => {
   const [compSeats, setCompSeats] = useState<number>(12);
   const [fxSeats, setFxSeats] = useState<number>(6);
   const [vpSeats, setVpSeats] = useState<number>(3);
-  
-  const [securityTier, setSecurityTier] = useState<'standard' | 'tpn'>('tpn');
 
-  // Real-Time Consolidated Math Calculations
-  const calculations = useMemo(() => {
+  // Compliance & Protection Tier State
+  const [securityTier, setSecurityTier] = useState<'standard' | 'tpn-hardened'>('tpn-hardened');
+
+  // Dynamic Blueprint & Hardware Math Engine
+  const calcResults = useMemo(() => {
     const totalSeats = editorialSeats + colorSeats + compSeats + fxSeats + vpSeats;
 
-    // NVMe Scratch Per Seat (TB)
-    const nvmeScratch = 
-      (editorialSeats * 4) +
-      (colorSeats * 8) +
-      (compSeats * 8) +
-      (fxSeats * 15) +
-      (vpSeats * 12);
+    // NVMe Tier-0 High-IOPS Caching Math (TB)
+    const baseNvme = (editorialSeats * 15) + (colorSeats * 40) + (compSeats * 12) + (fxSeats * 8) + (vpSeats * 25);
+    const finalNvme = Math.max(50, Math.ceil(baseNvme * (securityTier === 'tpn-hardened' ? 1.25 : 1.0)));
 
-    // ZFS Central Storage Per Seat (TB)
-    const zfsStorage = 
-      (editorialSeats * 10) +
-      (colorSeats * 15) +
-      (compSeats * 12) +
-      (fxSeats * 25) +
-      (vpSeats * 18);
+    // ZFS Main Storage Pool Math (TB)
+    const baseZfs = (editorialSeats * 30) + (colorSeats * 80) + (compSeats * 20) + (fxSeats * 15) + (vpSeats * 50);
+    const finalZfs = Math.max(150, Math.ceil(baseZfs * (securityTier === 'tpn-hardened' ? 1.3 : 1.0)));
 
-    // Deadline Render Cores
-    const deadlineCores = 
-      (editorialSeats * 16) +
-      (colorSeats * 32) +
-      (compSeats * 32) +
-      (fxSeats * 128) +
-      (vpSeats * 64);
+    // 100GbE Network Fabric Throughput Math (Gbps)
+    const rawGbps = (editorialSeats * 25) + (colorSeats * 50) + (compSeats * 10) + (fxSeats * 10) + (vpSeats * 100);
+    const totalGbps = Math.max(100, Math.ceil(rawGbps * 1.2));
 
-    // GPU Acceleration Density
-    const gpuCount = (
-      (editorialSeats * 0.5) +
-      (colorSeats * 1.5) +
-      (compSeats * 1.2) +
-      (fxSeats * 1.8) +
-      (vpSeats * 3.2)
-    ).toFixed(1);
+    // Render Farm CPU/GPU Cores Allocation
+    const deadlineCores = (compSeats * 16) + (fxSeats * 64) + (vpSeats * 32);
+    const gpuCount = (fxSeats * 2) + (vpSeats * 4);
 
-    // Aggregate Network Bandwidth (Gbps)
-    const totalGbps = Math.round(
-      (editorialSeats * 2.0) +
-      (colorSeats * 3.5) +
-      (compSeats * 2.4) +
-      (fxSeats * 3.8) +
-      (vpSeats * 4.5)
-    );
+    // High Availability Server Nodes
+    const haVirtNodes = totalSeats > 50 ? 5 : totalSeats > 20 ? 3 : 2;
 
-    const securityMultiplier = securityTier === 'tpn' ? 1.2 : 1.0;
-    const finalNvme = Math.round(nvmeScratch * securityMultiplier);
-    const finalZfs = Math.round(zfsStorage * securityMultiplier);
-
-    // LTO-9 Tape Cartridges Needed (18 TB Native per Tape)
+    // LTO-9 Cartridge Count Math
     const lto9TapesNeeded = Math.ceil(finalZfs / 18);
 
-    // HA Virtualization & Core Server Recommendations
-    let haVirtNodes = 3; // Proxmox / VMware 3-node HA quorum
-    if (totalSeats > 30) haVirtNodes = 5;
-
-    let networkBackboneRec = '25GbE Access / 100GbE Core Trunking';
-    if (totalGbps > 120) {
-      networkBackboneRec = 'Dual 100GbE Spine-Leaf Architecture (200Gbps Trunking)';
-    } else if (totalGbps < 30) {
-      networkBackboneRec = '10GbE / 25GbE Managed Switching Array';
-    }
-
-    // Department Percentages for Proportional Bar
+    // Department Plantilla Distribution Percentage Math
     const safeTotal = totalSeats || 1;
     const pctEditorial = Math.round((editorialSeats / safeTotal) * 100);
     const pctColor = Math.round((colorSeats / safeTotal) * 100);
     const pctComp = Math.round((compSeats / safeTotal) * 100);
     const pctFx = Math.round((fxSeats / safeTotal) * 100);
     const pctVp = Math.round((vpSeats / safeTotal) * 100);
+
+    // Network Switch Backbone Recommendation
+    let networkBackboneRec = '10GbE / 25GbE Direct Access';
+    if (totalGbps > 300) {
+      networkBackboneRec = '100GbE Spine-Leaf Dual Array (Mellanox Quantum/Spectrum)';
+    } else if (totalGbps > 150) {
+      networkBackboneRec = '100GbE Core Backbone + 25GbE Access Switches';
+    }
 
     return {
       totalSeats,
@@ -114,51 +85,48 @@ export const SpecConfiguratorSection: React.FC = () => {
   }, [editorialSeats, colorSeats, compSeats, fxSeats, vpSeats, securityTier]);
 
   return (
-    <section id="solutions" className="art-configurator-section section-with-bg">
+    <section id="calculator" className="art-configurator-section section-with-bg">
       <div className="container">
         {/* Section Header */}
         <div className="art-section-header text-center">
           <span className="section-kicker">MULTI-DEPARTMENT PLANNING</span>
-          <h2 className="section-title">VFX & POST-PRODUCTION CALCULATOR</h2>
+          <h2 className="section-title">VFX &amp; POST-PRODUCTION CALCULATOR</h2>
           <p className="section-description">
             Configure your exact studio headcount by department — Editorial, Color Grading, 2D Compositing, 3D FX, and Virtual Production — to generate a custom infrastructure blueprint with high availability and LTO-9 backup.
           </p>
         </div>
 
-        {/* Master 2-Column Split Layout Panel */}
+        {/* Configurator Card Container */}
         <div className="corp-panel configurator-container">
           <div className="configurator-grid">
-            
-            {/* Left Column: Multi-Department Interactive Controls */}
+            {/* Left Controls Column: Department Headcount Sliders */}
             <div className="config-controls">
-              <div className="config-header">
-                <Sliders size={20} className="config-icon" />
+              <div className="config-group-header">
+                <Sliders size={20} className="header-icon" />
                 <h3>DEPARTMENT HEADCOUNT BREAKDOWN</h3>
               </div>
 
-              {/* Department 1: Editorial & Conform */}
-              <div className="dept-control-card">
+              {/* 1. Editorial & Conform */}
+              <div className="dept-input-card">
                 <div className="dept-header-row">
                   <div className="dept-title-box">
-                    <Film size={18} className="dept-icon icon-editorial" />
+                    <Film size={18} className="dept-icon" />
                     <div>
-                      <span className="dept-name">EDITORIAL & CONFORM</span>
+                      <span className="dept-title">EDITORIAL &amp; CONFORM</span>
                       <span className="dept-sub">DaVinci Resolve / Premiere • Mac Studio / Mac Pro / iMac • Thunderbolt 5 RAIDs</span>
                     </div>
                   </div>
                   <div className="counter-box">
                     <button 
-                      type="button" 
-                      className="counter-btn"
-                      onClick={() => setEditorialSeats((prev) => Math.max(0, prev - 1))}
+                      onClick={() => setEditorialSeats(Math.max(0, editorialSeats - 1))}
+                      className="btn-counter"
                     >
                       -
                     </button>
                     <span className="counter-val">{editorialSeats} Seats</span>
                     <button 
-                      type="button" 
-                      className="counter-btn"
-                      onClick={() => setEditorialSeats((prev) => prev + 1)}
+                      onClick={() => setEditorialSeats(editorialSeats + 1)}
+                      className="btn-counter"
                     >
                       +
                     </button>
@@ -166,29 +134,27 @@ export const SpecConfiguratorSection: React.FC = () => {
                 </div>
               </div>
 
-              {/* Department 2: Color Grading & DI */}
-              <div className="dept-control-card">
+              {/* 2. Color Grading & DI */}
+              <div className="dept-input-card">
                 <div className="dept-header-row">
                   <div className="dept-title-box">
-                    <Palette size={18} className="dept-icon icon-color" />
+                    <Palette size={18} className="dept-icon" />
                     <div>
-                      <span className="dept-name">COLOR GRADING & DI</span>
-                      <span className="dept-sub">DaVinci Resolve Studio • Blackmagic Panels • EIZO ColorEdge & 12-bit RAW</span>
+                      <span className="dept-title">COLOR GRADING &amp; DI</span>
+                      <span className="dept-sub">DaVinci Resolve Studio • Blackmagic Panels • EIZO ColorEdge &amp; 12-bit RAW</span>
                     </div>
                   </div>
                   <div className="counter-box">
                     <button 
-                      type="button" 
-                      className="counter-btn"
-                      onClick={() => setColorSeats((prev) => Math.max(0, prev - 1))}
+                      onClick={() => setColorSeats(Math.max(0, colorSeats - 1))}
+                      className="btn-counter"
                     >
                       -
                     </button>
                     <span className="counter-val">{colorSeats} Seats</span>
                     <button 
-                      type="button" 
-                      className="counter-btn"
-                      onClick={() => setColorSeats((prev) => prev + 1)}
+                      onClick={() => setColorSeats(colorSeats + 1)}
+                      className="btn-counter"
                     >
                       +
                     </button>
@@ -196,29 +162,27 @@ export const SpecConfiguratorSection: React.FC = () => {
                 </div>
               </div>
 
-              {/* Department 3: 2D Compositing */}
-              <div className="dept-control-card">
+              {/* 3. 2D Compositing */}
+              <div className="dept-input-card">
                 <div className="dept-header-row">
                   <div className="dept-title-box">
-                    <Layers size={18} className="dept-icon icon-comp" />
+                    <Layers size={18} className="dept-icon" />
                     <div>
-                      <span className="dept-name">2D COMPOSITING</span>
-                      <span className="dept-sub">Foundry Nuke / Flame • 4K/8K OpenEXR Uncompressed Playout & RAM Caches</span>
+                      <span className="dept-title">2D COMPOSITING</span>
+                      <span className="dept-sub">Foundry Nuke / Flame • 4K/8K OpenEXR Uncompressed Playout &amp; RAM Caches</span>
                     </div>
                   </div>
                   <div className="counter-box">
                     <button 
-                      type="button" 
-                      className="counter-btn"
-                      onClick={() => setCompSeats((prev) => Math.max(0, prev - 1))}
+                      onClick={() => setCompSeats(Math.max(0, compSeats - 1))}
+                      className="btn-counter"
                     >
                       -
                     </button>
                     <span className="counter-val">{compSeats} Seats</span>
                     <button 
-                      type="button" 
-                      className="counter-btn"
-                      onClick={() => setCompSeats((prev) => prev + 1)}
+                      onClick={() => setCompSeats(compSeats + 1)}
+                      className="btn-counter"
                     >
                       +
                     </button>
@@ -226,29 +190,27 @@ export const SpecConfiguratorSection: React.FC = () => {
                 </div>
               </div>
 
-              {/* Department 4: 3D & FX Simulation */}
-              <div className="dept-control-card">
+              {/* 4. 3D & FX Simulation */}
+              <div className="dept-input-card">
                 <div className="dept-header-row">
                   <div className="dept-title-box">
-                    <Cpu size={18} className="dept-icon icon-fx" />
+                    <Cpu size={18} className="dept-icon" />
                     <div>
-                      <span className="dept-name">3D & FX SIMULATION</span>
-                      <span className="dept-sub">SideFX Houdini / Maya • 15 TB PCIe 4.0/5.0 NVMe Scratch & Deadline Burst</span>
+                      <span className="dept-title">3D &amp; FX SIMULATION</span>
+                      <span className="dept-sub">Houdini / Maya / Unreal Engine • High-RAM Workstations &amp; Multi-GPU Simulations</span>
                     </div>
                   </div>
                   <div className="counter-box">
                     <button 
-                      type="button" 
-                      className="counter-btn"
-                      onClick={() => setFxSeats((prev) => Math.max(0, prev - 1))}
+                      onClick={() => setFxSeats(Math.max(0, fxSeats - 1))}
+                      className="btn-counter"
                     >
                       -
                     </button>
                     <span className="counter-val">{fxSeats} Seats</span>
                     <button 
-                      type="button" 
-                      className="counter-btn"
-                      onClick={() => setFxSeats((prev) => prev + 1)}
+                      onClick={() => setFxSeats(fxSeats + 1)}
+                      className="btn-counter"
                     >
                       +
                     </button>
@@ -256,29 +218,27 @@ export const SpecConfiguratorSection: React.FC = () => {
                 </div>
               </div>
 
-              {/* Department 5: Virtual Production */}
-              <div className="dept-control-card">
+              {/* 5. Virtual Production / Real-time */}
+              <div className="dept-input-card">
                 <div className="dept-header-row">
                   <div className="dept-title-box">
-                    <Laptop size={18} className="dept-icon icon-vp" />
+                    <Laptop size={18} className="dept-icon" />
                     <div>
-                      <span className="dept-name">VIRTUAL PRODUCTION (ICVFX)</span>
-                      <span className="dept-sub">Unreal Engine nDisplay • PTP IEEE 1588 Sync & 100GbE Sub-0.4ms Latency</span>
+                      <span className="dept-title">VIRTUAL PRODUCTION &amp; REALTIME</span>
+                      <span className="dept-sub">Unreal Engine nDisplay • LED Wall Drivers &amp; Live Tracking Nodes</span>
                     </div>
                   </div>
                   <div className="counter-box">
                     <button 
-                      type="button" 
-                      className="counter-btn"
-                      onClick={() => setVpSeats((prev) => Math.max(0, prev - 1))}
+                      onClick={() => setVpSeats(Math.max(0, vpSeats - 1))}
+                      className="btn-counter"
                     >
                       -
                     </button>
                     <span className="counter-val">{vpSeats} Seats</span>
                     <button 
-                      type="button" 
-                      className="counter-btn"
-                      onClick={() => setVpSeats((prev) => prev + 1)}
+                      onClick={() => setVpSeats(vpSeats + 1)}
+                      className="btn-counter"
                     >
                       +
                     </button>
@@ -286,114 +246,141 @@ export const SpecConfiguratorSection: React.FC = () => {
                 </div>
               </div>
 
-              {/* Security Tier Selection */}
-              <div className="control-group margin-top-dept">
-                <label>Security & Compliance Tier</label>
+              {/* Compliance Tier Toggle */}
+              <div className="security-tier-selector">
+                <span className="tier-label">COMPLIANCE &amp; HARDENING LEVEL:</span>
                 <div className="tier-toggle-row">
                   <button
-                    type="button"
                     className={`tier-btn ${securityTier === 'standard' ? 'active' : ''}`}
                     onClick={() => setSecurityTier('standard')}
                   >
-                    Standard Studio Tier
+                    Standard Studio Pipeline
                   </button>
                   <button
-                    type="button"
-                    className={`tier-btn ${securityTier === 'tpn' ? 'active' : ''}`}
-                    onClick={() => setSecurityTier('tpn')}
+                    className={`tier-btn ${securityTier === 'tpn-hardened' ? 'active' : ''}`}
+                    onClick={() => setSecurityTier('tpn-hardened')}
                   >
-                    TPN / MPA Shielded
+                    TPN / MPA Studio Hardened
                   </button>
                 </div>
               </div>
             </div>
 
-            {/* Right Column: Calculated Architecture Specs & Proportional Distribution Bar */}
+            {/* Right Output Column: Generated Blueprint Hardware Specifications */}
             <div className="config-output">
-              <div className="output-header">
-                <div className="headline-badge-row">
-                  <span className="output-tag">RECOMMENDED BLUEPRINT</span>
-                  <span className="total-seats-pill">{calculations.totalSeats} TOTAL ARTIST SEATS</span>
-                </div>
-                <h3>ENTERPRISE DATACENTER INFRASTRUCTURE</h3>
+              <div className="output-header-bar">
+                <span className="output-kicker">RECOMMENDED BLUEPRINT</span>
+                <span className="total-seats-pill">{calcResults.totalSeats} TOTAL ARTIST SEATS</span>
               </div>
 
-              {/* Department Proportional Distribution Bar */}
+              <h4 className="blueprint-title">ENTERPRISE DATACENTER INFRASTRUCTURE</h4>
+
+              {/* Proportional Plantilla Distribution Bar */}
               <div className="proportional-bar-box">
-                <span className="prop-bar-label">DEPARTMENT PLANTILLA DISTRIBUTION</span>
-                <div className="proportional-bar">
-                  <div className="bar-seg seg-editorial" style={{ width: `${calculations.pctEditorial}%` }} title={`Editorial: ${calculations.pctEditorial}%`} />
-                  <div className="bar-seg seg-color" style={{ width: `${calculations.pctColor}%` }} title={`Color: ${calculations.pctColor}%`} />
-                  <div className="bar-seg seg-comp" style={{ width: `${calculations.pctComp}%` }} title={`Comp: ${calculations.pctComp}%`} />
-                  <div className="bar-seg seg-fx" style={{ width: `${calculations.pctFx}%` }} title={`FX: ${calculations.pctFx}%`} />
-                  <div className="bar-seg seg-vp" style={{ width: `${calculations.pctVp}%` }} title={`VP: ${calculations.pctVp}%`} />
+                <span className="bar-title">DEPARTMENT PLANTILLA DISTRIBUTION</span>
+                <div className="proportional-bar-track">
+                  {calcResults.pctEditorial > 0 && (
+                    <div 
+                      className="bar-seg seg-editorial" 
+                      style={{ width: `${calcResults.pctEditorial}%` }} 
+                      title={`Editorial: ${calcResults.pctEditorial}%`}
+                    />
+                  )}
+                  {calcResults.pctColor > 0 && (
+                    <div 
+                      className="bar-seg seg-color" 
+                      style={{ width: `${calcResults.pctColor}%` }} 
+                      title={`Color: ${calcResults.pctColor}%`}
+                    />
+                  )}
+                  {calcResults.pctComp > 0 && (
+                    <div 
+                      className="bar-seg seg-comp" 
+                      style={{ width: `${calcResults.pctComp}%` }} 
+                      title={`Comp: ${calcResults.pctComp}%`}
+                    />
+                  )}
+                  {calcResults.pctFx > 0 && (
+                    <div 
+                      className="bar-seg seg-fx" 
+                      style={{ width: `${calcResults.pctFx}%` }} 
+                      title={`FX: ${calcResults.pctFx}%`}
+                    />
+                  )}
+                  {calcResults.pctVp > 0 && (
+                    <div 
+                      className="bar-seg seg-vp" 
+                      style={{ width: `${calcResults.pctVp}%` }} 
+                      title={`VP: ${calcResults.pctVp}%`}
+                    />
+                  )}
                 </div>
                 <div className="bar-legend">
-                  <span className="legend-item"><i className="dot dot-editorial" /> Editorial ({editorialSeats})</span>
-                  <span className="legend-item"><i className="dot dot-color" /> Color ({colorSeats})</span>
-                  <span className="legend-item"><i className="dot dot-comp" /> Comp ({compSeats})</span>
-                  <span className="legend-item"><i className="dot dot-fx" /> FX ({fxSeats})</span>
-                  <span className="legend-item"><i className="dot dot-vp" /> VP ({vpSeats})</span>
+                  <span className="legend-item leg-editorial">• Editorial ({calcResults.pctEditorial}%)</span>
+                  <span className="legend-item leg-color">• Color ({calcResults.pctColor}%)</span>
+                  <span className="legend-item leg-comp">• Comp ({calcResults.pctComp}%)</span>
+                  <span className="legend-item leg-fx">• FX ({calcResults.pctFx}%)</span>
+                  <span className="legend-item leg-vp">• VP ({calcResults.pctVp}%)</span>
                 </div>
               </div>
 
-              {/* Output Specs Grid */}
-              <div className="output-specs-grid">
-                <div className="output-card">
-                  <HardDrive size={22} className="output-card-icon" />
+              <div className="blueprint-specs-list">
+                <div className="spec-card">
+                  <HardDrive size={22} className="spec-icon" />
                   <div>
-                    <span className="output-card-label">Tier-0 NVMe & TB5 Scratch</span>
-                    <span className="output-card-val">{calculations.nvmeScratch}</span>
+                    <span className="spec-cat">TIER-0 NVME &amp; TB5 SCRATCH</span>
+                    <span className="spec-val">{calcResults.nvmeScratch}</span>
                   </div>
                 </div>
 
-                <div className="output-card">
-                  <Database size={22} className="output-card-icon" />
+                <div className="spec-card">
+                  <Database size={22} className="spec-icon" />
                   <div>
-                    <span className="output-card-label">High-Availability ZFS Storage</span>
-                    <span className="output-card-val">{calculations.zfsStorage}</span>
+                    <span className="spec-cat">HIGH-AVAILABILITY ZFS STORAGE</span>
+                    <span className="spec-val">{calcResults.zfsStorage}</span>
                   </div>
                 </div>
 
-                <div className="output-card">
-                  <Server size={22} className="output-card-icon" />
+                <div className="spec-card">
+                  <Server size={22} className="spec-icon" />
                   <div>
-                    <span className="output-card-label">Virtualization & Core Services (HA)</span>
-                    <span className="output-card-val">{calculations.virtServers}</span>
+                    <span className="spec-cat">VIRTUALIZATION &amp; CORE SERVICES (HA)</span>
+                    <span className="spec-val">{calcResults.virtServers}</span>
                   </div>
                 </div>
 
-                <div className="output-card">
-                  <Cpu size={22} className="output-card-icon" />
+                <div className="spec-card">
+                  <Cpu size={22} className="spec-icon" />
                   <div>
-                    <span className="output-card-label">Deadline Render & GPU Pool</span>
-                    <span className="output-card-val">{calculations.deadlineCores}</span>
+                    <span className="spec-cat">DEADLINE RENDER &amp; GPU POOL</span>
+                    <span className="spec-val">{calcResults.deadlineCores}</span>
                   </div>
                 </div>
 
-                <div className="output-card">
-                  <Network size={22} className="output-card-icon" />
+                <div className="spec-card">
+                  <Network size={22} className="spec-icon" />
                   <div>
-                    <span className="output-card-label">Redundant Network Backbone</span>
-                    <span className="output-card-val">{calculations.networkThroughput}</span>
+                    <span className="spec-cat">NETWORK FABRIC THROUGHPUT</span>
+                    <span className="spec-val">{calcResults.networkThroughput}</span>
                   </div>
                 </div>
 
-                <div className="output-card">
-                  <Archive size={22} className="output-card-icon" />
+                <div className="spec-card">
+                  <Archive size={22} className="spec-icon" />
                   <div>
-                    <span className="output-card-label">Backup & LTO-9 Tape Archive</span>
-                    <span className="output-card-val">{calculations.backupLto}</span>
+                    <span className="spec-cat">DISASTER RECOVERY &amp; TAPE ARCHIVE</span>
+                    <span className="spec-val">{calcResults.backupLto}</span>
                   </div>
                 </div>
               </div>
 
-              <a href="#contact" className="btn-cyber-primary width-full-btn">
-                <span>APPLY BLUEPRINT TO ASSESSMENT</span>
-                <ArrowRight size={18} className="btn-icon" />
-              </a>
+              <div className="blueprint-cta-box">
+                <a href="#contact" className="btn-corporate-primary full-width">
+                  <span>REQUEST THIS EXACT ARCHITECTURE BLUEPRINT</span>
+                  <ArrowRight size={18} className="btn-icon" />
+                </a>
+              </div>
             </div>
-
           </div>
         </div>
       </div>
