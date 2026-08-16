@@ -121,6 +121,8 @@ export const en = {
     workstations: 'Approx. Workstations',
     message: 'Project Details & Bottlenecks *',
     privacy: 'I consent to Frame Ops VFX storing my contact info to perform this infrastructure assessment.',
+    privacyError: 'Please accept the privacy consent to submit.',
+    unavailMsg: 'Automated submission is temporarily unavailable. Please send your request directly to info@frameopsvfx.com',
     submit: 'REQUEST ASSESSMENT',
     submitting: 'SUBMITTING...',
     successTitle: 'Assessment Request Submitted',

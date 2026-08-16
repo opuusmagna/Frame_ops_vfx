@@ -121,6 +121,8 @@ export const es = {
     workstations: 'Puestos de Trabajo Aprox.',
     message: 'Detalles del Proyecto y Necesidades *',
     privacy: 'Consiento que Frame Ops VFX trate mis datos para realizar este diagnóstico técnico.',
+    privacyError: 'Por favor, acepta la cláusula de privacidad antes de enviar.',
+    unavailMsg: 'Formulario temporalmente no disponible para envíos automáticos. Por favor, realiza tu consulta directamente enviando un correo a info@frameopsvfx.com',
     submit: 'SOLICITAR DIAGNÓSTICO',
     submitting: 'ENVIANDO...',
     successTitle: 'Solicitud Recibida',

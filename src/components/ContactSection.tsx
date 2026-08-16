@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import { Send, CheckCircle, AlertCircle, TrendingUp, Clock, ShieldCheck } from 'lucide-react';
 import { company } from '../config/company';
+import { useLanguage } from '../context/useLanguage';
 import './ContactSection.css';
 
 export const ContactSection: React.FC = () => {
+  const { t } = useLanguage();
+  const c = t.contact;
+
   const [formData, setFormData] = useState({
     name: '',
     company: '',
@@ -31,7 +35,7 @@ export const ContactSection: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.privacyAccepted) {
-      setErrorMessage('Por favor, acepta la cláusula de privacidad antes de enviar.');
+      setErrorMessage(c.privacyError);
       setStatus('error');
       return;
     }
@@ -42,7 +46,7 @@ export const ContactSection: React.FC = () => {
     // Hotfix A.1: Notificación profesional sin jerga interna cuando el backend no está disponible
     if (!company.contactEndpoint || company.contactEndpoint === '/api/assessment') {
       setTimeout(() => {
-        setErrorMessage('Formulario temporalmente no disponible para envíos automáticos. Por favor, realiza tu consulta directamente enviando un correo a info@frameopsvfx.com');
+        setErrorMessage(c.unavailMsg);
         setStatus('error');
       }, 300);
       return;
@@ -73,11 +77,9 @@ export const ContactSection: React.FC = () => {
         <div className="contact-layout">
           {/* Left Column: Strategic Value Pillars */}
           <div className="contact-info-col">
-            <span className="section-kicker">INITIATE DISCUSSIONS</span>
-            <h2 className="section-title">REQUEST AN INFRASTRUCTURE ASSESSMENT</h2>
-            <p className="contact-lead">
-              Our process is consultative. We start by auditing your current pipeline bottlenecks, storage IOPS, and render burst goals before proposing architecture blueprints.
-            </p>
+            <span className="section-kicker">{c.kicker}</span>
+            <h2 className="section-title">{c.title}</h2>
+            <p className="contact-lead">{c.lead}</p>
 
             <div className="contact-cards-list">
               <div className="info-item strategic-pillar-item">
@@ -262,7 +264,7 @@ export const ContactSection: React.FC = () => {
                       onChange={handleChange}
                     />
                     <label htmlFor="privacyAccepted">
-                      I consent to Frame Ops VFX storing my contact info to perform this infrastructure assessment.
+                      {c.privacy}
                     </label>
                   </div>
 
@@ -278,7 +280,7 @@ export const ContactSection: React.FC = () => {
                     className="btn-corporate-primary form-submit-btn"
                     disabled={status === 'submitting'}
                   >
-                    <span>{status === 'submitting' ? 'SUBMITTING...' : 'REQUEST ASSESSMENT'}</span>
+                    <span>{status === 'submitting' ? c.submitting : c.submit}</span>
                     <Send size={18} className="btn-icon" />
                   </button>
                 </>
