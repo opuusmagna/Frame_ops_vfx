@@ -6,8 +6,8 @@ export interface NavItem {
 export const navigationConfig = {
   items: [
     { label: 'HOME', href: '#home' },
-    { label: 'SOLUTIONS', href: '#solutions' },
     { label: 'SERVICES', href: '#services' },
+    { label: 'SOLUTIONS', href: '#solutions' },
     { label: 'ABOUT', href: '#about' },
     { label: 'CONTACT', href: '#contact' },
   ] as NavItem[],
