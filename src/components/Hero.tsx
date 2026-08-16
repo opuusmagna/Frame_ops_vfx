@@ -5,13 +5,23 @@ import './Hero.css';
 export const Hero: React.FC = () => {
   return (
     <section id="home" className="master-hero">
-      {/* Background Graphic Artwork */}
+      {/* Background Graphic Artwork with HTML5 Responsive Picture Switching */}
       <div className="hero-bg-wrapper">
-        <img
-          src="/images/hero/02_hero_datacenter_composition_2560x1440.webp"
-          alt="Frame Ops VFX Enterprise Data Center & Geometric Line Architecture"
-          className="hero-master-bg"
-        />
+        <picture>
+          <source 
+            media="(max-width: 768px)" 
+            srcSet="/images/responsive/hero_background_mobile_1440x2560.webp" 
+          />
+          <source 
+            media="(max-width: 1024px)" 
+            srcSet="/images/responsive/hero_background_tablet_2048x1536.webp" 
+          />
+          <img
+            src="/images/hero/02_hero_datacenter_composition_2560x1440.webp"
+            alt="Frame Ops VFX Enterprise Data Center &amp; Geometric Line Architecture"
+            className="hero-master-bg"
+          />
+        </picture>
         <div className="hero-subtle-vignette" />
         <div className="hero-bottom-fade-mask" />
       </div>
