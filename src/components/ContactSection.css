@@ -69,11 +69,15 @@
   font-size: 1.05rem;
   font-weight: 700;
   color: var(--text-white);
+  word-break: break-all;
 }
 
 /* Form Box */
 .assessment-form {
   padding: 3rem 2.5rem;
+  background: var(--bg-0);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
 }
 
 .form-heading {
@@ -84,6 +88,8 @@
   color: var(--text-white);
   border-bottom: 1px solid var(--border-subtle);
   padding-bottom: 1rem;
+  line-height: 1.25;
+  word-break: break-word;
 }
 
 .form-row {
@@ -112,13 +118,15 @@
 .form-group input,
 .form-group select,
 .form-group textarea {
-  background: var(--bg-0);
+  background: var(--bg-1);
   border: 1px solid var(--border-subtle);
   border-radius: 4px;
   padding: 0.85rem 1rem;
   color: var(--text-white);
   font-family: var(--font-body);
   font-size: 0.95rem;
+  width: 100%;
+  box-sizing: border-box;
   transition: border-color 0.25s ease;
 }
 
@@ -137,11 +145,13 @@
   margin-bottom: 2rem;
   font-size: 0.85rem;
   color: var(--text-muted);
+  line-height: 1.5;
 }
 
 .form-checkbox-group input {
   margin-top: 0.2rem;
   accent-color: var(--blue);
+  flex-shrink: 0;
 }
 
 .form-submit-btn {
@@ -175,10 +185,19 @@
 @media (max-width: 1024px) {
   .contact-layout {
     grid-template-columns: 1fr;
+    gap: 2.5rem;
   }
 }
-@media (max-width: 600px) {
+
+@media (max-width: 768px) {
   .form-row {
     grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .assessment-form {
+    padding: 1.5rem 1.15rem;
+  }
+  .form-heading {
+    font-size: 1.15rem;
   }
 }
