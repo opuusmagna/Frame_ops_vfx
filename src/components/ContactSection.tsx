@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Send, CheckCircle, AlertCircle, Mail, Phone, MapPin } from 'lucide-react';
+import { Send, CheckCircle, AlertCircle, TrendingUp, Clock, ShieldCheck } from 'lucide-react';
 import { company } from '../config/company';
 import './ContactSection.css';
 
@@ -64,7 +64,7 @@ export const ContactSection: React.FC = () => {
     <section id="contact" className="art-contact-section section-with-bg">
       <div className="container">
         <div className="contact-layout">
-          {/* Left Column: Direct Contact Info */}
+          {/* Left Column: Strategic Value Pillars */}
           <div className="contact-info-col">
             <span className="section-kicker">INITIATE DISCUSSIONS</span>
             <h2 className="section-title">REQUEST AN INFRASTRUCTURE ASSESSMENT</h2>
@@ -73,35 +73,42 @@ export const ContactSection: React.FC = () => {
             </p>
 
             <div className="contact-cards-list">
-              <div className="info-item">
+              <div className="info-item strategic-pillar-item">
                 <div className="info-icon-box">
-                  <Mail size={20} />
+                  <TrendingUp size={22} />
                 </div>
-                <div>
-                  <span className="info-label">Direct Email</span>
-                  <a href={`mailto:${company.email}`} className="info-value">{company.email}</a>
+                <div className="pillar-text-box">
+                  <span className="info-label">FINANCIAL EFFICIENCY</span>
+                  <div className="info-value">CAPEX &amp; OPEX Optimization</div>
+                  <p className="pillar-description">
+                    Eliminating hardware over-provisioning and license waste. We optimize server rack density, energy consumption, and storage lifecycle to maximize studio profitability.
+                  </p>
                 </div>
               </div>
 
-              {company.phone && (
-                <div className="info-item">
-                  <div className="info-icon-box">
-                    <Phone size={20} />
-                  </div>
-                  <div>
-                    <span className="info-label">Engineering Helpline</span>
-                    <a href={`tel:${company.phone.replace(/\s+/g, '')}`} className="info-value">{company.phone}</a>
-                  </div>
-                </div>
-              )}
-
-              <div className="info-item">
+              <div className="info-item strategic-pillar-item">
                 <div className="info-icon-box">
-                  <MapPin size={20} />
+                  <Clock size={22} />
                 </div>
-                <div>
-                  <span className="info-label">Headquarters</span>
-                  <span className="info-value">{company.location}</span>
+                <div className="pillar-text-box">
+                  <span className="info-label">DEADLINE ASSURANCE</span>
+                  <div className="info-value">Zero Pipeline Stalls</div>
+                  <p className="pillar-description">
+                    Release dates are non-negotiable. We engineer high-availability, fault-tolerant infrastructure ensuring continuous 24/7 pipeline throughput under peak delivery loads.
+                  </p>
+                </div>
+              </div>
+
+              <div className="info-item strategic-pillar-item">
+                <div className="info-icon-box">
+                  <ShieldCheck size={22} />
+                </div>
+                <div className="pillar-text-box">
+                  <span className="info-label">SECURITY &amp; AUDIT READINESS</span>
+                  <div className="info-value">Global Industry Standards</div>
+                  <p className="pillar-description">
+                    Qualify your facility for major international film projects. Network isolation, asset encryption, and access controls aligned with global security standards.
+                  </p>
                 </div>
               </div>
             </div>
@@ -204,8 +211,8 @@ export const ContactSection: React.FC = () => {
                         <option value="New Studio Setup">New Studio Setup</option>
                         <option value="Network Infrastructure">10/25/100GbE Network Upgrade</option>
                         <option value="Storage Expansion">NVMe / ZFS Storage Modernization</option>
-                        <option value="Render Farm">Render Farm & Deadline Integration</option>
-                        <option value="Backup DR">Backup & Disaster Recovery</option>
+                        <option value="Render Farm">Render Farm &amp; Deadline Integration</option>
+                        <option value="Backup DR">Backup &amp; Disaster Recovery</option>
                         <option value="Cybersecurity">TPN / MPA Security Audit</option>
                       </select>
                     </div>
@@ -227,7 +234,7 @@ export const ContactSection: React.FC = () => {
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor="message">Project Details & Bottlenecks *</label>
+                    <label htmlFor="message">Project Details &amp; Bottlenecks *</label>
                     <textarea
                       id="message"
                       name="message"
