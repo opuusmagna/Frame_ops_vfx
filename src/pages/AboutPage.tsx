@@ -30,7 +30,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigateContact }) => {
         <div className="container text-center">
           <span className="corp-badge">EXECUTIVE CTO &amp; SYSTEM ARCHITECTURE LEADERSHIP</span>
           <h1 className="about-hero-title">
-            POWERING THE INFRASTRUCTURE BEHIND MAJOR FEATURE FILMS &amp; VFX PRODUCTIONS.
+            POWERING THE INFRASTRUCTURE BEHIND MAJOR FEATURE FILMS &amp; VFX PRODUCTIONS
           </h1>
           <p className="about-hero-subtitle">
             From international blockbuster film studios to high-end VFX pipelines. We engineer the invisible technology ensuring your renders never stop and your security audits never fail.
@@ -50,103 +50,116 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigateContact }) => {
                 In high-budget feature film and VFX production, render deadlines are non-negotiable and major studio content security is sacred. As CTO and Principal System Administrator, I have spent over a decade designing, deploying, and operating critical infrastructure powering environments where hundreds of Nuke, Houdini, Maya, and DaVinci Resolve artists work simultaneously.
               </p>
               <p className="about-bio-text">
-                My track record spans from architecting complete university VFX production laboratories in Madrid to directing technical operations for demanding feature film pipelines. I possess deep, hands-on experience navigating the strict technical requirements and security audits required by major Hollywood studios and European production houses.
+                Frame Ops VFX was born from a fundamental industry need: visual effects and post-production studios require specialized infrastructure engineering built around high-throughput EXR playback, zero-frame-drop storage, and TPN security compliance — not generic enterprise IT templates.
               </p>
+              
+              <div className="about-highlights-list">
+                <div className="highlight-item">
+                  <CheckCircle2 size={20} className="highlight-icon" />
+                  <span>10+ Years Dedicated VFX Infrastructure Architecture &amp; System Administration</span>
+                </div>
+                <div className="highlight-item">
+                  <CheckCircle2 size={20} className="highlight-icon" />
+                  <span>Proven Track Record in High-IOPS ZFS &amp; NVMe Storage Cluster Deployments</span>
+                </div>
+                <div className="highlight-item">
+                  <CheckCircle2 size={20} className="highlight-icon" />
+                  <span>TPN (Trusted Partner Network) &amp; MPA Content Security Audit Mastery</span>
+                </div>
+              </div>
             </div>
 
-            {/* Right Column: CTO Manifesto Quote Box */}
+            {/* Right Column: Key Metrics & Leadership Philosophy */}
             <div className="about-manifesto-card">
-              <div className="manifesto-badge">FOUNDING PRINCIPLE</div>
+              <h3 className="manifesto-title">LEADERSHIP PHILOSOPHY</h3>
               <blockquote className="manifesto-quote">
-                "I firmly believe in one core principle: The best infrastructure is the one nobody notices because it simply never fails. My work is invisible so your render never stops."
+                &ldquo;VFX infrastructure is not just hardware in a rack. It is the backbone of creative delivery. When an artist hits play or a farm node bursts, performance must be instant, reliable, and unyielding.&rdquo;
               </blockquote>
-              <div className="manifesto-author">
-                <span className="author-name">CHIEF TECHNOLOGY OFFICER</span>
-                <span className="author-role">Frame Ops VFX Infrastructure Lead</span>
+              
+              <div className="manifesto-stats-grid">
+                <div className="stat-box">
+                  <span className="stat-value">99.99%</span>
+                  <span className="stat-label">Pipeline Uptime</span>
+                </div>
+                <div className="stat-box">
+                  <span className="stat-value">100GbE</span>
+                  <span className="stat-label">Backbone Fabrics</span>
+                </div>
+                <div className="stat-box">
+                  <span className="stat-value">Zero</span>
+                  <span className="stat-label">Dropped Frames</span>
+                </div>
+                <div className="stat-box">
+                  <span className="stat-value">100%</span>
+                  <span className="stat-label">TPN Audit Pass</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 4 Strategic Value Pillars */}
+      {/* Core Expertise Pillars Section */}
       <section className="about-pillars-section">
         <div className="container">
           <div className="art-section-header text-center">
-            <span className="about-section-kicker">CORE COMPETENCIES</span>
-            <h2 className="about-section-title">STRATEGIC VALUE FOR PRODUCTION HOUSES</h2>
+            <span className="section-kicker">CORE COMPETENCIES</span>
+            <h2 className="about-section-title">ENGINEERING EXCELLENCE FOR PRODUCTION</h2>
+            <p className="section-description">
+              Our technical domain spans high-throughput storage, high-density render compute, and perimeter security.
+            </p>
           </div>
 
           <div className="about-pillars-grid">
             <div className="pillar-card">
-              <div className="pillar-icon"><Zap size={24} /></div>
-              <h3>Critical Pipeline Continuity</h3>
-              <span className="pillar-tag">ZERO-DOWNTIME GUARANTEE</span>
-              <p>
-                When a pipeline stalls mid-delivery, studios lose thousands of dollars per hour. We architect redundant, fault-tolerant systems designed to eliminate single points of failure.
-              </p>
+              <Zap size={28} className="pillar-icon" />
+              <h3>High-IOPS Storage Architecture</h3>
+              <p>Designing scale-out ZFS and NVMe caching pools capable of sustaining multi-user 4K/8K uncompressed EXR sequence playback without I/O degradation.</p>
             </div>
 
             <div className="pillar-card">
-              <div className="pillar-icon"><ShieldCheck size={24} /></div>
-              <h3>Bulletproof Cybersecurity &amp; TPN</h3>
-              <span className="pillar-tag">MPA &amp; TPN AUDIT CERTIFIED</span>
-              <p>
-                Guaranteed compliance for Trusted Partner Network (TPN) and MPA security audits. Implementing Zero-Trust network isolation, server hardening, and immutable backup protection.
-              </p>
+              <Cpu size={28} className="pillar-icon" />
+              <h3>Render Farm &amp; Queue Management</h3>
+              <p>Architecting Deadline render pools, GPU bursting nodes, dynamic license management, and automated queue scheduling for peak production bursts.</p>
             </div>
 
             <div className="pillar-card">
-              <div className="pillar-icon"><Cpu size={24} /></div>
-              <h3>Sustained Storage &amp; Render Throughput</h3>
-              <span className="pillar-tag">HIGH-IOPS EXR PLAYBACK</span>
-              <p>
-                High-density optimization for 4K/8K OpenEXR playback (up to 2.4 GB/s per node), zero-bottleneck NVMe/ZFS caching pools, and 100% Deadline render farm queue saturation.
-              </p>
+              <ShieldCheck size={28} className="pillar-icon" />
+              <h3>TPN Security &amp; Compliance</h3>
+              <p>Implementing zero-trust network isolation, air-gapped immutable backups, multi-factor authentication, and strict MPA security audit readiness.</p>
             </div>
 
             <div className="pillar-card">
-              <div className="pillar-icon"><TrendingUp size={24} /></div>
-              <h3>Strategic Leadership &amp; TCO</h3>
-              <span className="pillar-tag">ENTERPRISE ROI &amp; SCALING</span>
-              <p>
-                Direct vendor negotiations, RLM/FlexLM license optimization, and strategic technology investments focused on long-term stability, scaling, and business profitability.
-              </p>
+              <TrendingUp size={28} className="pillar-icon" />
+              <h3>Infrastructure Lifecycle &amp; TCO</h3>
+              <p>Strategic CAPEX/OPEX planning, hardware lifespan optimization, vendor-neutral procurement, and continuous 24/7 telemetry monitoring.</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Proven Track Record Milestones */}
+      {/* Career Milestones & Track Record Section */}
       <section className="about-milestones-section">
         <div className="container">
           <div className="art-section-header text-center">
-            <span className="about-section-kicker">PROVEN TRACK RECORD</span>
-            <h2 className="about-section-title">TRACK RECORD HIGHLIGHTS</h2>
+            <span className="section-kicker">TRACK RECORD</span>
+            <h2 className="about-section-title">ENGINEERING MILESTONES</h2>
           </div>
 
           <div className="about-milestones-grid">
             <div className="milestone-item">
-              <GraduationCap size={22} className="milestone-icon" />
-              <div>
-                <h4>University VFX Lab Deployment</h4>
-                <p>Complete architectural design and deployment of a full VFX production laboratory for a specialized university in Madrid.</p>
-              </div>
-            </div>
-
-            <div className="milestone-item">
               <Award size={22} className="milestone-icon" />
               <div>
-                <h4>Major Film Pipeline Leadership</h4>
-                <p>End-to-end technical leadership managing critical IT infrastructure for major feature films and high-demand VFX studios.</p>
+                <h4>Multi-Petabyte NVMe/ZFS Deployments</h4>
+                <p>Designed and deployed high-performance ZFS storage clusters handling heavy multi-user composite render workloads for feature films.</p>
               </div>
             </div>
 
             <div className="milestone-item">
-              <CheckCircle2 size={22} className="milestone-icon" />
+              <GraduationCap size={22} className="milestone-icon" />
               <div>
-                <h4>Proactive Incident Reduction</h4>
-                <p>Dramatic reduction in pipeline downtime through 24/7 proactive monitoring, automated alerting, and continuous process optimization.</p>
+                <h4>High-Density Render Farms</h4>
+                <p>Architected scalable Deadline render farms with automated GPU/CPU allocation, achieving maximum node saturation and license efficiency.</p>
               </div>
             </div>
 
@@ -166,7 +179,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigateContact }) => {
         <div className="container text-center">
           <h2 className="cta-heading">READY TO ELEVATE YOUR STUDIO'S INFRASTRUCTURE?</h2>
           <p className="cta-desc">
-            Consult directly with our CTO for a comprehensive bottleneck audit, infrastructure strategy, and custom CAD rack blueprint.
+            Consult directly with our CTO for a comprehensive bottleneck audit, high-availability pipeline strategy, and custom server rack architecture.
           </p>
           <button onClick={onNavigateContact} className="btn-cyber-primary cta-btn">
             <span>SCHEDULE AN INFRASTRUCTURE AUDIT WITH OUR CTO</span>

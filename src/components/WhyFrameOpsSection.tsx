@@ -25,7 +25,7 @@ export const WhyFrameOpsSection: React.FC = () => {
       num: '04',
       progressWidth: '100%',
       title: 'End-to-End Implementation',
-      desc: 'From initial bottleneck audit and custom CAD rack blueprints to cabling, deployment, staff handoff, and ongoing support.',
+      desc: 'From initial bottleneck audit and custom server rack architecture to cabling, deployment, staff handoff, and ongoing support.',
     },
   ];
 
