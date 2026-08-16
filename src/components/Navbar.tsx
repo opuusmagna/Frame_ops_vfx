@@ -29,37 +29,26 @@ export const Navbar: React.FC<NavbarProps> = ({
         document.body.scrollTop || 
         0;
       
-      // Laser line & solid background activation on scroll
+      // Laser line & solid background activation on scroll (UNTOUCHED)
       setScrolled(scrollPos > 15);
 
-      // Dynamic Section ScrollSpy for landing view ('home')
+      // High-Precision Section ScrollSpy for landing view ('home')
       if (activeView === 'home') {
-        // At top of page (< 100px), ALWAYS highlight HOME
-        if (scrollPos < 100) {
-          setActiveSection('HOME');
-          return;
-        }
-
+        const midScreen = window.innerHeight * 0.45;
         const totalHeight = document.documentElement.scrollHeight;
         const windowHeight = window.innerHeight;
+        const isAtBottom = (scrollPos + windowHeight) >= (totalHeight - 80);
 
-        // Bottom of page detection (Contact)
-        if (scrollPos + windowHeight >= totalHeight - 100) {
-          setActiveSection('CONTACT');
-          return;
-        }
-
-        const offsetThreshold = windowHeight * 0.35;
         const contactEl = document.getElementById('contact');
-        const servicesEl = document.getElementById('services');
         const solutionsEl = document.getElementById('solutions');
+        const servicesEl = document.getElementById('services');
 
-        if (contactEl && contactEl.getBoundingClientRect().top <= offsetThreshold) {
+        if (isAtBottom || (contactEl && contactEl.getBoundingClientRect().top <= midScreen)) {
           setActiveSection('CONTACT');
-        } else if (servicesEl && servicesEl.getBoundingClientRect().top <= offsetThreshold) {
-          setActiveSection('SERVICES');
-        } else if (solutionsEl && solutionsEl.getBoundingClientRect().top <= offsetThreshold) {
+        } else if (solutionsEl && solutionsEl.getBoundingClientRect().top <= midScreen) {
           setActiveSection('SOLUTIONS');
+        } else if (servicesEl && servicesEl.getBoundingClientRect().top <= midScreen) {
+          setActiveSection('SERVICES');
         } else {
           setActiveSection('HOME');
         }
