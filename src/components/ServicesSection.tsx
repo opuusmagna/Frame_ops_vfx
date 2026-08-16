@@ -1,100 +1,110 @@
-import React, { useState } from 'react';
-import { 
-  Monitor, 
-  Network, 
-  HardDrive, 
-  Cpu, 
-  Database, 
-  ShieldCheck, 
-  ChevronRight, 
-  ArrowRight,
-  CheckCircle2
-} from 'lucide-react';
-import { servicesData } from '../config/services';
-import type { ServiceItem } from '../config/services';
+import React from 'react';
+import { Server, Network, HardDrive, Cpu, Database, ShieldCheck, ArrowRight } from 'lucide-react';
+import { useLanguage } from '../context/useLanguage';
 import './ServicesSection.css';
 
-const iconMap: Record<string, React.ReactNode> = {
-  'vfx-infrastructure': <Monitor size={22} />,
-  'high-performance-networks': <Network size={22} />,
-  'storage-data': <HardDrive size={22} />,
-  'render-pipeline': <Cpu size={22} />,
-  'backup-disaster-recovery': <Database size={22} />,
-  'cybersecurity-compliance': <ShieldCheck size={22} />,
-};
-
 export const ServicesSection: React.FC = () => {
-  const [activeId, setActiveId] = useState<string>(servicesData[0].id);
+  const { t, navigatePath, lang } = useLanguage();
+  const s = t.services;
 
-  const activeService = servicesData.find((s) => s.id === activeId) || servicesData[0];
-  const capabilitiesList = activeService?.capabilities || [];
+  const pillars = [
+    {
+      id: 'vfx-infrastructure',
+      icon: Server,
+      title: s.vfxInfra.title,
+      subtitle: s.vfxInfra.subtitle,
+      description: s.vfxInfra.description,
+      capabilities: s.vfxInfra.capabilities,
+      link: lang === 'en' ? '/en/services/' : '/es/servicios/',
+    },
+    {
+      id: 'high-performance-networks',
+      icon: Network,
+      title: s.highNetworks.title,
+      subtitle: s.highNetworks.subtitle,
+      description: s.highNetworks.description,
+      capabilities: s.highNetworks.capabilities,
+      link: lang === 'en' ? '/en/services/' : '/es/servicios/',
+    },
+    {
+      id: 'storage-data',
+      icon: HardDrive,
+      title: s.storageData.title,
+      subtitle: s.storageData.subtitle,
+      description: s.storageData.description,
+      capabilities: s.storageData.capabilities,
+      link: lang === 'en' ? '/en/services/' : '/es/servicios/',
+    },
+    {
+      id: 'render-pipeline',
+      icon: Cpu,
+      title: s.renderPipeline.title,
+      subtitle: s.renderPipeline.subtitle,
+      description: s.renderPipeline.description,
+      capabilities: s.renderPipeline.capabilities,
+      link: lang === 'en' ? '/en/services/' : '/es/servicios/',
+    },
+    {
+      id: 'backup-disaster-recovery',
+      icon: Database,
+      title: s.backupDr.title,
+      subtitle: s.backupDr.subtitle,
+      description: s.backupDr.description,
+      capabilities: s.backupDr.capabilities,
+      link: lang === 'en' ? '/en/services/backup-disaster-recovery/' : '/es/servicios/backup-disaster-recovery/',
+    },
+    {
+      id: 'cybersecurity-compliance',
+      icon: ShieldCheck,
+      title: s.cybersecurity.title,
+      subtitle: s.cybersecurity.subtitle,
+      description: s.cybersecurity.description,
+      capabilities: s.cybersecurity.capabilities,
+      link: lang === 'en' ? '/en/services/' : '/es/servicios/',
+    },
+  ];
 
   return (
-    <section id="services" className="art-services-section section-with-bg">
+    <section id="services" className="services-section section-with-bg">
       <div className="container">
-        {/* Section Header */}
-        <div className="art-section-header text-center">
-          <span className="section-kicker">SPECIALIZED INFRASTRUCTURE</span>
-          <h2 className="section-title">CORE SERVICES PILLARS</h2>
-          <p className="section-description">
-            High-availability engineering built specifically to handle network bandwidth, ZFS IOPS, render burst capacities, and security demands of VFX facilities.
-          </p>
+        <div className="section-header text-center">
+          <span className="section-kicker">{s.kicker}</span>
+          <h2 className="section-title">{s.title}</h2>
+          <p className="section-subtitle">{s.subtitle}</p>
         </div>
 
-        {/* Master Interactive 2-Column Split Showcase */}
-        <div className="services-showcase-layout">
-          {/* Left Column: Tab Selectors */}
-          <div className="services-tabs-column">
-            {servicesData.map((service: ServiceItem) => {
-              const isActive = service.id === activeId;
-              return (
-                <button
-                  key={service.id}
-                  className={`service-tab-button ${isActive ? 'active' : ''}`}
-                  onClick={() => setActiveId(service.id)}
-                >
-                  <div className="tab-icon-box">
-                    {iconMap[service.id] || <Monitor size={22} />}
-                  </div>
-                  <div className="tab-text-box">
-                    <span className="tab-title">{service.title}</span>
-                    <span className="tab-subtitle">{service.subtitle}</span>
-                  </div>
-                  <ChevronRight size={20} className="tab-arrow" />
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Right Column: Spacious Feature Detail Panel */}
-          <div className="corp-panel service-detail-box">
-            <div>
-              <span className="detail-badge">ENGINEERING SPECIFICATION</span>
-              <h3 className="detail-title">{activeService.title}</h3>
-              <span className="detail-subtitle">{activeService.subtitle}</span>
-
-              <p className="detail-description">{activeService.description}</p>
-
-              <div className="detail-capabilities-section">
-                <span className="detail-capabilities-title">CAPABILITY SPECIFICATIONS</span>
-                <div className="detail-capabilities-grid">
-                  {capabilitiesList.map((cap, idx) => (
-                    <div key={idx} className="detail-cap-item">
-                      <CheckCircle2 size={18} className="detail-cap-icon" />
-                      <span>{cap}</span>
-                    </div>
-                  ))}
+        <div className="services-grid">
+          {pillars.map((pillar) => {
+            const IconComp = pillar.icon;
+            return (
+              <div key={pillar.id} className="service-card corp-panel">
+                <div className="service-icon-box">
+                  <IconComp size={24} />
                 </div>
-              </div>
-            </div>
+                <h3 className="service-title">{pillar.title}</h3>
+                <span className="service-subtitle">{pillar.subtitle}</span>
+                <p className="service-description">{pillar.description}</p>
 
-            <div className="detail-action-footer">
-              <a href="#contact" className="btn-cyber-primary">
-                <span>DISCUSS {activeService.title.toUpperCase()}</span>
-                <ArrowRight size={18} className="btn-icon" />
-              </a>
-            </div>
-          </div>
+                <ul className="service-capabilities-list">
+                  {pillar.capabilities.map((cap, idx) => (
+                    <li key={idx}>
+                      <span className="cap-bullet" />
+                      <span>{cap}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <button
+                  type="button"
+                  className="btn-service-detail"
+                  onClick={() => navigatePath(pillar.link)}
+                >
+                  <span>{t.hero.ctaSecondary}</span>
+                  <ArrowRight size={14} />
+                </button>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

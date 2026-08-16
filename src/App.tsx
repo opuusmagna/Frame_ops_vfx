@@ -16,6 +16,8 @@ import { WhyFrameOpsSection } from './components/WhyFrameOpsSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { AboutPage } from './pages/AboutPage';
+import { BackupDisasterRecoveryPage } from './pages/BackupDisasterRecoveryPage';
+import { ManagedServicesPage } from './pages/ManagedServicesPage';
 
 import './styles/global.css';
 import './styles/effects.css';
@@ -61,31 +63,9 @@ const MainContent: React.FC = () => {
             <SolutionsSection />
           </div>
         ) : isBackupDR ? (
-          <div style={{ paddingTop: '8rem', paddingBottom: '6rem' }} className="container text-center">
-            <span className="section-kicker">{t.backupDrPage.kicker}</span>
-            <h1 style={{ color: '#ffffff', fontSize: '2.5rem', margin: '1rem 0' }}>{t.backupDrPage.title}</h1>
-            <p style={{ color: 'rgba(255,255,255,0.8)', maxWidth: '750px', margin: '0 auto 2rem auto', lineHeight: 1.6 }}>
-              {t.backupDrPage.subtitle}
-            </p>
-            <div className="corp-panel" style={{ padding: '2rem', maxWidth: '600px', margin: '0 auto', textAlign: 'left' }}>
-              <p style={{ color: 'var(--accent-cyan)', fontFamily: 'var(--font-mono)', fontSize: '0.85rem' }}>
-                [ESTRUCTURA DE RUTA ACTIVA — CONTENIDO COMPLETO EN CHECKPOINT B]
-              </p>
-            </div>
-          </div>
+          <BackupDisasterRecoveryPage />
         ) : isManagedServices ? (
-          <div style={{ paddingTop: '8rem', paddingBottom: '6rem' }} className="container text-center">
-            <span className="section-kicker">{t.commercialModels.operate.tag}</span>
-            <h1 style={{ color: '#ffffff', fontSize: '2.5rem', margin: '1rem 0' }}>{t.commercialModels.operate.title}</h1>
-            <p style={{ color: 'rgba(255,255,255,0.8)', maxWidth: '750px', margin: '0 auto 2rem auto', lineHeight: 1.6 }}>
-              {t.commercialModels.operate.description}
-            </p>
-            <div className="corp-panel" style={{ padding: '2rem', maxWidth: '600px', margin: '0 auto', textAlign: 'left' }}>
-              <p style={{ color: 'var(--accent-cyan)', fontFamily: 'var(--font-mono)', fontSize: '0.85rem' }}>
-                [ESTRUCTURA DE RUTA ACTIVA — CONTENIDO COMPLETO EN CHECKPOINT B]
-              </p>
-            </div>
-          </div>
+          <ManagedServicesPage />
         ) : isContact ? (
           <div style={{ paddingTop: '5rem' }}>
             <ContactSection />

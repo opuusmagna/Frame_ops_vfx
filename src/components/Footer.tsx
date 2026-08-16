@@ -1,41 +1,40 @@
 import React from 'react';
+import { Globe } from 'lucide-react';
+import { useLanguage } from '../context/useLanguage';
+import type { Language } from '../context/LanguageContext';
 import './Footer.css';
 
 export const Footer: React.FC = () => {
+  const { t, lang, switchLanguage } = useLanguage();
+  const f = t.footer;
+
+  const handleToggleLang = () => {
+    const nextLang: Language = lang === 'es' ? 'en' : 'es';
+    switchLanguage(nextLang);
+  };
+
   return (
-    <footer className="art-footer">
+    <footer className="master-footer">
       <div className="container">
-        <div className="footer-slim-row">
-          {/* Brand Logo & Description */}
-          <div className="footer-brand-side">
-            <a href="#home" className="footer-logo-link">
-              <img
-                src="/images/brand/Logo_Solo.png"
-                alt="Frame Ops VFX Official Logo"
-                className="footer-logo-img dark-mode-logo"
-              />
-            </a>
-            <span className="footer-tagline">
-              High-Performance Infrastructure Engineering for VFX Studios &amp; Facilities
-            </span>
+        <div className="footer-content">
+          <div className="footer-brand">
+            <div className="footer-logo-row">
+              <img src="/images/brand/Logo_Solo.png" alt="Frame Ops VFX Logo" className="footer-logo-img" />
+              <span className="footer-brand-title">FRAME OPS VFX</span>
+            </div>
+            <p className="footer-tagline">{f.tagline}</p>
           </div>
 
-          {/* Contact Info & Compliance */}
-          <div className="footer-contact-side">
-            <a href="mailto:info@frameopsvfx.com" className="footer-contact-email">
-              info@frameopsvfx.com
-            </a>
-            <div className="footer-meta-info">
-              <span>Madrid, Spain</span>
-              <span className="meta-dot">•</span>
-              <span className="tpn-pill">TPN Aligned Architecture</span>
-            </div>
+          <div className="footer-lang-box">
+            <button type="button" className="btn-footer-lang" onClick={handleToggleLang}>
+              <Globe size={16} />
+              <span>{lang === 'es' ? 'English (EN)' : 'Español (ES)'}</span>
+            </button>
           </div>
         </div>
 
-        {/* Bottom Copyright */}
-        <div className="footer-bottom-bar">
-          <p>© {new Date().getFullYear()} FRAME OPS VFX - All rights reserved</p>
+        <div className="footer-bottom">
+          <p>© {new Date().getFullYear()} Frame Ops VFX. {f.rights}</p>
         </div>
       </div>
     </footer>

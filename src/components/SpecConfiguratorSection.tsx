@@ -13,9 +13,12 @@ import {
   Server,
   Archive
 } from 'lucide-react';
+import { useLanguage } from '../context/useLanguage';
 import './SpecConfiguratorSection.css';
 
 export const SpecConfiguratorSection: React.FC = () => {
+  const { t } = useLanguage();
+  const c = t.calculator;
   // Department Seat Counts State
   const [editorialSeats, setEditorialSeats] = useState<number>(4);
   const [colorSeats, setColorSeats] = useState<number>(2);
@@ -89,10 +92,10 @@ export const SpecConfiguratorSection: React.FC = () => {
       <div className="container">
         {/* Section Header */}
         <div className="art-section-header text-center">
-          <span className="section-kicker">MULTI-DEPARTMENT PLANNING</span>
-          <h2 className="section-title">VFX &amp; POST-PRODUCTION CALCULATOR</h2>
-          <p className="section-description">
-            Configure your exact studio headcount by department — Editorial, Color Grading, 2D Compositing, 3D FX, and Virtual Production — to generate a custom infrastructure blueprint with high availability and LTO-9 backup.
+          <span className="section-kicker">{c.kicker}</span>
+          <h2 className="section-title">{c.title}</h2>
+          <p className="section-description" style={{ color: 'var(--accent-cyan)', fontFamily: 'var(--font-mono)', fontSize: '0.875rem', maxWidth: '850px', margin: '0.5rem auto 1.5rem auto' }}>
+            {c.disclaimer}
           </p>
         </div>
 
@@ -376,7 +379,7 @@ export const SpecConfiguratorSection: React.FC = () => {
 
               <div className="blueprint-cta-box">
                 <a href="#contact" className="btn-corporate-primary full-width">
-                  <span>REQUEST THIS EXACT ARCHITECTURE BLUEPRINT</span>
+                  <span>{c.cta}</span>
                   <ArrowRight size={18} className="btn-icon" />
                 </a>
               </div>

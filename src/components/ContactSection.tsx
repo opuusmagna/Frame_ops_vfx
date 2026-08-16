@@ -101,7 +101,7 @@ export const ContactSection: React.FC = () => {
                 </div>
                 <div className="pillar-text-box">
                   <span className="info-label">DEADLINE ASSURANCE</span>
-                  <div className="info-value">Zero Pipeline Stalls</div>
+                  <div className="info-value">Continuidad Operativa de Pipeline</div>
                   <p className="pillar-description">
                     Release dates are non-negotiable. We engineer high-availability, fault-tolerant infrastructure ensuring continuous 24/7 pipeline throughput under peak delivery loads.
                   </p>

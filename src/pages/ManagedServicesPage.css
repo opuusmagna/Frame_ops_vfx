@@ -1,0 +1,66 @@
+.managed-services-page {
+  padding-top: 8rem;
+  padding-bottom: 6rem;
+  background: var(--bg-dark-primary, #050811);
+}
+
+.ms-section {
+  margin-bottom: 3.5rem;
+  padding: 2.5rem;
+  background: rgba(12, 18, 30, 0.7);
+  border: 1px solid rgba(0, 180, 255, 0.15);
+  border-radius: 8px;
+}
+
+.ms-section-title {
+  font-size: 1.5rem;
+  color: #ffffff;
+  margin-bottom: 1.75rem;
+  font-weight: 700;
+}
+
+.ms-services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.ms-service-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 180, 255, 0.15);
+  border-radius: 6px;
+}
+
+.ms-icon-wrap {
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  background: rgba(0, 229, 255, 0.1);
+  color: var(--accent-cyan, #00e5ff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ms-service-text {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.highlight-box {
+  border-color: rgba(0, 229, 255, 0.4);
+  background: rgba(0, 229, 255, 0.04);
+}
+
+.ms-ops-desc {
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.6;
+}
