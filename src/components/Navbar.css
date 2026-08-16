@@ -40,8 +40,8 @@
 }
 
 .master-navbar.scrolled::after {
-  transform: scaleX(1);
-  opacity: 1;
+  transform: scaleX(1) !important;
+  opacity: 1 !important;
 }
 
 .navbar-content {

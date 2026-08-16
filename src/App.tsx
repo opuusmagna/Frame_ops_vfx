@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { WorkflowSection } from './components/WorkflowSection';
@@ -21,21 +21,42 @@ import './styles/responsive.css';
 export const App: React.FC = () => {
   const [activeView, setActiveView] = useState<'home' | 'about'>('home');
 
+  useEffect(() => {
+    // Initial hash routing check on page load
+    const hash = window.location.hash;
+    if (hash === '#about') {
+      setActiveView('about');
+    } else if (hash) {
+      setTimeout(() => {
+        const target = document.querySelector(hash);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
+  }, []);
+
   const handleNavigateHome = () => {
     setActiveView('home');
-    window.scrollTo(0, 0);
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
+    if (window.location.hash !== '#home') {
+      window.history.pushState(null, '', '#home');
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleNavigateAbout = () => {
     setActiveView('about');
-    window.scrollTo(0, 0);
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
+    if (window.location.hash !== '#about') {
+      window.history.pushState(null, '', '#about');
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleNavigateSection = (href: string) => {
+    if (window.location.hash !== href) {
+      window.history.pushState(null, '', href);
+    }
+
     if (activeView !== 'home') {
       setActiveView('home');
       setTimeout(() => {
@@ -43,7 +64,7 @@ export const App: React.FC = () => {
         if (target) {
           target.scrollIntoView({ behavior: 'smooth' });
         } else {
-          window.scrollTo(0, 0);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         }
       }, 80);
     } else {

@@ -22,7 +22,12 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPos = window.scrollY || document.documentElement.scrollTop || 0;
+      const scrollPos = 
+        window.scrollY || 
+        window.pageYOffset || 
+        document.documentElement.scrollTop || 
+        document.body.scrollTop || 
+        0;
       
       // Laser line & solid background activation on scroll
       setScrolled(scrollPos > 15);
@@ -63,11 +68,13 @@ export const Navbar: React.FC<NavbarProps> = ({
 
     handleScroll();
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('scroll', handleScroll, { passive: true, capture: true });
+    document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
     window.addEventListener('resize', handleScroll, { passive: true });
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleScroll);
     };
   }, [activeView]);
