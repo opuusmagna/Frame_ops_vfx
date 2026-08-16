@@ -1,0 +1,118 @@
+.commercial-models-section {
+  padding: 6rem 0;
+  position: relative;
+  background: var(--bg-dark-secondary, #080c14);
+}
+
+.models-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.model-card {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  background: rgba(12, 18, 30, 0.7);
+  border: 1px solid rgba(0, 180, 255, 0.15);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.model-card:hover {
+  border-color: rgba(0, 180, 255, 0.4);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 180, 255, 0.1);
+}
+
+.model-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
+.model-tag {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.75rem;
+  color: var(--accent-cyan, #00e5ff);
+  letter-spacing: 0.08em;
+}
+
+.model-icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 6px;
+  background: rgba(0, 180, 255, 0.1);
+  color: var(--accent-cyan, #00e5ff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(0, 180, 255, 0.2);
+}
+
+.model-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+}
+
+.model-description {
+  font-size: 0.925rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.model-features-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  flex-grow: 1;
+}
+
+.model-feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.4;
+}
+
+.feature-bullet {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent-cyan, #00e5ff);
+  margin-top: 0.45rem;
+  flex-shrink: 0;
+}
+
+.btn-model-action {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: transparent;
+  border: 1px solid var(--accent-cyan, #00e5ff);
+  color: var(--accent-cyan, #00e5ff);
+  font-family: var(--font-sans, sans-serif);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-model-action:hover {
+  background: var(--accent-cyan, #00e5ff);
+  color: #050811;
+  box-shadow: 0 0 15px rgba(0, 229, 255, 0.3);
+}

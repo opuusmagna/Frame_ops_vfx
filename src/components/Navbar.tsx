@@ -1,93 +1,40 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
-import { navigationConfig } from '../config/navigation';
+import { Menu, X, Globe } from 'lucide-react';
+import { useLanguage } from '../context/useLanguage';
+import type { Language } from '../context/LanguageContext';
 import './Navbar.css';
 
-interface NavbarProps {
-  activeView: 'home' | 'about';
-  onNavigateAbout: () => void;
-  onNavigateHome: () => void;
-  onNavigateSection: (href: string) => void;
-}
-
-export const Navbar: React.FC<NavbarProps> = ({ 
-  activeView, 
-  onNavigateAbout, 
-  onNavigateHome,
-  onNavigateSection 
-}) => {
+export const Navbar: React.FC = () => {
+  const { lang, t, switchLanguage, currentPath, navigatePath } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState<'HOME' | 'SERVICES' | 'SOLUTIONS' | 'CONTACT'>('HOME');
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPos = 
-        window.scrollY || 
-        window.pageYOffset || 
-        document.documentElement.scrollTop || 
-        document.body.scrollTop || 
-        0;
-      
-      // Laser line & solid background activation on scroll (UNTOUCHED)
+      const scrollPos = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
       setScrolled(scrollPos > 15);
-
-      // High-Precision Viewport Intersection ScrollSpy
-      if (activeView === 'home') {
-        const viewportCenter = window.innerHeight * 0.45;
-
-        const servicesEl = document.getElementById('services');
-        const solutionsEl = document.getElementById('solutions');
-        const contactEl = document.getElementById('contact');
-
-        const isVisible = (el: HTMLElement | null) => {
-          if (!el) return false;
-          const rect = el.getBoundingClientRect();
-          return rect.top <= viewportCenter && rect.bottom >= 120;
-        };
-
-        if (isVisible(contactEl)) {
-          setActiveSection('CONTACT');
-        } else if (isVisible(solutionsEl)) {
-          setActiveSection('SOLUTIONS');
-        } else if (isVisible(servicesEl)) {
-          setActiveSection('SERVICES');
-        } else {
-          setActiveSection('HOME');
-        }
-      }
     };
 
     handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-    window.addEventListener('scroll', handleScroll, { passive: true, capture: true });
-    document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
-    window.addEventListener('resize', handleScroll, { passive: true });
+  const navLinks = [
+    { key: 'home', label: t.nav.home, path: lang === 'en' ? '/en/' : '/es/' },
+    { key: 'services', label: t.nav.services, path: lang === 'en' ? '/en/services/' : '/es/servicios/' },
+    { key: 'about', label: t.nav.about, path: lang === 'en' ? '/en/about/' : '/es/nosotros/' },
+    { key: 'contact', label: t.nav.contact, path: lang === 'en' ? '/en/contact/' : '/es/contacto/' },
+  ];
 
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      document.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleScroll);
-    };
-  }, [activeView]);
-
-  const handleNavClick = (label: string, href: string) => {
+  const handleNavClick = (path: string) => {
     setMobileOpen(false);
+    navigatePath(path);
+  };
 
-    if (label === 'ABOUT') {
-      onNavigateAbout();
-      return;
-    }
-
-    if (label === 'HOME') {
-      setActiveSection('HOME');
-      onNavigateHome();
-      return;
-    }
-
-    // For SERVICES, SOLUTIONS, CONTACT
-    setActiveSection(label as any);
-    onNavigateSection(href);
+  const handleToggleLanguage = () => {
+    const nextLang: Language = lang === 'es' ? 'en' : 'es';
+    switchLanguage(nextLang);
   };
 
   return (
@@ -95,11 +42,11 @@ export const Navbar: React.FC<NavbarProps> = ({
       <div className="navbar-content">
         {/* Official Brand Logo */}
         <a 
-          href="#home" 
+          href={lang === 'en' ? '/en/' : '/es/'}
           className="brand-logo-container" 
           onClick={(e) => {
             e.preventDefault();
-            handleNavClick('HOME', '#home');
+            handleNavClick(lang === 'en' ? '/en/' : '/es/');
           }}
         >
           <img
@@ -107,27 +54,22 @@ export const Navbar: React.FC<NavbarProps> = ({
             alt="Frame Ops VFX Official Logo"
             className="brand-logo-img dark-mode-logo"
           />
+          <span className="brand-logo-text">FRAME OPS VFX</span>
         </a>
 
         {/* Desktop Nav Items */}
         <nav className="desktop-nav" aria-label="Main Navigation">
           <ul className="nav-items-list">
-            {navigationConfig.items.map((item) => {
-              let active = false;
-              if (item.label === 'ABOUT') {
-                active = activeView === 'about';
-              } else if (activeView === 'home') {
-                active = activeSection === item.label;
-              }
-
+            {navLinks.map((item) => {
+              const active = currentPath === item.path || (item.key === 'home' && (currentPath === '/es/' || currentPath === '/en/'));
               return (
-                <li key={item.label} className="nav-item">
+                <li key={item.key} className="nav-item">
                   <a
-                    href={item.href}
+                    href={item.path}
                     className={`nav-link-text ${active ? 'active' : ''}`}
                     onClick={(e) => {
                       e.preventDefault();
-                      handleNavClick(item.label, item.href);
+                      handleNavClick(item.path);
                     }}
                   >
                     {item.label}
@@ -139,14 +81,28 @@ export const Navbar: React.FC<NavbarProps> = ({
           </ul>
         </nav>
 
-        {/* Mobile Hamburger Toggle */}
-        <button
-          className="mobile-hamburger"
-          onClick={() => setMobileOpen((prev) => !prev)}
-          aria-label="Toggle Menu"
-        >
-          {mobileOpen ? <X size={28} /> : <Menu size={28} />}
-        </button>
+        {/* Language Selector & Actions */}
+        <div className="navbar-actions">
+          <button 
+            type="button"
+            className="lang-switcher-btn"
+            onClick={handleToggleLanguage}
+            title={lang === 'es' ? 'Switch to English' : 'Cambiar a Español'}
+            aria-label="Switch Language"
+          >
+            <Globe size={16} />
+            <span className="lang-code">{lang.toUpperCase()}</span>
+          </button>
+
+          {/* Mobile Hamburger Toggle */}
+          <button
+            className="mobile-hamburger"
+            onClick={() => setMobileOpen((prev) => !prev)}
+            aria-label="Toggle Menu"
+          >
+            {mobileOpen ? <X size={26} /> : <Menu size={26} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Drawer */}
@@ -161,22 +117,16 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
             
             <ul className="mobile-menu-list">
-              {navigationConfig.items.map((item) => {
-                let active = false;
-                if (item.label === 'ABOUT') {
-                  active = activeView === 'about';
-                } else if (activeView === 'home') {
-                  active = activeSection === item.label;
-                }
-
+              {navLinks.map((item) => {
+                const active = currentPath === item.path;
                 return (
-                  <li key={item.label}>
+                  <li key={item.key}>
                     <a
-                      href={item.href}
+                      href={item.path}
                       className={`mobile-link ${active ? 'active' : ''}`}
                       onClick={(e) => {
                         e.preventDefault();
-                        handleNavClick(item.label, item.href);
+                        handleNavClick(item.path);
                       }}
                     >
                       <span>{item.label}</span>
@@ -186,6 +136,13 @@ export const Navbar: React.FC<NavbarProps> = ({
                 );
               })}
             </ul>
+
+            <div className="mobile-lang-footer">
+              <button type="button" className="btn-mobile-lang" onClick={handleToggleLanguage}>
+                <Globe size={18} />
+                <span>{lang === 'es' ? 'English (EN)' : 'Español (ES)'}</span>
+              </button>
+            </div>
           </div>
         </div>
       )}

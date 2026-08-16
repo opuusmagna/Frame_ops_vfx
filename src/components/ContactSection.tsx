@@ -31,13 +31,22 @@ export const ContactSection: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.privacyAccepted) {
-      setErrorMessage('Please accept the privacy consent to submit.');
+      setErrorMessage('Por favor, acepta la cláusula de privacidad antes de enviar.');
       setStatus('error');
       return;
     }
 
     setStatus('submitting');
     setErrorMessage('');
+
+    // Hotfix A.1: Notificación profesional sin jerga interna cuando el backend no está disponible
+    if (!company.contactEndpoint || company.contactEndpoint === '/api/assessment') {
+      setTimeout(() => {
+        setErrorMessage('Formulario temporalmente no disponible para envíos automáticos. Por favor, realiza tu consulta directamente enviando un correo a info@frameopsvfx.com');
+        setStatus('error');
+      }, 300);
+      return;
+    }
 
     try {
       const response = await fetch(company.contactEndpoint, {
@@ -49,14 +58,12 @@ export const ContactSection: React.FC = () => {
       if (response.ok) {
         setStatus('success');
       } else {
-        setTimeout(() => {
-          setStatus('success');
-        }, 800);
+        setErrorMessage(`Error en la recepción (${response.status}). Por favor, escríbenos directamente a info@frameopsvfx.com`);
+        setStatus('error');
       }
     } catch {
-      setTimeout(() => {
-        setStatus('success');
-      }, 800);
+      setErrorMessage('Servidor no disponible. Por favor, escríbenos directamente a info@frameopsvfx.com');
+      setStatus('error');
     }
   };
 
@@ -260,7 +267,7 @@ export const ContactSection: React.FC = () => {
                   </div>
 
                   {status === 'error' && (
-                    <div className="form-error-msg">
+                    <div className="form-error-msg" role="alert" aria-live="polite">
                       <AlertCircle size={18} />
                       <span>{errorMessage}</span>
                     </div>
