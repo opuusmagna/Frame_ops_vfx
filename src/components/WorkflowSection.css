@@ -1,134 +1,82 @@
-/* Corporate WorkflowSection Styling */
-.art-workflow-section {
+.workflow-section {
+  padding: 6rem 0;
   position: relative;
-  padding: 8rem 0;
-  background-color: var(--bg-0);
-  overflow: hidden;
+  background: #070a10;
 }
 
-.workflow-bg-art {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-}
-
-.workflow-art-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.15;
-}
-
-.workflow-art-vignette {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, var(--bg-0) 0%, transparent 20%, transparent 80%, var(--bg-0) 100%);
-}
-
-.relative-z {
-  position: relative;
-  z-index: 1;
-}
-
-.art-workflow-layout {
+/* 4 Distinct horizontal workflow cards in desktop, 2 in tablet, 1 in mobile */
+.workflow-steps-grid {
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 5rem;
-  align-items: center;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.75rem;
+  margin-top: 3.5rem;
 }
 
-/* High Contrast Title */
-.art-workflow-title {
+.workflow-step-card {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
-  font-family: var(--font-heading);
-  font-size: clamp(2rem, 3.5vw, 3.25rem);
+  padding: 2.25rem 1.75rem;
+  background: rgba(12, 18, 30, 0.85);
+  border: 1px solid rgba(0, 102, 255, 0.2);
+  border-radius: 10px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.workflow-step-card:hover {
+  border-color: rgba(56, 189, 248, 0.5);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgba(0, 102, 255, 0.15);
+}
+
+.workflow-num {
+  font-family: var(--font-mono, monospace);
+  font-size: 1.5rem;
   font-weight: 800;
-  line-height: 1.12;
-  text-transform: uppercase;
-  margin-bottom: 1.75rem;
-}
-
-.workflow-title-line1 {
-  color: #ffffff !important;
-  text-shadow: 0 2px 14px rgba(255, 255, 255, 0.3);
-}
-
-.workflow-title-line2 {
-  color: var(--blue) !important;
-  background: linear-gradient(135deg, #0877ff 0%, #00f0ff 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 0 16px rgba(8, 119, 255, 0.6));
-}
-
-.art-workflow-divider {
+  color: #38bdf8;
+  background: rgba(0, 102, 255, 0.15);
+  border: 1px solid rgba(56, 189, 248, 0.3);
   width: 48px;
-  height: 2px;
-  background: var(--blue);
-  box-shadow: 0 0 10px var(--blue);
-  margin-bottom: 1.75rem;
-}
-
-.art-workflow-desc {
-  font-size: 1.125rem;
-  color: var(--text-silver);
-  line-height: 1.7;
-  max-width: 620px;
-}
-
-/* Feature Panels */
-.art-workflow-features {
+  height: 48px;
+  border-radius: 8px;
   display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.2);
 }
 
-.art-feature-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 1.25rem;
-  padding: 1.35rem 1.5rem;
-  background: var(--surface);
-  border: 1px solid var(--border-subtle);
-  border-left: 3px solid var(--blue);
-  border-radius: 4px;
-  backdrop-filter: blur(12px);
-  transition: all 0.3s ease;
-}
-
-.art-feature-item:hover {
-  background: var(--surface-hover);
-  border-color: var(--border-hover);
-  border-left-color: var(--blue-accent);
-  transform: translateX(6px);
-}
-
-.art-feature-icon {
-  color: var(--blue-accent);
-  margin-top: 0.15rem;
-  flex-shrink: 0;
-}
-
-.art-feature-item h4 {
+.workflow-step-title {
   font-family: var(--font-heading);
-  font-size: 1.05rem;
+  font-size: 1.25rem;
   font-weight: 700;
   color: #ffffff;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.35;
 }
 
-.art-feature-item p {
+.workflow-step-desc {
   font-size: 0.9rem;
-  color: var(--text-muted);
-  line-height: 1.5;
+  color: #94a3b8;
+  line-height: 1.6;
 }
 
-@media (max-width: 1024px) {
-  .art-workflow-layout {
+/* Tablet Responsive (<= 1200px) */
+@media (max-width: 1200px) {
+  .workflow-steps-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+/* Mobile Responsive (<= 640px) */
+@media (max-width: 640px) {
+  .workflow-steps-grid {
     grid-template-columns: 1fr;
-    gap: 3rem;
+    gap: 1.25rem;
+  }
+
+  .workflow-step-card {
+    padding: 1.75rem 1.25rem;
   }
 }
