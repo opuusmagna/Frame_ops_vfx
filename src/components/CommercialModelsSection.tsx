@@ -72,7 +72,7 @@ export const CommercialModelsSection: React.FC = () => {
                 <p className="model-description">{model.description}</p>
 
                 <ul className="model-features-list">
-                  {model.features.map((feat, idx) => (
+                  {model.features.map((feat: string, idx: number) => (
                     <li key={idx} className="model-feature-item">
                       <span className="feature-bullet" />
                       <span>{feat}</span>

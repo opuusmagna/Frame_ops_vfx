@@ -291,3 +291,6 @@ export const en = {
     terms: 'Terms of Service',
   },
 };
+
+export type TranslationKeys = typeof en;
+

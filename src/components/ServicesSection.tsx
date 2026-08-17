@@ -86,7 +86,7 @@ export const ServicesSection: React.FC = () => {
                 <p className="service-description">{pillar.description}</p>
 
                 <ul className="service-capabilities-list">
-                  {pillar.capabilities.map((cap, idx) => (
+                  {pillar.capabilities.map((cap: string, idx: number) => (
                     <li key={idx}>
                       <span className="cap-bullet" />
                       <span>{cap}</span>
