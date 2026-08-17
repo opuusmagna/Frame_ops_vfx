@@ -28,7 +28,9 @@ import './styles/responsive.css';
 const MainContent: React.FC = () => {
   const { currentPath, t, navigatePath, lang } = useLanguage();
 
-  const cleanPath = currentPath.endsWith('/') ? currentPath : `${currentPath}/`;
+  // Strip query params and hash for route matching
+  const routePath = currentPath.split('?')[0].split('#')[0];
+  const cleanPath = routePath.endsWith('/') ? routePath : `${routePath}/`;
 
   const isHome = cleanPath === '/es/' || cleanPath === '/en/' || cleanPath === '/';
   const isAbout = cleanPath === '/es/nosotros/' || cleanPath === '/en/about/';

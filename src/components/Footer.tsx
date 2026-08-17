@@ -59,7 +59,7 @@ export const Footer: React.FC = () => {
                 </button>
               </li>
               <li>
-                <button type="button" className="footer-nav-btn" onClick={() => navigatePath(isEs ? '/es/backup-disaster-recovery/' : '/en/backup-disaster-recovery/')}>
+                <button type="button" className="footer-nav-btn" onClick={() => navigatePath(isEs ? '/es/servicios/backup-disaster-recovery/' : '/en/services/backup-disaster-recovery/')}>
                   {isEs ? 'Backup & Recuperación' : 'Backup & Disaster Recovery'}
                 </button>
               </li>
