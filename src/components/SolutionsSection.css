@@ -1,105 +1,115 @@
-/* Corporate SolutionsSection Styling */
-.art-solutions-section {
+.solutions-section {
+  padding: 6rem 0;
   position: relative;
-  padding: 8rem 0;
-  background-color: var(--bg-0);
-  overflow: hidden;
+  background: #05070c;
 }
 
-.solutions-bg-media {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-}
-
-.solutions-bg-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.18;
-}
-
-.solutions-vignette {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, var(--bg-0) 0%, transparent 20%, transparent 80%, var(--bg-0) 100%);
-}
-
-.solutions-glass-grid {
+.solutions-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
+  margin-top: 3.5rem;
 }
 
-.solution-strip {
-  padding: 2.25rem 2rem;
+.solution-card {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  padding: 2.5rem 2rem;
+  background: rgba(12, 18, 30, 0.85);
+  border: 1px solid rgba(0, 102, 255, 0.2);
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
 }
 
-.strip-top {
+.solution-card:hover {
+  border-color: rgba(56, 189, 248, 0.5);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgba(0, 102, 255, 0.15);
+}
+
+.solution-card.highlight-solution {
+  background: rgba(12, 24, 45, 0.9);
+  border-color: rgba(56, 189, 248, 0.4);
+  box-shadow: 0 10px 30px rgba(0, 102, 255, 0.2);
+}
+
+.solution-icon-wrap {
+  width: 54px;
+  height: 54px;
+  border-radius: 10px;
+  background: rgba(0, 102, 255, 0.15);
+  color: #38bdf8;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1.25rem;
+  justify-content: center;
+  border: 1px solid rgba(0, 102, 255, 0.3);
+  margin-bottom: 1.5rem;
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.2);
 }
 
-.strip-tag {
-  font-family: var(--font-mono);
-  font-size: 0.725rem;
+.solution-card-title {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
-  color: var(--blue-accent);
-  background: rgba(0, 102, 255, 0.08);
-  border: 1px solid var(--border-strong);
-  padding: 0.25rem 0.65rem;
-  border-radius: 2px;
+  color: #ffffff;
+  margin-bottom: 0.85rem;
 }
 
-.strip-action {
-  color: var(--text-muted);
-  transition: transform 0.25s ease, color 0.25s ease;
-}
-
-.solution-strip:hover .strip-action {
-  color: var(--blue-accent);
-  transform: translate(3px, -3px);
-}
-
-.strip-title {
-  font-size: 1.35rem;
-  font-weight: 800;
-  color: var(--text-white);
-  margin-bottom: 0.75rem;
-}
-
-.strip-summary {
+.solution-card-desc {
   font-size: 0.95rem;
-  color: var(--text-muted);
+  color: #94a3b8;
   line-height: 1.6;
-  margin-bottom: 1.75rem;
+  margin-bottom: 2rem;
   flex-grow: 1;
 }
 
-.strip-highlights {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+.btn-corporate-secondary,
+.btn-corporate-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  padding: 0.85rem 1.5rem;
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 700;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.25s ease;
 }
 
-.strip-badge {
-  font-size: 0.75rem;
-  color: var(--text-silver);
-  background: rgba(18, 22, 32, 0.8);
-  border: 1px solid var(--border-subtle);
-  padding: 0.25rem 0.6rem;
-  border-radius: 2px;
+.btn-corporate-secondary {
+  background: transparent;
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  color: #38bdf8;
 }
 
-@media (max-width: 768px) {
-  .solutions-glass-grid {
+.btn-corporate-secondary:hover {
+  background: rgba(0, 102, 255, 0.2);
+  border-color: #38bdf8;
+  color: #ffffff;
+}
+
+.btn-corporate-primary {
+  background: #0066ff;
+  border: 1px solid #38bdf8;
+  color: #ffffff;
+  box-shadow: 0 0 20px rgba(0, 102, 255, 0.35);
+}
+
+.btn-corporate-primary:hover {
+  background: #1e75ff;
+  box-shadow: 0 0 28px rgba(56, 189, 248, 0.5);
+}
+
+@media (max-width: 900px) {
+  .solutions-grid {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .solution-card {
+    padding: 1.75rem 1.5rem;
   }
 }
