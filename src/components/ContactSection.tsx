@@ -128,18 +128,7 @@ export const ContactSection: React.FC = () => {
     setErrorMessage('');
 
     // Unified Endpoint Variable Name: VITE_CONTACT_FORM_ENDPOINT
-    const endpoint = import.meta.env.VITE_CONTACT_FORM_ENDPOINT;
-
-    if (!endpoint || endpoint.trim() === '') {
-      setStatus('error');
-      setErrorMessage(
-        isEs
-          ? 'El envío automatizado no está configurado actualmente en este entorno. Por favor, envíe su solicitud directamente a info@frameopsvfx.com. Sus datos introducidos se han conservado en el borrador.'
-          : 'Automated submission endpoint is unconfigured in this environment. Please send your request directly to info@frameopsvfx.com. Your entered data has been preserved in your draft.'
-      );
-      if (alertRef.current) alertRef.current.focus();
-      return;
-    }
+    const endpoint = import.meta.env.VITE_CONTACT_FORM_ENDPOINT || '/api/contact';
 
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 8000);
@@ -163,6 +152,7 @@ export const ContactSection: React.FC = () => {
 
       if (response.ok) {
         setStatus('success');
+        setFormData(initialFormState);
         try {
           sessionStorage.removeItem(DRAFT_STORAGE_KEY);
         } catch {

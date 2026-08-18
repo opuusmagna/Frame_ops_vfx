@@ -24,6 +24,11 @@ dist-ssr
 *.sw?
 
 # Evidence ZIP and scripts
+generate_r2_1_final_evidence.cjs
+package_r2_1_final.cjs
+verify_r2_1_final_integrity.cjs
+capturas_checkpoint_r2_1_final.zip
+capturas_checkpoint_r2_1_final.zip.sha256
 capturas_checkpoint_r2_1.zip
 capturas_checkpoint_r2_3.zip
 package_r2_3_zip.cjs
