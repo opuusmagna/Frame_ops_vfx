@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Send, CheckCircle, AlertCircle, TrendingUp, Clock, ShieldCheck, Lock } from 'lucide-react';
+import { Send, CheckCircle, AlertCircle, TrendingUp, Clock, ShieldCheck, Lock, Trash2 } from 'lucide-react';
 import { useLanguage } from '../context/useLanguage';
 import './ContactSection.css';
 
@@ -16,6 +16,21 @@ interface FormDataState {
   privacyAccepted: boolean;
 }
 
+const DRAFT_STORAGE_KEY = 'frameops_contact_draft_v2';
+
+const initialFormState: FormDataState = {
+  name: '',
+  company: '',
+  email: '',
+  phone: '',
+  requirementType: 'vfx-infrastructure',
+  issue: 'general',
+  workstations: '10-25',
+  timeline: 'immediate',
+  message: '',
+  privacyAccepted: false,
+};
+
 export const ContactSection: React.FC = () => {
   const { t, lang, navigatePath } = useLanguage();
   const c = t.contact;
@@ -23,17 +38,17 @@ export const ContactSection: React.FC = () => {
 
   const alertRef = useRef<HTMLDivElement>(null);
 
-  const [formData, setFormData] = useState<FormDataState>({
-    name: '',
-    company: '',
-    email: '',
-    phone: '',
-    requirementType: 'vfx-infrastructure',
-    issue: 'general',
-    workstations: '10-25',
-    timeline: 'immediate',
-    message: '',
-    privacyAccepted: false,
+  const [formData, setFormData] = useState<FormDataState>(() => {
+    try {
+      const savedDraft = sessionStorage.getItem(DRAFT_STORAGE_KEY);
+      if (savedDraft) {
+        const parsed = JSON.parse(savedDraft);
+        return { ...initialFormState, ...parsed, privacyAccepted: false };
+      }
+    } catch {
+      // Ignore storage errors
+    }
+    return initialFormState;
   });
 
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
@@ -57,12 +72,27 @@ export const ContactSection: React.FC = () => {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value, type } = e.target;
-    if (type === 'checkbox') {
-      const checked = (e.target as HTMLInputElement).checked;
-      setFormData((prev) => ({ ...prev, [name]: checked }));
-    } else {
-      setFormData((prev) => ({ ...prev, [name]: value }));
+    const updatedValue = type === 'checkbox' ? (e.target as HTMLInputElement).checked : value;
+
+    setFormData((prev) => {
+      const nextState = { ...prev, [name]: updatedValue };
+      try {
+        const { privacyAccepted: _privacy, ...draftToSave } = nextState;
+        sessionStorage.setItem(DRAFT_STORAGE_KEY, JSON.stringify(draftToSave));
+      } catch {
+        // Ignore storage write errors
+      }
+      return nextState;
+    });
+  };
+
+  const handleClearDraft = () => {
+    try {
+      sessionStorage.removeItem(DRAFT_STORAGE_KEY);
+    } catch {
+      // Ignore
     }
+    setFormData(initialFormState);
   };
 
   const validateEmail = (emailStr: string): boolean => {
@@ -97,22 +127,22 @@ export const ContactSection: React.FC = () => {
     setStatus('submitting');
     setErrorMessage('');
 
-    const endpoint = import.meta.env.VITE_CONTACT_ENDPOINT;
+    // Unified Endpoint Variable Name: VITE_CONTACT_FORM_ENDPOINT
+    const endpoint = import.meta.env.VITE_CONTACT_FORM_ENDPOINT;
 
-    // Rule: If endpoint is missing/unconfigured, handle gracefully without setTimeout mock success!
     if (!endpoint || endpoint.trim() === '') {
       setStatus('error');
       setErrorMessage(
         isEs
-          ? 'El envío automatizado no está configurado actualmente en este entorno. Por favor, envíe su solicitud directamente a info@frameopsvfx.com. Sus datos introducidos se han conservado en el formulario.'
-          : 'Automated submission endpoint is unconfigured in this environment. Please send your request directly to info@frameopsvfx.com. Your entered data has been preserved.'
+          ? 'El envío automatizado no está configurado actualmente en este entorno. Por favor, envíe su solicitud directamente a info@frameopsvfx.com. Sus datos introducidos se han conservado en el borrador.'
+          : 'Automated submission endpoint is unconfigured in this environment. Please send your request directly to info@frameopsvfx.com. Your entered data has been preserved in your draft.'
       );
       if (alertRef.current) alertRef.current.focus();
       return;
     }
 
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 8000); // 8s timeout
+    const timeoutId = setTimeout(() => controller.abort(), 8000);
 
     try {
       const response = await fetch(endpoint, {
@@ -131,9 +161,13 @@ export const ContactSection: React.FC = () => {
 
       clearTimeout(timeoutId);
 
-      // Strict Rule: Show success ONLY when response.ok === true!
       if (response.ok) {
         setStatus('success');
+        try {
+          sessionStorage.removeItem(DRAFT_STORAGE_KEY);
+        } catch {
+          // Ignore
+        }
       } else {
         const errorData = await response.json().catch(() => ({}));
         setStatus('error');
@@ -169,6 +203,9 @@ export const ContactSection: React.FC = () => {
     e.preventDefault();
     navigatePath(isEs ? '/es/privacidad/' : '/en/privacy/');
   };
+
+  const hasDraftContent =
+    formData.name || formData.company || formData.email || formData.phone || formData.message;
 
   return (
     <section id="contact" className="art-contact-section section-with-bg">
@@ -233,7 +270,20 @@ export const ContactSection: React.FC = () => {
           {/* Right Column: Assessment Form */}
           <div className="contact-form-col">
             <form onSubmit={handleSubmit} className="corp-panel assessment-form" noValidate>
-              <h3 className="form-heading">{c.formTitle}</h3>
+              <div className="form-heading-row">
+                <h3 className="form-heading">{c.formTitle}</h3>
+                {hasDraftContent && status !== 'success' && (
+                  <button
+                    type="button"
+                    className="btn-clear-draft"
+                    onClick={handleClearDraft}
+                    title={isEs ? 'Limpiar borrador guardado' : 'Clear saved draft'}
+                  >
+                    <Trash2 size={14} />
+                    <span>{isEs ? 'Limpiar borrador' : 'Clear draft'}</span>
+                  </button>
+                )}
+              </div>
 
               {status === 'success' ? (
                 <div className="form-success-box" role="alert" aria-live="polite">

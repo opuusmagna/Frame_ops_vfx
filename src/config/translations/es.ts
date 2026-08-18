@@ -35,7 +35,7 @@ export const es: TranslationKeys = {
       features: [
         'Inventario técnico y descubrimiento',
         'Análisis de cuellos de botella en SAN / NAS / Red',
-        'Business Impact Analysis (BIA)',
+        'Análisis de Impacto en el Negocio (BIA)',
         'Objetivos RPO y RTO definidos junto al cliente mediante análisis de impacto y posteriormente validados mediante pruebas de recuperación',
         'Plan de implantación y estimación de costes',
       ],

@@ -3,39 +3,6 @@ import { Calculator, ArrowRight, ShieldCheck, Info, CheckCircle2 } from 'lucide-
 import { useLanguage } from '../context/useLanguage';
 import './SpecConfiguratorSection.css';
 
-/**
- * MATHEMATICAL FORMULA DOCUMENTATION & REASONING (CHECKPOINT C.3)
- * -----------------------------------------------------------------------------
- * Previous Formula:
- * - Simple 2-variable matrix lookup: workstations (1-10, 10-25, 25-50, 50+) and resolution (2k, 4k, 8k).
- * - Output fixed single-line strings (e.g., "10GbE Network", "50TB Storage").
- *
- * New Formula (Range-Based Sizing Model):
- * 1. Base Active Storage Range:
- *    - Min Storage (TB) = BaseVolume * (1 + AnnualGrowthFactor)
- *    - Max Storage (TB) = BaseVolume * (1 + AnnualGrowthFactor) * 1.4 + (Seats * 2.5)
- * 2. Throughput & Scratch Estimation:
- *    - Estimated Read Throughput = (NukeSeats * 180MB/s) + (MayaSeats * 120MB/s) + (UnrealSeats * 450MB/s) + (HoudiniSeats * 150MB/s)
- *    - Estimated Scratch Cache Tier = (HoudiniSeats * 2TB NVMe) + (NukeSeats * 1TB NVMe) + BaseCache (2TB - 8TB range)
- * 3. Network Sizing Rule:
- *    - If Total Throughput > 2500 MB/s or Total Seats > 30 or Resolution == '8k-exr' or UnrealSeats > 5 => '100GbE Spine-Leaf Core Backbone'
- *    - If Total Throughput > 800 MB/s or Total Seats > 10 => '25GbE / 40GbE High-Throughput Switching'
- *    - Else => '10GbE / 25GbE Low-Latency Switching'
- * 4. Protection Level Rule:
- *    - Base Protection: '3-2-1-1 Immutable Strategy'
- *    - If Retention == 'lto-custody' => Adds 'Off-Site LTO Tape Archival Custody'
- *    - If Security == 'tpn-aligned' => Adds 'TPN / MPA Security Microsegmentation & ZTNA'
- *
- * Technical Rationale:
- * - Eliminates rigid purchasing recommendations and single-vendor SKU locks.
- * - Displays realistic capacity and bandwidth ranges tailored to multi-application pipelines.
- *
- * Test Cases:
- * - Case A (Small 2D/3D Studio): 8 seats (Nuke: 4, Maya: 4), 20TB, 4K EXR -> Range: 25TB - 45TB ZFS, 25GbE Network Class.
- * - Case B (Mid FX Studio): 20 seats (Houdini: 8, Nuke: 8, Maya: 4), 50TB, 4K EXR -> Range: 70TB - 120TB ZFS, 25/100GbE Core, 16TB - 32TB NVMe Scratch.
- * - Case C (Enterprise VP Studio): 60 seats (Unreal: 15, Houdini: 20, Nuke: 25), 150TB, 8K EXR -> Range: 220TB - 380TB ZFS, 100GbE Spine-Leaf, TPN Aligned ZTNA.
- */
-
 export const SpecConfiguratorSection: React.FC = () => {
   const { t, navigatePath, lang } = useLanguage();
   const c = t.calculator;
@@ -65,41 +32,24 @@ export const SpecConfiguratorSection: React.FC = () => {
   const minScratchNVMeTB = Math.max(2, Math.round(houdiniSeats * 1.5 + nukeSeats * 0.5));
   const maxScratchNVMeTB = Math.max(4, Math.round(houdiniSeats * 3.0 + nukeSeats * 1.0 + 4));
 
-  // Determine Network Range Class
-  let networkRangeClass = isEs
-    ? 'Clase 10GbE / 25GbE con switching de baja latencia'
-    : '10GbE / 25GbE Low-Latency Switching Class';
-  if (totalEstThroughputMBs > 2200 || totalSeats >= 30 || resolution === '8k-exr' || unrealSeats >= 5) {
-    networkRangeClass = isEs
-      ? 'Red troncal 100GbE Spine-Leaf de alta velocidad'
-      : '100GbE Spine-Leaf High-Throughput Core Backbone';
-  } else if (totalEstThroughputMBs > 800 || totalSeats >= 12) {
-    networkRangeClass = isEs
-      ? 'Conmutación 25GbE a puestos / Backbone 100GbE'
-      : '25GbE Workstation Access / 100GbE Core Array';
-  }
+  // Determine Network Range Class (Defensible & Conditioned formulation)
+  const networkRangeClass = isEs
+    ? 'Clase de red orientativa: 25–100GbE, sujeta a concurrencia, códecs, patrón de E/S, crecimiento y tolerancia a fallos.'
+    : 'Orientative network class: 25–100GbE, subject to concurrency, codecs, I/O patterns, growth, and fault tolerance.';
 
-  // Determine Protection Range Class
+  // Determine Protection Range Class (Defensible & Conditioned formulation)
   let protectionRangeClass = isEs
-    ? 'Estrategia 3-2-1-1 (Copia local inmutable + Réplica externa)'
-    : '3-2-1-1 Strategy (Immutable Local + Off-site Replication)';
-  if (retention === 'lto-custody') {
-    protectionRangeClass += isEs ? ' + Custodia en Cinta LTO' : ' + LTO Tape Custody';
-  }
+    ? 'Estrategia de respaldo 3-2-1-1 con controles orientados a la preparación técnica para evaluaciones TPN y alineación con MPA Content Security Best Practices.'
+    : '3-2-1-1 Data protection strategy with controls oriented toward technical TPN evaluation readiness and alignment with MPA Content Security Best Practices.';
 
-  if (securityLevel === 'tpn-aligned') {
-    protectionRangeClass += isEs ? ' (Alineado con TPN/MPA)' : ' (TPN/MPA Aligned)';
+  if (retention === 'lto-custody') {
+    protectionRangeClass += isEs ? ' Incluye custodia en cinta LTO.' : ' Includes LTO tape archive custody.';
   }
 
   // Render Capacity Range Class
-  let renderClass = isEs
-    ? 'Granja de renderizado híbrida CPU/GPU gestionada por Deadline'
-    : 'Deadline Managed CPU/GPU Hybrid Render Pool';
-  if (totalSeats > 25 || houdiniSeats >= 8) {
-    renderClass = isEs
-      ? 'Granja de alta densidad con colas de simulación priorizadas en Deadline'
-      : 'High-Density Render Cluster with Prioritized Deadline Sim Queues';
-  }
+  const renderClass = isEs
+    ? 'Gestión de renderizado orientativa mediante AWS Thinkbox Deadline en granja CPU/GPU híbrida.'
+    : 'Orientative CPU/GPU hybrid render farm orchestration via AWS Thinkbox Deadline.';
 
   const handleAuditRequest = () => {
     const contactPath = lang === 'en'
@@ -290,8 +240,8 @@ export const SpecConfiguratorSection: React.FC = () => {
                   </div>
                   <span className="result-card-sub">
                     {isEs
-                      ? `Contempla crecimiento del ${Math.round(annualGrowth * 100)}% y margen para ${totalSeats} puestos.`
-                      : `Includes ${Math.round(annualGrowth * 100)}% annual growth headroom for ${totalSeats} seats.`}
+                      ? `Supuestos: Crecimiento anual del ${Math.round(annualGrowth * 100)}% y margen operativo para ${totalSeats} puestos.`
+                      : `Assumptions: ${Math.round(annualGrowth * 100)}% annual growth headroom for ${totalSeats} seats.`}
                   </span>
                 </div>
 
@@ -303,8 +253,8 @@ export const SpecConfiguratorSection: React.FC = () => {
                   </div>
                   <span className="result-card-sub">
                     {isEs
-                      ? 'Espacio de alta resistencia para cachés temporales de simulación e imágenes.'
-                      : 'High-endurance scratch volume for simulation solves & EXR caching.'}
+                      ? 'Supuestos: Cachés temporales de simulación (Houdini) y secuencias EXR (Nuke).'
+                      : 'Assumptions: Scratch caching for Houdini simulations and Nuke EXR playout.'}
                   </span>
                 </div>
 
@@ -314,8 +264,8 @@ export const SpecConfiguratorSection: React.FC = () => {
                   <div className="result-card-value highlight-val">{networkRangeClass}</div>
                   <span className="result-card-sub">
                     {isEs
-                      ? `Ancho de banda estimado: ~${totalEstThroughputMBs} MB/s sostenidos.`
-                      : `Estimated peak bandwidth: ~${totalEstThroughputMBs} MB/s sustained.`}
+                      ? `Factores determinantes: Rendimiento de pico estimado ~${totalEstThroughputMBs} MB/s sostenidos.`
+                      : `Key factors: Estimated peak throughput ~${totalEstThroughputMBs} MB/s sustained.`}
                   </span>
                 </div>
 
