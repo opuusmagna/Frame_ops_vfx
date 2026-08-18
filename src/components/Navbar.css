@@ -70,18 +70,22 @@
 }
 
 .brand-logo-img {
-  width: 220px;
-  height: auto;
-  object-fit: contain;
-  opacity: 1;
-  filter: none;
+  height: 50px !important;
+  max-height: 50px !important;
+  width: auto !important;
+  max-width: 200px !important;
+  object-fit: contain !important;
+  opacity: 1 !important;
+  filter: none !important;
   transition: all 0.3s ease;
 }
 
 .master-navbar.scrolled .brand-logo-img {
-  width: 180px;
-  height: auto;
-  filter: none;
+  height: 42px !important;
+  max-height: 42px !important;
+  width: auto !important;
+  max-width: 160px !important;
+  filter: none !important;
 }
 
 
@@ -330,16 +334,18 @@
   }
 
   .brand-logo-img {
-    width: 160px;
-    height: auto;
-    max-width: 160px;
-    filter: none;
+    height: 40px !important;
+    max-height: 40px !important;
+    width: auto !important;
+    max-width: 150px !important;
+    filter: none !important;
   }
 
   .master-navbar.scrolled .brand-logo-img {
-    width: 140px;
-    height: auto;
-    max-width: 140px;
-    filter: none;
+    height: 36px !important;
+    max-height: 36px !important;
+    width: auto !important;
+    max-width: 130px !important;
+    filter: none !important;
   }
 }

@@ -59,7 +59,7 @@ export const SpecConfiguratorSection: React.FC = () => {
   };
 
   return (
-    <section id="calculator" className="spec-calculator-section section-with-bg">
+    <section id="calculator" data-testid="infrastructure-estimator" className="spec-calculator-section section-with-bg">
       <div className="container">
         <div className="section-header text-center">
           <span className="section-kicker">{c.kicker}</span>

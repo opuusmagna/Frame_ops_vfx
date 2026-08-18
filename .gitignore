@@ -25,11 +25,18 @@ dist-ssr
 
 # Evidence ZIP and scripts
 temp_verify_r2_4/
+temp_verify_r2_4_1/
 generate_r2_4_evidence.cjs
 package_r2_4.cjs
 verify_r2_4_evidence.cjs
 capturas_checkpoint_r2_4.zip
 capturas_checkpoint_r2_4.zip.sha256
+generate_r2_4_1_evidence.cjs
+package_r2_4_1.cjs
+verify_r2_4_1_evidence.cjs
+capturas_checkpoint_r2_4_1.zip
+capturas_checkpoint_r2_4_1.zip.sha256
+test_est.png
 generate_r2_1_final_evidence.cjs
 package_r2_1_final.cjs
 verify_r2_1_final_integrity.cjs
