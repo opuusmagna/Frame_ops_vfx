@@ -10,12 +10,12 @@ export const es: TranslationKeys = {
     language: 'IDIOMA',
   },
   hero: {
-    kicker: 'INGENIERÍA TI ESPECIALIZADA EN VFX & PRODUCCIÓN VIRTUAL',
-    title: 'Diseñamos y operamos la infraestructura tecnológica que sostiene tu estudio',
-    subtitle: 'Arquitecturas de red de alta velocidad, almacenamiento ZFS/NVMe de baja latencia, orquestación de render con Deadline y resiliencia comprobada para entornos de postproducción exigentes.',
-    reinforcement: 'Menos tiempos de espera. Producciones protegidas. Infraestructura lista para escalar.',
-    ctaPrimary: 'SOLICITAR AUDITORÍA TÉCNICA',
-    ctaSecondary: 'EXPLORAR ARQUITECTURAS',
+    kicker: 'INGENIERÍA TECNOLÓGICA ESPECIALIZADA EN VFX',
+    title: 'Infraestructura tecnológica para estudios VFX que no pueden parar',
+    subtitle: 'Diseñamos, implantamos y operamos redes de alto rendimiento, almacenamiento, render farms, backup, recuperación ante desastres y ciberseguridad para pipelines VFX exigentes.',
+    reinforcement: 'Menos tiempos de espera. Producciones protegidas. Infraestructura preparada para crecer.',
+    ctaPrimary: 'SOLICITAR DIAGNÓSTICO TÉCNICO',
+    ctaSecondary: 'EXPLORAR SOLUCIONES',
     tagline: 'TECNOLOGÍA DETRÁS DEL FOTOGRAMA',
     ticker: {
       t1: 'Conmutación 10/25/40/100GbE',
@@ -31,7 +31,7 @@ export const es: TranslationKeys = {
     assess: {
       tag: '01 / DIAGNÓSTICO Y PLANO TÉCNICO',
       title: 'Diagnóstico',
-      description: 'Análisis de cuellos de botella en almacenamiento, red, render farm y evaluación del Business Impact Analysis (BIA).',
+      description: 'Análisis de cuellos de botella en almacenamiento, red, render farm y evaluación del Análisis de Impacto en el Negocio (BIA).',
       features: [
         'Inventario técnico y descubrimiento',
         'Análisis de cuellos de botella en SAN / NAS / Red',
@@ -225,7 +225,7 @@ export const es: TranslationKeys = {
     subtitle: 'Diseñamos e implantamos estrategias de backup y recuperación ante desastres dimensionadas según el volumen, velocidad y criticidad de tu pipeline VFX.',
     scopeTitle: 'Proceso de diseño e implantación de resiliencia',
     step1: 'Descubrimiento e inventario de datos y servicios críticos.',
-    step2: 'Business Impact Analysis (BIA) para evaluar el coste operativo de las paradas.',
+    step2: 'Análisis de Impacto en el Negocio (BIA) para evaluar el coste operativo de las paradas.',
     step3: 'Objetivos RPO y RTO definidos junto al cliente mediante análisis de impacto y posteriormente validados mediante pruebas de recuperación.',
     step4: 'Implantación de la estrategia de respaldo 3-2-1-1.',
     strategyTitle: 'Estrategia de respaldo 3-2-1-1 para VFX',
