@@ -97,7 +97,7 @@ export const WorkloadIntelligenceSection: React.FC = () => {
       overview: isEs
         ? 'Los volúmenes LED de producción virtual requieren renderizado GPU multinodo sincronizado mediante nDisplay. La latencia de red debe controlarse para evitar parpadeos o desincronizaciones en la pared LED.'
         : 'Virtual production LED volumes require multi-node GPU rendering synced via Epic nDisplay. Network latency must remain ultra-low to prevent frame tearing on the LED wall. Precision Time Protocol (PTP IEEE 1588) syncs camera shutters with render node GPUs.',
-      networkSpec: isEs ? 'Conmutación Spine-Leaf con sincronización de reloj por hardware PTP IEEE 1588' : '100GbE Spine-Leaf with PTP IEEE 1588 Hardware Clock Sync',
+      networkSpec: isEs ? 'Conmutación de red troncal con sincronización de reloj por hardware PTP IEEE 1588' : '100GbE Spine-Leaf with PTP IEEE 1588 Hardware Clock Sync',
       storageSpec: isEs ? 'Pool NVMe Tier-0 para transmisión rápida de assets en directo' : 'Tier-0 NVMe Fast Live Asset Streaming Pool',
       computeSpec: isEs ? 'Clusters nDisplay multi-GPU por nodo de renderizado' : 'Multi-GPU nDisplay Clusters per Render Node',
       securitySpec: isEs ? 'Red de volumen de producción cerrada bajo arquitectura Zero-Trust' : 'Zero-Trust Closed Production Volume Network',

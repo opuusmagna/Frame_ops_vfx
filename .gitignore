@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Evidence ZIP and scripts
+capturas_checkpoint_r2_1.zip
+capturas_checkpoint_r2_3.zip
+package_r2_3_zip.cjs
+verify_r2_3_integrity.cjs
+

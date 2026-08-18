@@ -21,28 +21,28 @@ export const ArchitectureFlowSection: React.FC = () => {
       icon: Network,
       title: isEs ? 'Red 10/25/40/100GbE' : '10/25/40/100GbE Network',
       desc: isEs ? 'Troncal de conmutación de baja latencia' : 'Low-latency core switching backbone',
-      badge: 'Spine-Leaf',
+      badge: isEs ? 'RED TRONCAL' : 'Spine-Leaf',
     },
     {
       id: 'storage',
       icon: HardDrive,
       title: isEs ? 'Almacenamiento ZFS / NVMe' : 'ZFS & NVMe Storage',
       desc: isEs ? 'Pools por capas Tier-0 / SAN / NAS' : 'Layered Tier-0 NVMe & ZFS Pools',
-      badge: 'High IOPS',
+      badge: isEs ? 'ALTO RENDIMIENTO DE E/S' : 'High IOPS',
     },
     {
       id: 'render',
       icon: Cpu,
       title: isEs ? 'Granja Deadline' : 'Deadline Render Farm',
       desc: isEs ? 'Orquestación de nodos CPU / GPU' : 'AWS Thinkbox Deadline CPU/GPU Cluster',
-      badge: 'Orchestration',
+      badge: isEs ? 'ORQUESTACIÓN' : 'Orchestration',
     },
     {
       id: 'protection',
       icon: ShieldCheck,
       title: isEs ? 'Protección 3-2-1-1' : '3-2-1-1 Protection',
       desc: isEs ? 'Copia inmutable, LTO y réplica nube' : 'Immutable Local, LTO Tape & Cloud DR',
-      badge: 'Resilience',
+      badge: isEs ? 'RESILIENCIA' : 'Resilience',
     },
   ];
 

@@ -29,7 +29,6 @@ export const Footer: React.FC = () => {
               />
               <span className="footer-brand-title">FRAME OPS VFX</span>
             </div>
-            <p className="footer-slogan">TECHNOLOGY BEHIND THE FRAME</p>
             <p className="footer-tagline">{f.tagline}</p>
             <div className="footer-tpn-badge">
               <ShieldCheck size={14} className="tpn-icon" />
@@ -83,8 +82,8 @@ export const Footer: React.FC = () => {
                 </button>
               </li>
               <li>
-                <a href="mailto:info@frameops.vfx" className="footer-email-link">
-                  <Mail size={14} /> info@frameops.vfx
+                <a href="mailto:info@frameopsvfx.com" className="footer-email-link">
+                  <Mail size={14} /> info@frameopsvfx.com
                 </a>
               </li>
             </ul>

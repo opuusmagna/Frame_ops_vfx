@@ -204,8 +204,8 @@ export const SpecConfiguratorSection: React.FC = () => {
                     onChange={(e) => setRetention(e.target.value)}
                     className="calc-select-input"
                   >
-                    <option value="30-days">30 {isEs ? 'días' : 'days'} (Local Immutable)</option>
-                    <option value="90-days">90 {isEs ? 'días' : 'days'} (Cloud Replication)</option>
+                    <option value="30-days">30 {isEs ? 'días' : 'days'} ({isEs ? 'Inmutable local' : 'Local Immutable'})</option>
+                    <option value="90-days">90 {isEs ? 'días' : 'days'} ({isEs ? 'Replicación en la nube' : 'Cloud Replication'})</option>
                     <option value="lto-custody">{isEs ? 'Custodia LTO / Proyecto' : 'LTO Tape Custody'}</option>
                   </select>
                 </div>
@@ -218,7 +218,7 @@ export const SpecConfiguratorSection: React.FC = () => {
                     className="calc-select-input"
                   >
                     <option value="standard">{isEs ? 'Estándar B2B' : 'Standard B2B'}</option>
-                    <option value="tpn-aligned">{isEs ? 'Alineado TPN / MPA' : 'TPN / MPA Aligned'}</option>
+                    <option value="tpn-aligned">{isEs ? 'Preparación TPN / MPA' : 'TPN / MPA Readiness'}</option>
                   </select>
                 </div>
               </div>
