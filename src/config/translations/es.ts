@@ -34,7 +34,7 @@ export const es: TranslationKeys = {
   },
   hero: {
     kicker: 'INGENIERÍA TECNOLÓGICA ESPECIALIZADA EN VFX',
-    title: 'Infraestructura tecnológica para estudios VFX que no pueden parar',
+    title: 'Infraestructura tecnológica de alta disponibilidad para entornos de VFX y Postproducción',
     subtitle: 'Diseñamos, implantamos y operamos redes de alto rendimiento, almacenamiento, render farms, backup, recuperación ante desastres y ciberseguridad para pipelines VFX exigentes.',
     reinforcement: 'Menos tiempos de espera. Producciones protegidas. Infraestructura preparada para crecer.',
     ctaPrimary: 'SOLICITAR DIAGNÓSTICO TÉCNICO',

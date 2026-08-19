@@ -32,7 +32,7 @@ export const en = {
   },
   hero: {
     kicker: 'TECHNOLOGY ENGINEERING FOR VFX STUDIOS',
-    title: 'Technology infrastructure for VFX studios that cannot stop',
+    title: 'High-availability technology infrastructure for mission-critical VFX & Post-Production',
     subtitle: 'We design, deploy and operate high-performance networks, storage, render farms, backup, disaster recovery and cybersecurity for demanding VFX pipelines.',
     reinforcement: 'Less waiting. Protected productions. Infrastructure ready to scale.',
     ctaPrimary: 'REQUEST A TECHNICAL ASSESSMENT',
