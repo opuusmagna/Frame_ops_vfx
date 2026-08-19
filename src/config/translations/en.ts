@@ -171,7 +171,7 @@ export const en = {
     tabs: {
       nuke: 'Foundry Nuke (Compositing)',
       houdini: 'SideFX Houdini (Simulations)',
-      maya: 'Autodesk Maya / Arnold (3D)',
+      maya: 'Autodesk Maya (3D)',
       deadline: 'AWS Thinkbox Deadline (Render)',
       unreal: 'Unreal Engine (ICVFX / VP)',
     },
@@ -189,7 +189,7 @@ export const en = {
     tabs: {
       nuke: 'Foundry Nuke 2D Playout',
       houdini: 'Houdini Heavy FX & Sims',
-      maya: 'Maya / Arnold / V-Ray 3D',
+      maya: 'Autodesk Maya 3D',
       unreal: 'Unreal Engine VP (ICVFX)',
     },
     netLabel: 'Network Architecture',

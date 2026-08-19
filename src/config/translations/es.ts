@@ -173,7 +173,7 @@ export const es: TranslationKeys = {
     tabs: {
       nuke: 'Foundry Nuke (Composición)',
       houdini: 'SideFX Houdini (Simulaciones)',
-      maya: 'Autodesk Maya / Arnold (3D)',
+      maya: 'Autodesk Maya (3D)',
       deadline: 'AWS Thinkbox Deadline (Render)',
       unreal: 'Unreal Engine (ICVFX / VP)',
     },
@@ -191,7 +191,7 @@ export const es: TranslationKeys = {
     tabs: {
       nuke: 'Foundry Nuke 2D Playout',
       houdini: 'Houdini FX y Simulaciones',
-      maya: 'Maya / Arnold / V-Ray 3D',
+      maya: 'Autodesk Maya 3D',
       unreal: 'Unreal Engine VP (ICVFX)',
     },
     netLabel: 'Arquitectura de Red',
