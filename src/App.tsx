@@ -26,6 +26,7 @@ import { StorageDataSystemsPage } from './pages/StorageDataSystemsPage';
 import { SolutionsOverviewPage } from './pages/SolutionsOverviewPage';
 import { MidTierSolutionsPage } from './pages/MidTierSolutionsPage';
 import { EnterpriseSolutionsPage } from './pages/EnterpriseSolutionsPage';
+import { VisualCustomizer } from './components/VisualCustomizer';
 
 import './styles/global.css';
 import './styles/effects.css';
@@ -137,6 +138,7 @@ const MainContent: React.FC = () => {
       </main>
 
       <Footer />
+      <VisualCustomizer />
     </div>
   );
 };
