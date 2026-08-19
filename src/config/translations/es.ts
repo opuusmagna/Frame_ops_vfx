@@ -216,7 +216,7 @@ export const es: TranslationKeys = {
     kicker: 'SOLUCIONES POR TAMAÑO DE ESTUDIO',
     title: 'Arquitecturas tecnológicas escalables',
     small: {
-      title: 'Estudios Boutique y Medianos (10 - 30 puestos)',
+      title: 'Estudios Especializados y Medianos (10 - 30 puestos)',
       desc: 'Infraestructura optimizada con almacenamiento centralizado ZFS, conmutación 10/25GbE y copias de seguridad inmutables.',
     },
     enterprise: {

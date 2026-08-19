@@ -214,7 +214,7 @@ export const en = {
     kicker: 'STUDIO TIER SOLUTIONS',
     title: 'Scalable Technology Architectures',
     small: {
-      title: 'Boutique & Mid Studio (10 - 30 workstations)',
+      title: 'Specialized & Mid-Size Studios (10 - 30 workstations)',
       desc: 'Streamlined infrastructure featuring centralized ZFS storage, 10/25GbE switching, and immutable backups.',
     },
     enterprise: {
