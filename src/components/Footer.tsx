@@ -65,7 +65,7 @@ export const Footer: React.FC = () => {
           </div>
 
           {/* Navigation Column */}
-          <div className="footer-col">
+          <div className="footer-col footer-col-nav">
             <h4 className="footer-col-title">{isEs ? 'Navegación' : 'Navigation'}</h4>
             <ul className="footer-links">
               <li>
@@ -97,7 +97,7 @@ export const Footer: React.FC = () => {
           </div>
 
           {/* Services Column */}
-          <div className="footer-col">
+          <div className="footer-col footer-col-specialties">
             <h4 className="footer-col-title">{isEs ? 'Especialidades' : 'Specialties'}</h4>
             <ul className="footer-links">
               <li>
@@ -124,7 +124,7 @@ export const Footer: React.FC = () => {
           </div>
 
           {/* Legal & Language Column */}
-          <div className="footer-col">
+          <div className="footer-col footer-col-legal">
             <h4 className="footer-col-title">{isEs ? 'Legal e Idioma' : 'Legal & Language'}</h4>
             <ul className="footer-links">
               <li>

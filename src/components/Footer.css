@@ -238,16 +238,17 @@
   }
 
   .footer-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.75rem;
     padding-bottom: 2rem;
   }
 
   .footer-col-brand {
-    grid-column: 1 / -1;
     align-items: center;
     text-align: center;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
   }
 
   .footer-logo-row {
@@ -261,20 +262,21 @@
     max-height: 52px;
   }
 
-  .footer-col {
-    align-items: flex-start;
+  /* Hide Navegación and Especialidades columns on mobile */
+  .footer-col-nav,
+  .footer-col-specialties {
+    display: none !important;
   }
 
-  .footer-col:last-child {
-    grid-column: 1 / -1;
+  .footer-col-legal {
     align-items: center;
     text-align: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    padding-top: 1.25rem;
-    margin-top: 0.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 1.5rem;
+    width: 100%;
   }
 
-  .footer-col:last-child .footer-links {
+  .footer-col-legal .footer-links {
     align-items: center;
   }
 
