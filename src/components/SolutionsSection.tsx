@@ -7,11 +7,6 @@ export const SolutionsSection: React.FC = () => {
   const { t, navigatePath, lang } = useLanguage();
   const s = t.solutions;
 
-  const handleCtaClick = (tier: string) => {
-    const contactPath = lang === 'en' ? `/en/contact/?service=${tier}` : `/es/contacto/?service=${tier}`;
-    navigatePath(contactPath);
-  };
-
   return (
     <section id="solutions" className="solutions-section section-with-bg">
       <div className="container">
@@ -25,7 +20,11 @@ export const SolutionsSection: React.FC = () => {
             <div className="solution-icon-wrap"><Server size={28} /></div>
             <h3 className="solution-card-title">{s.small.title}</h3>
             <p className="solution-card-desc">{s.small.desc}</p>
-            <button type="button" className="btn-corporate-secondary" onClick={() => handleCtaClick('vfx-infrastructure')}>
+            <button
+              type="button"
+              className="btn-corporate-secondary"
+              onClick={() => navigatePath(lang === 'en' ? '/en/solutions-mid-tier/' : '/es/soluciones-mid-tier/')}
+            >
               <span>{t.hero.ctaPrimary}</span>
               <ArrowRight size={16} />
             </button>
@@ -35,7 +34,11 @@ export const SolutionsSection: React.FC = () => {
             <div className="solution-icon-wrap"><Building2 size={28} /></div>
             <h3 className="solution-card-title">{s.enterprise.title}</h3>
             <p className="solution-card-desc">{s.enterprise.desc}</p>
-            <button type="button" className="btn-corporate-primary" onClick={() => handleCtaClick('vfx-infrastructure')}>
+            <button
+              type="button"
+              className="btn-corporate-primary"
+              onClick={() => navigatePath(lang === 'en' ? '/en/solutions-enterprise/' : '/es/soluciones-enterprise/')}
+            >
               <span>{t.hero.ctaPrimary}</span>
               <ArrowRight size={16} />
             </button>

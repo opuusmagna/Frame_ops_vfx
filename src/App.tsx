@@ -23,6 +23,9 @@ import { SecurityZeroTrustPage } from './pages/SecurityZeroTrustPage';
 import { VfxOrchestrationPage } from './pages/VfxOrchestrationPage';
 import { HighPerformanceNetworkingPage } from './pages/HighPerformanceNetworkingPage';
 import { StorageDataSystemsPage } from './pages/StorageDataSystemsPage';
+import { SolutionsOverviewPage } from './pages/SolutionsOverviewPage';
+import { MidTierSolutionsPage } from './pages/MidTierSolutionsPage';
+import { EnterpriseSolutionsPage } from './pages/EnterpriseSolutionsPage';
 
 import './styles/global.css';
 import './styles/effects.css';
@@ -56,11 +59,14 @@ const MainContent: React.FC = () => {
     cleanPath === '/en/storage-data-systems/' ||
     cleanPath === '/es/servicios/almacenamiento-datos/' || 
     cleanPath === '/en/services/storage-data-systems/';
+  const isSolutions = cleanPath === '/es/soluciones/' || cleanPath === '/en/solutions/';
+  const isSolutionsMidTier = cleanPath === '/es/soluciones-mid-tier/' || cleanPath === '/en/solutions-mid-tier/';
+  const isSolutionsEnterprise = cleanPath === '/es/soluciones-enterprise/' || cleanPath === '/en/solutions-enterprise/';
   const isContact = cleanPath === '/es/contacto/' || cleanPath === '/en/contact/';
   const isPrivacy = cleanPath === '/es/privacidad/' || cleanPath === '/en/privacy/';
   const isTerms = cleanPath === '/es/terminos/' || cleanPath === '/en/terms/';
 
-  const isKnownRoute = isHome || isAbout || isServices || isBackupDR || isManagedServices || isSecurity || isOrchestration || isNetworking || isStorage || isContact || isPrivacy || isTerms;
+  const isKnownRoute = isHome || isAbout || isServices || isBackupDR || isManagedServices || isSecurity || isOrchestration || isNetworking || isStorage || isSolutions || isSolutionsMidTier || isSolutionsEnterprise || isContact || isPrivacy || isTerms;
 
   return (
     <div className="app-main">
@@ -99,6 +105,12 @@ const MainContent: React.FC = () => {
           <HighPerformanceNetworkingPage />
         ) : isStorage ? (
           <StorageDataSystemsPage />
+        ) : isSolutions ? (
+          <SolutionsOverviewPage />
+        ) : isSolutionsMidTier ? (
+          <MidTierSolutionsPage />
+        ) : isSolutionsEnterprise ? (
+          <EnterpriseSolutionsPage />
         ) : isContact ? (
           <div style={{ paddingTop: '5rem' }}>
             <ContactSection />

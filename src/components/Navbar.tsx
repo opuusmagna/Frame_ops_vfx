@@ -37,7 +37,7 @@ export const Navbar: React.FC = () => {
   const navLinks = [
     { key: 'home', label: t.nav.home, path: isEs ? '/es/' : '/en/' },
     { key: 'services', label: t.nav.services, path: isEs ? '/es/servicios/' : '/en/services/', hasDropdown: true, dropdownType: 'services' },
-    { key: 'solutions', label: t.nav.solutions || (isEs ? 'SOLUCIONES' : 'SOLUTIONS'), path: isEs ? '/es/#solutions' : '/en/#solutions', hasDropdown: true, dropdownType: 'solutions' },
+    { key: 'solutions', label: t.nav.solutions || (isEs ? 'SOLUCIONES' : 'SOLUTIONS'), path: isEs ? '/es/soluciones/' : '/en/solutions/', hasDropdown: true, dropdownType: 'solutions' },
     { key: 'about', label: t.nav.about, path: isEs ? '/es/nosotros/' : '/en/about/' },
     { key: 'contact', label: t.nav.contact, path: isEs ? '/es/contacto/' : '/en/contact/' },
   ];
@@ -91,22 +91,19 @@ export const Navbar: React.FC = () => {
     {
       key: 'overview',
       title: t.nav.solutionsDropdown?.overviewTitle || (isEs ? 'Modelos de Arquitectura' : 'Architecture Models'),
-      path: isEs ? '/es/#solutions' : '/en/#solutions',
-      target: 'solutions',
+      path: isEs ? '/es/soluciones/' : '/en/solutions/',
       icon: Layers,
     },
     {
       key: 'midTier',
-      title: t.nav.solutionsDropdown?.midTierTitle || (isEs ? 'Estudios Especializados (10-30 puestos)' : 'Specialized Studios (10-30 seats)'),
-      path: isEs ? '/es/#solutions' : '/en/#solutions',
-      target: 'solutions-mid-tier',
+      title: t.nav.solutionsDropdown?.midTierTitle || (isEs ? 'Infraestructura Mid-Tier' : 'Mid-Tier Infrastructure'),
+      path: isEs ? '/es/soluciones-mid-tier/' : '/en/solutions-mid-tier/',
       icon: Cpu,
     },
     {
       key: 'enterprise',
-      title: t.nav.solutionsDropdown?.enterpriseTitle || (isEs ? 'Estudios Enterprise (30+ puestos)' : 'Enterprise Studios (30+ seats)'),
-      path: isEs ? '/es/#solutions' : '/en/#solutions',
-      target: 'solutions-enterprise',
+      title: t.nav.solutionsDropdown?.enterpriseTitle || (isEs ? 'Infraestructura Enterprise' : 'Enterprise Infrastructure'),
+      path: isEs ? '/es/soluciones-enterprise/' : '/en/solutions-enterprise/',
       icon: ShieldCheck,
     },
   ];
@@ -135,38 +132,6 @@ export const Navbar: React.FC = () => {
     setMobileOpen(false);
     setActiveDropdownKey(null);
     navigatePath(path);
-  };
-
-  const scrollToTarget = (targetId: string) => {
-    const el = document.getElementById(targetId) || document.getElementById('solutions');
-    if (el) {
-      const navOffset = 90;
-      const elementPosition = el.getBoundingClientRect().top + window.scrollY;
-      const offsetPosition = elementPosition - navOffset;
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-    }
-  };
-
-  const handleSolutionNavClick = (targetId: string) => {
-    if (leaveTimeoutRef.current) clearTimeout(leaveTimeoutRef.current);
-    setMobileOpen(false);
-    setActiveDropdownKey(null);
-    const routePath = currentPath.split('?')[0].split('#')[0];
-    const cleanPath = routePath.endsWith('/') ? routePath : `${routePath}/`;
-    const isHome = cleanPath === '/es/' || cleanPath === '/en/' || cleanPath === '/';
-
-    if (isHome) {
-      scrollToTarget(targetId);
-    } else {
-      const homePath = isEs ? '/es/' : '/en/';
-      navigatePath(homePath);
-      setTimeout(() => {
-        scrollToTarget(targetId);
-      }, 200);
-    }
   };
 
   const handleToggleLanguage = () => {
@@ -219,11 +184,7 @@ export const Navbar: React.FC = () => {
                       className={`nav-link-text ${active ? 'active' : ''}`}
                       onClick={(e) => {
                         e.preventDefault();
-                        if (isServicesDropdown) {
-                          handleNavClick(item.path);
-                        } else {
-                          handleSolutionNavClick('solutions');
-                        }
+                        handleNavClick(item.path);
                       }}
                     >
                       <span>{item.label}</span>
@@ -244,11 +205,7 @@ export const Navbar: React.FC = () => {
                               className={`dropdown-sub-item ${isSubActive ? 'sub-active' : ''}`}
                               onClick={(e) => {
                                 e.preventDefault();
-                                if (isServicesDropdown) {
-                                  handleNavClick(sub.path);
-                                } else {
-                                  handleSolutionNavClick(sub.target);
-                                }
+                                handleNavClick(sub.path);
                               }}
                             >
                               <div className="sub-icon-box">
@@ -293,9 +250,8 @@ export const Navbar: React.FC = () => {
             className="lang-switcher-btn"
             onClick={handleToggleLanguage}
             title={isEs ? 'Switch to English' : 'Cambiar a Español'}
-            aria-label="Switch Language"
           >
-            <Globe size={16} />
+            <Globe size={16} className="lang-icon" />
             <span className="lang-code">{lang.toUpperCase()}</span>
           </button>
 
@@ -350,11 +306,7 @@ export const Navbar: React.FC = () => {
                               className={`mobile-sub-link ${currentPath === sub.path ? 'active' : ''}`}
                               onClick={(e) => {
                                 e.preventDefault();
-                                if (isServices) {
-                                  handleNavClick(sub.path);
-                                } else {
-                                  handleSolutionNavClick(sub.target);
-                                }
+                                handleNavClick(sub.path);
                               }}
                             >
                               <span>{sub.title}</span>
