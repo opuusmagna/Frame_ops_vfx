@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Globe, ChevronDown, Layers, Cpu, ShieldCheck } from 'lucide-react';
+import { Menu, X, Globe, ChevronDown, Layers, Cpu, ShieldCheck, Lock, Workflow } from 'lucide-react';
 import { useLanguage } from '../context/useLanguage';
 import type { Language } from '../context/LanguageContext';
 import './Navbar.css';
@@ -55,6 +55,18 @@ export const Navbar: React.FC = () => {
       title: t.nav.navDropdown?.backupDrTitle || (lang === 'en' ? 'Backup & Disaster Recovery' : 'Backup & Recuperación DR'),
       path: lang === 'en' ? '/en/backup-disaster-recovery/' : '/es/backup-disaster-recovery/',
       icon: ShieldCheck,
+    },
+    {
+      key: 'zeroTrust',
+      title: t.nav.navDropdown?.zeroTrustTitle || (lang === 'en' ? 'Zero Trust Security' : 'Seguridad Zero Trust'),
+      path: lang === 'en' ? '/en/zero-trust-security/' : '/es/ciberseguridad-zero-trust/',
+      icon: Lock,
+    },
+    {
+      key: 'orchestration',
+      title: t.nav.navDropdown?.orchestrationTitle || (lang === 'en' ? 'VFX Pipeline Orchestration' : 'Orquestación VFX'),
+      path: lang === 'en' ? '/en/vfx-orchestration/' : '/es/orquestacion-vfx/',
+      icon: Workflow,
     },
   ];
 

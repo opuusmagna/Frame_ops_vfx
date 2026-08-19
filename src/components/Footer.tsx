@@ -56,8 +56,16 @@ export const Footer: React.FC = () => {
                   {isEs ? 'Backup & Recuperación' : 'Backup & Disaster Recovery'}
                 </button>
               </li>
-              <li><a href="#security">{isEs ? 'Seguridad Zero Trust' : 'Zero Trust Security'}</a></li>
-              <li><a href="#workflow">{isEs ? 'Orquestación VFX' : 'VFX Pipeline'}</a></li>
+              <li>
+                <button type="button" className="footer-nav-btn" onClick={() => navigatePath(isEs ? '/es/ciberseguridad-zero-trust/' : '/en/zero-trust-security/')}>
+                  {isEs ? 'Seguridad Zero Trust' : 'Zero Trust Security'}
+                </button>
+              </li>
+              <li>
+                <button type="button" className="footer-nav-btn" onClick={() => navigatePath(isEs ? '/es/orquestacion-vfx/' : '/en/vfx-orchestration/')}>
+                  {isEs ? 'Orquestación VFX' : 'VFX Pipeline'}
+                </button>
+              </li>
             </ul>
           </div>
 

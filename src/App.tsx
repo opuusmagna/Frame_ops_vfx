@@ -20,6 +20,8 @@ import { BackupDisasterRecoveryPage } from './pages/BackupDisasterRecoveryPage';
 import { ManagedServicesPage } from './pages/ManagedServicesPage';
 import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
 import { TermsPage } from './pages/TermsPage';
+import { SecurityZeroTrustPage } from './pages/SecurityZeroTrustPage';
+import { VfxOrchestrationPage } from './pages/VfxOrchestrationPage';
 
 import './styles/global.css';
 import './styles/effects.css';
@@ -41,11 +43,13 @@ const MainContent: React.FC = () => {
     cleanPath === '/es/servicios/backup-disaster-recovery/' || 
     cleanPath === '/en/services/backup-disaster-recovery/';
   const isManagedServices = cleanPath === '/es/servicios-gestionados/' || cleanPath === '/en/managed-services/';
+  const isSecurity = cleanPath === '/es/ciberseguridad-zero-trust/' || cleanPath === '/en/zero-trust-security/' || cleanPath === '/es/seguridad-zero-trust/';
+  const isOrchestration = cleanPath === '/es/orquestacion-vfx/' || cleanPath === '/en/vfx-orchestration/';
   const isContact = cleanPath === '/es/contacto/' || cleanPath === '/en/contact/';
   const isPrivacy = cleanPath === '/es/privacidad/' || cleanPath === '/en/privacy/';
   const isTerms = cleanPath === '/es/terminos/' || cleanPath === '/en/terms/';
 
-  const isKnownRoute = isHome || isAbout || isServices || isBackupDR || isManagedServices || isContact || isPrivacy || isTerms;
+  const isKnownRoute = isHome || isAbout || isServices || isBackupDR || isManagedServices || isSecurity || isOrchestration || isContact || isPrivacy || isTerms;
 
   return (
     <div className="app-main">
@@ -76,6 +80,10 @@ const MainContent: React.FC = () => {
           <BackupDisasterRecoveryPage />
         ) : isManagedServices ? (
           <ManagedServicesPage />
+        ) : isSecurity ? (
+          <SecurityZeroTrustPage />
+        ) : isOrchestration ? (
+          <VfxOrchestrationPage />
         ) : isContact ? (
           <div style={{ paddingTop: '5rem' }}>
             <ContactSection />
