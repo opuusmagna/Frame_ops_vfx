@@ -156,8 +156,15 @@
 .pillar-card {
   padding: 2.5rem 2.25rem;
   background: #0d121d;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 6px;
+  border: 1px solid rgba(0, 102, 255, 0.2);
+  border-radius: 8px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pillar-card:hover {
+  border-color: rgba(56, 189, 248, 0.5);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgba(0, 102, 255, 0.15);
 }
 
 .pillar-icon {
@@ -165,12 +172,13 @@
   height: 52px;
   background: rgba(0, 102, 255, 0.15);
   border: 1px solid rgba(0, 102, 255, 0.35);
-  border-radius: 4px;
+  border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #00f0ff;
+  color: #38bdf8;
   margin-bottom: 1.25rem;
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.15);
 }
 
 .pillar-card h3 {
@@ -186,7 +194,7 @@
   font-size: 0.725rem;
   font-weight: 700;
   letter-spacing: 0.1em;
-  color: #00f0ff;
+  color: #38bdf8;
   margin-bottom: 1.15rem;
 }
 
@@ -214,13 +222,28 @@
   background: #0d121d;
   border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 1.6rem 1.85rem;
-  border-radius: 6px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.milestone-item:hover {
+  border-color: rgba(56, 189, 248, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(0, 102, 255, 0.12);
 }
 
 .milestone-icon {
-  color: #00f0ff;
+  color: #38bdf8;
   margin-top: 0.2rem;
   flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  background: rgba(0, 102, 255, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .milestone-item h4 {
@@ -257,6 +280,20 @@
 
 .cta-btn {
   padding: 1.15rem 2.75rem;
+}
+
+/* Helper Utilities */
+.margin-bottom-xl {
+  margin-bottom: 3rem;
+}
+
+.max-width-md {
+  max-width: 720px;
+}
+
+.margin-auto {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 @media (max-width: 1024px) {
