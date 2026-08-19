@@ -81,15 +81,6 @@ export const ArchitectureFlowSection: React.FC = () => {
               );
             })}
           </div>
-
-          <div className="architecture-footer-signature">
-            <span className="signature-text">FRAME OPS VFX ARCHITECTURE BLUEPRINT</span>
-            <img
-              src="/images/brand/Logo_Solo.png"
-              alt="Frame Ops VFX Signature"
-              className="arch-signature-logo"
-            />
-          </div>
         </div>
       </div>
     </section>
