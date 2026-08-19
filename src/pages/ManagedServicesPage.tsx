@@ -23,9 +23,24 @@ export const ManagedServicesPage: React.FC = () => {
     { icon: LifeBuoy, text: (m as any).s8 },
   ];
 
+  const breadcrumbs = t.nav?.breadcrumbs || {
+    home: 'Inicio',
+    services: 'Servicios',
+    managedServices: 'Servicios Gestionados B2B',
+  };
+
   return (
     <div className="managed-services-page page-with-top-padding">
       <div className="container">
+        {/* Breadcrumb Navigation */}
+        <nav className="page-breadcrumbs" aria-label="Breadcrumb">
+          <a href={lang === 'en' ? '/en/' : '/es/'} onClick={(e) => { e.preventDefault(); navigatePath(lang === 'en' ? '/en/' : '/es/'); }}>{breadcrumbs.home}</a>
+          <span className="crumb-sep">/</span>
+          <a href={lang === 'en' ? '/en/services/' : '/es/servicios/'} onClick={(e) => { e.preventDefault(); navigatePath(lang === 'en' ? '/en/services/' : '/es/servicios/'); }}>{breadcrumbs.services}</a>
+          <span className="crumb-sep">/</span>
+          <span className="crumb-active">{breadcrumbs.managedServices}</span>
+        </nav>
+
         {/* Header Hero */}
         <header className="page-header text-center">
           <span className="section-kicker">{m.kicker}</span>

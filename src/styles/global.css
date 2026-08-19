@@ -82,6 +82,37 @@ button {
   padding: 0 2rem;
 }
 
+/* Page Breadcrumbs */
+.page-breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.8rem;
+  color: #64748b;
+  margin-bottom: 2rem;
+  padding: 0.5rem 0;
+}
+
+.page-breadcrumbs a {
+  color: #94a3b8;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.page-breadcrumbs a:hover {
+  color: #38bdf8;
+}
+
+.crumb-sep {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.crumb-active {
+  color: #38bdf8;
+  font-weight: 700;
+}
+
 @media (min-width: 2560px) {
   .container {
     max-width: 1720px;

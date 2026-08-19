@@ -8,6 +8,22 @@ export const es: TranslationKeys = {
     about: 'NOSOTROS',
     contact: 'CONTACTO',
     language: 'IDIOMA',
+    navDropdown: {
+      allServicesTitle: 'Todos los Servicios (Visión General)',
+      allServicesDesc: '6 áreas de ingeniería para pipelines VFX',
+      managedServicesTitle: 'Servicios Gestionados B2B',
+      managedServicesDesc: 'Operación 24/7, soporte especializado y SLAs',
+      managedServicesBadge: 'SLA & 24/7',
+      backupDrTitle: 'Backup & Recuperación DR',
+      backupDrDesc: 'Estrategia 3-2-1-1 e inmutabilidad LTO',
+      backupDrBadge: '3-2-1-1 DR',
+    },
+    breadcrumbs: {
+      home: 'Inicio',
+      services: 'Servicios',
+      managedServices: 'Servicios Gestionados B2B',
+      backupDr: 'Backup & Recuperación DR',
+    },
   },
   hero: {
     kicker: 'INGENIERÍA TECNOLÓGICA ESPECIALIZADA EN VFX',

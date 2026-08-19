@@ -4,12 +4,116 @@
   background: #080c14;
 }
 
+.services-specialties-banner {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin: 3rem 0 3.5rem 0;
+}
+
+.specialty-banner-card {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.6rem 1.85rem;
+  background: linear-gradient(135deg, rgba(12, 18, 30, 0.95), rgba(8, 119, 255, 0.12));
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.specialty-banner-card:hover {
+  border-color: #38bdf8;
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px rgba(0, 102, 255, 0.25);
+  background: linear-gradient(135deg, rgba(12, 18, 30, 0.98), rgba(0, 229, 255, 0.16));
+}
+
+.specialty-icon-wrap {
+  width: 52px;
+  height: 52px;
+  border-radius: 8px;
+  background: rgba(0, 102, 255, 0.2);
+  color: #38bdf8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.2);
+}
+
+.specialty-text-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.specialty-kicker {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #38bdf8;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.specialty-title {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 0.35rem 0;
+}
+
+.specialty-desc {
+  font-size: 0.875rem;
+  color: #cbd5e1;
+  margin: 0;
+  line-height: 1.45;
+}
+
+.specialty-cta-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  background: rgba(0, 102, 255, 0.2);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  color: #ffffff;
+  border-radius: 6px;
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.specialty-banner-card:hover .specialty-cta-btn {
+  background: rgba(56, 189, 248, 0.3);
+  border-color: #38bdf8;
+  color: #ffffff;
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.3);
+}
+
+@media (max-width: 900px) {
+  .services-specialties-banner {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* 3x2 Grid in desktop (3 columns), 2 columns in tablet, 1 column in mobile */
 .services-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.75rem;
-  margin-top: 3.5rem;
+  margin-top: 2rem;
 }
 
 .service-card {

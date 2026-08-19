@@ -6,6 +6,22 @@ export const en = {
     about: 'ABOUT US',
     contact: 'CONTACT',
     language: 'LANGUAGE',
+    navDropdown: {
+      allServicesTitle: 'All Core Services (Overview)',
+      allServicesDesc: '6 engineering areas for VFX pipelines',
+      managedServicesTitle: 'B2B Managed Services',
+      managedServicesDesc: '24/7 operations, specialized support & SLAs',
+      managedServicesBadge: '24/7 SLA',
+      backupDrTitle: 'Backup & Disaster Recovery',
+      backupDrDesc: '3-2-1-1 strategy & LTO immutability',
+      backupDrBadge: '3-2-1-1 DR',
+    },
+    breadcrumbs: {
+      home: 'Home',
+      services: 'Services',
+      managedServices: 'B2B Managed Services',
+      backupDr: 'Backup & Disaster Recovery',
+    },
   },
   hero: {
     kicker: 'TECHNOLOGY ENGINEERING FOR VFX STUDIOS',

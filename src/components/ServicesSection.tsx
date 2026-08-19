@@ -15,7 +15,8 @@ export const ServicesSection: React.FC = () => {
       subtitle: s.vfxInfra.subtitle,
       description: s.vfxInfra.description,
       capabilities: s.vfxInfra.capabilities,
-      link: lang === 'en' ? '/en/services/' : '/es/servicios/',
+      link: lang === 'en' ? '/en/managed-services/' : '/es/servicios-gestionados/',
+      btnLabel: lang === 'en' ? 'B2B MANAGED SERVICES' : 'SERVICIOS GESTIONADOS B2B',
     },
     {
       id: 'high-performance-networks',
@@ -24,7 +25,8 @@ export const ServicesSection: React.FC = () => {
       subtitle: s.highNetworks.subtitle,
       description: s.highNetworks.description,
       capabilities: s.highNetworks.capabilities,
-      link: lang === 'en' ? '/en/services/' : '/es/servicios/',
+      link: lang === 'en' ? '/en/contact/?service=networks' : '/es/contacto/?service=redes',
+      btnLabel: t.hero.ctaSecondary,
     },
     {
       id: 'storage-data',
@@ -33,7 +35,8 @@ export const ServicesSection: React.FC = () => {
       subtitle: s.storageData.subtitle,
       description: s.storageData.description,
       capabilities: s.storageData.capabilities,
-      link: lang === 'en' ? '/en/services/' : '/es/servicios/',
+      link: lang === 'en' ? '/en/contact/?service=storage' : '/es/contacto/?service=almacenamiento',
+      btnLabel: t.hero.ctaSecondary,
     },
     {
       id: 'render-pipeline',
@@ -42,7 +45,8 @@ export const ServicesSection: React.FC = () => {
       subtitle: s.renderPipeline.subtitle,
       description: s.renderPipeline.description,
       capabilities: s.renderPipeline.capabilities,
-      link: lang === 'en' ? '/en/services/' : '/es/servicios/',
+      link: lang === 'en' ? '/en/contact/?service=render' : '/es/contacto/?service=render',
+      btnLabel: t.hero.ctaSecondary,
     },
     {
       id: 'backup-disaster-recovery',
@@ -51,7 +55,8 @@ export const ServicesSection: React.FC = () => {
       subtitle: s.backupDr.subtitle,
       description: s.backupDr.description,
       capabilities: s.backupDr.capabilities,
-      link: lang === 'en' ? '/en/services/backup-disaster-recovery/' : '/es/servicios/backup-disaster-recovery/',
+      link: lang === 'en' ? '/en/backup-disaster-recovery/' : '/es/backup-disaster-recovery/',
+      btnLabel: lang === 'en' ? '3-2-1-1 DR STRATEGY' : 'ESTRATEGIA 3-2-1-1 COMPLETA',
     },
     {
       id: 'cybersecurity-compliance',
@@ -60,7 +65,8 @@ export const ServicesSection: React.FC = () => {
       subtitle: s.cybersecurity.subtitle,
       description: s.cybersecurity.description,
       capabilities: s.cybersecurity.capabilities,
-      link: lang === 'en' ? '/en/services/' : '/es/servicios/',
+      link: lang === 'en' ? '/en/contact/?service=security' : '/es/contacto/?service=seguridad',
+      btnLabel: t.hero.ctaSecondary,
     },
   ];
 
@@ -73,6 +79,46 @@ export const ServicesSection: React.FC = () => {
           <p className="section-subtitle">{s.subtitle}</p>
         </div>
 
+        {/* Dedicated B2B Specialties Hero Banner */}
+        <div className="services-specialties-banner">
+          <div 
+            className="specialty-banner-card" 
+            onClick={() => navigatePath(lang === 'en' ? '/en/managed-services/' : '/es/servicios-gestionados/')}
+          >
+            <div className="specialty-icon-wrap">
+              <Cpu size={24} />
+            </div>
+            <div className="specialty-text-content">
+              <span className="specialty-kicker">ESPECIALIDAD OPERATIVA DEDICADA</span>
+              <h4 className="specialty-title">{lang === 'en' ? 'B2B Managed Services' : 'Servicios Gestionados B2B'}</h4>
+              <p className="specialty-desc">{lang === 'en' ? '24/7 dedicated operations, proactive infrastructure monitoring & SLA-backed support.' : 'Operación 24/7 dedicada, monitorización proactiva de infraestructura y soporte con SLA.'}</p>
+            </div>
+            <button type="button" className="specialty-cta-btn">
+              <span>{lang === 'en' ? 'EXPLORE MANAGED SERVICES' : 'VER SERVICIOS GESTIONADOS'}</span>
+              <ArrowRight size={15} />
+            </button>
+          </div>
+
+          <div 
+            className="specialty-banner-card" 
+            onClick={() => navigatePath(lang === 'en' ? '/en/backup-disaster-recovery/' : '/es/backup-disaster-recovery/')}
+          >
+            <div className="specialty-icon-wrap">
+              <ShieldCheck size={24} />
+            </div>
+            <div className="specialty-text-content">
+              <span className="specialty-kicker">RESILIENCIA & CONTINUIDAD DE NEGOCIO</span>
+              <h4 className="specialty-title">{lang === 'en' ? 'Backup & Disaster Recovery' : 'Backup & Recuperación DR'}</h4>
+              <p className="specialty-desc">{lang === 'en' ? '3-2-1-1 backup strategy, immutable storage, LTO tape isolation & recovery drills.' : 'Estrategia de copia 3-2-1-1, almacenamiento inmutable, cinta LTO y simulacros de DR.'}</p>
+            </div>
+            <button type="button" className="specialty-cta-btn">
+              <span>{lang === 'en' ? 'EXPLORE BACKUP & DR' : 'VER ESTRATEGIA BACKUP & DR'}</span>
+              <ArrowRight size={15} />
+            </button>
+          </div>
+        </div>
+
+        {/* 6 Engineering Core Cards */}
         <div className="services-grid">
           {pillars.map((pillar) => {
             const IconComp = pillar.icon;
@@ -99,7 +145,7 @@ export const ServicesSection: React.FC = () => {
                   className="btn-service-detail"
                   onClick={() => navigatePath(pillar.link)}
                 >
-                  <span>{t.hero.ctaSecondary}</span>
+                  <span>{pillar.btnLabel}</span>
                   <ArrowRight size={14} />
                 </button>
               </div>

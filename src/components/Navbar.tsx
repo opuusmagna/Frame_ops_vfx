@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Globe } from 'lucide-react';
+import { Menu, X, Globe, ChevronDown, Layers, Cpu, ShieldCheck, ArrowRight } from 'lucide-react';
 import { useLanguage } from '../context/useLanguage';
 import type { Language } from '../context/LanguageContext';
 import './Navbar.css';
@@ -8,6 +8,7 @@ export const Navbar: React.FC = () => {
   const { lang, t, switchLanguage, currentPath, navigatePath } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,9 +32,35 @@ export const Navbar: React.FC = () => {
 
   const navLinks = [
     { key: 'home', label: t.nav.home, path: lang === 'en' ? '/en/' : '/es/' },
-    { key: 'services', label: t.nav.services, path: lang === 'en' ? '/en/services/' : '/es/servicios/' },
+    { key: 'services', label: t.nav.services, path: lang === 'en' ? '/en/services/' : '/es/servicios/', hasDropdown: true },
     { key: 'about', label: t.nav.about, path: lang === 'en' ? '/en/about/' : '/es/nosotros/' },
     { key: 'contact', label: t.nav.contact, path: lang === 'en' ? '/en/contact/' : '/es/contacto/' },
+  ];
+
+  const servicesSubItems = [
+    {
+      key: 'overview',
+      title: t.nav.navDropdown?.allServicesTitle || (lang === 'en' ? 'All Core Services (Overview)' : 'Todos los Servicios (Visión General)'),
+      desc: t.nav.navDropdown?.allServicesDesc || (lang === 'en' ? '6 engineering areas for VFX pipelines' : '6 áreas de ingeniería para pipelines VFX'),
+      path: lang === 'en' ? '/en/services/' : '/es/servicios/',
+      icon: Layers,
+    },
+    {
+      key: 'managed',
+      title: t.nav.navDropdown?.managedServicesTitle || (lang === 'en' ? 'B2B Managed Services' : 'Servicios Gestionados B2B'),
+      desc: t.nav.navDropdown?.managedServicesDesc || (lang === 'en' ? '24/7 operations, specialized support & SLAs' : 'Operación 24/7, soporte especializado y SLAs'),
+      badge: t.nav.navDropdown?.managedServicesBadge || 'SLA & 24/7',
+      path: lang === 'en' ? '/en/managed-services/' : '/es/servicios-gestionados/',
+      icon: Cpu,
+    },
+    {
+      key: 'backup',
+      title: t.nav.navDropdown?.backupDrTitle || (lang === 'en' ? 'Backup & Disaster Recovery' : 'Backup & Recuperación DR'),
+      desc: t.nav.navDropdown?.backupDrDesc || (lang === 'en' ? '3-2-1-1 strategy & LTO immutability' : 'Estrategia 3-2-1-1 e inmutabilidad LTO'),
+      badge: t.nav.navDropdown?.backupDrBadge || '3-2-1-1 DR',
+      path: lang === 'en' ? '/en/backup-disaster-recovery/' : '/es/backup-disaster-recovery/',
+      icon: ShieldCheck,
+    },
   ];
 
   const handleNavClick = (path: string) => {
@@ -69,7 +96,65 @@ export const Navbar: React.FC = () => {
         <nav className="desktop-nav" aria-label="Main Navigation">
           <ul className="nav-items-list">
             {navLinks.map((item) => {
-              const active = currentPath === item.path || (item.key === 'home' && (currentPath === '/es/' || currentPath === '/en/'));
+              const active = currentPath === item.path || 
+                (item.key === 'home' && (currentPath === '/es/' || currentPath === '/en/')) ||
+                (item.key === 'services' && (currentPath.includes('/servicios') || currentPath.includes('/services') || currentPath.includes('/backup-disaster-recovery')));
+              
+              if (item.hasDropdown) {
+                return (
+                  <li key={item.key} className="nav-item nav-item-has-dropdown">
+                    <a
+                      href={item.path}
+                      className={`nav-link-text ${active ? 'active' : ''}`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleNavClick(item.path);
+                      }}
+                    >
+                      <span>{item.label}</span>
+                      <ChevronDown size={14} className="dropdown-caret" />
+                      {active && <span className="nav-active-bar" />}
+                    </a>
+
+                    {/* Desktop Dropdown Card */}
+                    <div className="nav-dropdown-menu">
+                      <div className="nav-dropdown-header">
+                        <span className="dropdown-header-title">{item.label}</span>
+                      </div>
+                      <div className="nav-dropdown-grid">
+                        {servicesSubItems.map((sub) => {
+                          const IconComp = sub.icon;
+                          const isSubActive = currentPath === sub.path;
+                          return (
+                            <a
+                              key={sub.key}
+                              href={sub.path}
+                              className={`dropdown-sub-item ${isSubActive ? 'sub-active' : ''}`}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                handleNavClick(sub.path);
+                              }}
+                            >
+                              <div className="sub-icon-box">
+                                <IconComp size={18} />
+                              </div>
+                              <div className="sub-content">
+                                <div className="sub-title-row">
+                                  <span className="sub-title-text">{sub.title}</span>
+                                  {sub.badge && <span className="sub-badge">{sub.badge}</span>}
+                                </div>
+                                <p className="sub-desc-text">{sub.desc}</p>
+                              </div>
+                              <ArrowRight size={14} className="sub-arrow" />
+                            </a>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </li>
+                );
+              }
+
               return (
                 <li key={item.key} className="nav-item">
                   <a
@@ -127,6 +212,40 @@ export const Navbar: React.FC = () => {
             <ul className="mobile-menu-list">
               {navLinks.map((item) => {
                 const active = currentPath === item.path;
+                if (item.hasDropdown) {
+                  return (
+                    <li key={item.key} className="mobile-menu-dropdown-item">
+                      <button
+                        type="button"
+                        className={`mobile-link mobile-dropdown-toggle ${active ? 'active' : ''}`}
+                        onClick={() => setMobileServicesOpen((prev) => !prev)}
+                      >
+                        <span>{item.label}</span>
+                        <ChevronDown size={18} className={`mobile-caret ${mobileServicesOpen ? 'rotated' : ''}`} />
+                      </button>
+
+                      {mobileServicesOpen && (
+                        <div className="mobile-sub-list">
+                          {servicesSubItems.map((sub) => (
+                            <a
+                              key={sub.key}
+                              href={sub.path}
+                              className={`mobile-sub-link ${currentPath === sub.path ? 'active' : ''}`}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                handleNavClick(sub.path);
+                              }}
+                            >
+                              <span>{sub.title}</span>
+                              {sub.badge && <span className="mobile-sub-badge">{sub.badge}</span>}
+                            </a>
+                          ))}
+                        </div>
+                      )}
+                    </li>
+                  );
+                }
+
                 return (
                   <li key={item.key}>
                     <a

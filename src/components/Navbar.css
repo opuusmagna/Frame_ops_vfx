@@ -151,6 +151,211 @@
   border-radius: 2px;
 }
 
+/* B2B Dropdown Submenu Styling */
+.nav-item-has-dropdown {
+  position: relative;
+}
+
+.dropdown-caret {
+  margin-left: 0.35rem;
+  transition: transform 0.25s ease;
+  vertical-align: middle;
+}
+
+.nav-item-has-dropdown:hover .dropdown-caret {
+  transform: rotate(180deg);
+  color: #38bdf8;
+}
+
+.nav-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  width: 380px;
+  background: rgba(5, 7, 12, 0.97);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(0, 102, 255, 0.3);
+  border-radius: 10px;
+  padding: 0.85rem;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.95), 0 0 25px rgba(0, 102, 255, 0.18);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  z-index: 100000;
+}
+
+.nav-item-has-dropdown:hover .nav-dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+.nav-dropdown-header {
+  padding: 0.4rem 0.6rem 0.6rem 0.6rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 0.5rem;
+}
+
+.dropdown-header-title {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #38bdf8;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.nav-dropdown-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.dropdown-sub-item {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.75rem 0.85rem;
+  border-radius: 6px;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.dropdown-sub-item:hover,
+.dropdown-sub-item.sub-active {
+  background: rgba(0, 102, 255, 0.14);
+  border-color: rgba(56, 189, 248, 0.35);
+}
+
+.sub-icon-box {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  background: rgba(0, 102, 255, 0.15);
+  color: #38bdf8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.1);
+}
+
+.sub-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.sub-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: space-between;
+}
+
+.sub-title-text {
+  font-family: var(--font-heading);
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+.sub-badge {
+  font-size: 0.65rem;
+  font-weight: 800;
+  font-family: var(--font-mono, monospace);
+  background: rgba(0, 229, 255, 0.15);
+  color: #38bdf8;
+  border: 1px solid rgba(0, 229, 255, 0.3);
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.sub-desc-text {
+  font-size: 0.775rem;
+  color: #94a3b8;
+  margin: 0.2rem 0 0 0;
+  line-height: 1.35;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sub-arrow {
+  color: #64748b;
+  transition: transform 0.2s ease, color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.dropdown-sub-item:hover .sub-arrow {
+  color: #38bdf8;
+  transform: translateX(3px);
+}
+
+/* Mobile Nested Dropdown Support */
+.mobile-dropdown-toggle {
+  width: 100%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.mobile-caret {
+  color: #38bdf8;
+  transition: transform 0.3s ease;
+}
+
+.mobile-caret.rotated {
+  transform: rotate(180deg);
+}
+
+.mobile-sub-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.5rem 0 0.5rem 1rem;
+  margin-top: 0.25rem;
+  border-left: 2px solid rgba(0, 102, 255, 0.3);
+}
+
+.mobile-sub-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.75rem;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.mobile-sub-link.active,
+.mobile-sub-link:hover {
+  color: #ffffff;
+  background: rgba(0, 102, 255, 0.15);
+}
+
+.mobile-sub-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  font-family: var(--font-mono, monospace);
+  background: rgba(0, 229, 255, 0.15);
+  color: #38bdf8;
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+}
+
 /* Mobile Hamburger Toggle */
 .mobile-hamburger {
   display: none;
