@@ -79,45 +79,6 @@ export const ServicesSection: React.FC = () => {
           <p className="section-subtitle">{s.subtitle}</p>
         </div>
 
-        {/* Dedicated B2B Specialties Hero Banner */}
-        <div className="services-specialties-banner">
-          <div 
-            className="specialty-banner-card" 
-            onClick={() => navigatePath(lang === 'en' ? '/en/managed-services/' : '/es/servicios-gestionados/')}
-          >
-            <div className="specialty-icon-wrap">
-              <Cpu size={24} />
-            </div>
-            <div className="specialty-text-content">
-              <span className="specialty-kicker">{lang === 'en' ? 'DEDICATED OPERATIONAL SPECIALTY' : 'ESPECIALIDAD OPERATIVA DEDICADA'}</span>
-              <h4 className="specialty-title">{lang === 'en' ? 'B2B Managed Services' : 'Servicios Gestionados B2B'}</h4>
-              <p className="specialty-desc">{lang === 'en' ? '24/7 dedicated operations, proactive infrastructure monitoring & SLA-backed support.' : 'Operación 24/7 dedicada, monitorización proactiva de infraestructura y soporte con SLA.'}</p>
-            </div>
-            <button type="button" className="specialty-cta-btn">
-              <span>{lang === 'en' ? 'EXPLORE MANAGED SERVICES' : 'VER SERVICIOS GESTIONADOS'}</span>
-              <ArrowRight size={15} />
-            </button>
-          </div>
-
-          <div 
-            className="specialty-banner-card" 
-            onClick={() => navigatePath(lang === 'en' ? '/en/backup-disaster-recovery/' : '/es/backup-disaster-recovery/')}
-          >
-            <div className="specialty-icon-wrap">
-              <ShieldCheck size={24} />
-            </div>
-            <div className="specialty-text-content">
-              <span className="specialty-kicker">{lang === 'en' ? 'RESILIENCE & BUSINESS CONTINUITY' : 'RESILIENCIA & CONTINUIDAD DE NEGOCIO'}</span>
-              <h4 className="specialty-title">{lang === 'en' ? 'Backup & Disaster Recovery' : 'Backup & Recuperación DR'}</h4>
-              <p className="specialty-desc">{lang === 'en' ? '3-2-1-1 backup strategy, immutable storage, LTO tape isolation & recovery drills.' : 'Estrategia de copia 3-2-1-1, almacenamiento inmutable, cinta LTO y simulacros de DR.'}</p>
-            </div>
-            <button type="button" className="specialty-cta-btn">
-              <span>{lang === 'en' ? 'EXPLORE BACKUP & DR' : 'VER ESTRATEGIA BACKUP & DR'}</span>
-              <ArrowRight size={15} />
-            </button>
-          </div>
-        </div>
-
         {/* 6 Engineering Core Cards */}
         <div className="services-grid">
           {pillars.map((pillar) => {
