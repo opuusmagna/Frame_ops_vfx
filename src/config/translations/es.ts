@@ -102,7 +102,7 @@ export const es: TranslationKeys = {
   },
   services: {
     kicker: 'PILARES TÉCNICOS',
-    title: 'Soluciones de Ingeniería para Producción VFX',
+    title: 'Soluciones de Ingeniería para VFX y Postproducción',
     subtitle: 'Seis áreas especializadas de infraestructura para asegurar la continuidad y el rendimiento de tu pipeline.',
     vfxInfra: {
       title: 'Infraestructura VFX',

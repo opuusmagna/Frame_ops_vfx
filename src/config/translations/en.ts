@@ -99,9 +99,9 @@ export const en = {
     },
   },
   services: {
-    kicker: 'TECHNICAL CAPABILITIES',
-    title: 'Six engineering pillars for high-performance production',
-    subtitle: 'Infrastructure solutions engineered to address real bottlenecks in creative pipelines.',
+    kicker: 'TECHNICAL PILLARS',
+    title: 'Engineering Solutions for VFX & Post-Production',
+    subtitle: 'Six specialized infrastructure areas to ensure pipeline continuity and performance.',
     vfxInfra: {
       title: 'VFX Infrastructure',
       subtitle: 'Workstations & Physical Datacenter',

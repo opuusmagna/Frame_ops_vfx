@@ -89,7 +89,7 @@ export const ServicesSection: React.FC = () => {
               <Cpu size={24} />
             </div>
             <div className="specialty-text-content">
-              <span className="specialty-kicker">ESPECIALIDAD OPERATIVA DEDICADA</span>
+              <span className="specialty-kicker">{lang === 'en' ? 'DEDICATED OPERATIONAL SPECIALTY' : 'ESPECIALIDAD OPERATIVA DEDICADA'}</span>
               <h4 className="specialty-title">{lang === 'en' ? 'B2B Managed Services' : 'Servicios Gestionados B2B'}</h4>
               <p className="specialty-desc">{lang === 'en' ? '24/7 dedicated operations, proactive infrastructure monitoring & SLA-backed support.' : 'Operación 24/7 dedicada, monitorización proactiva de infraestructura y soporte con SLA.'}</p>
             </div>
@@ -107,7 +107,7 @@ export const ServicesSection: React.FC = () => {
               <ShieldCheck size={24} />
             </div>
             <div className="specialty-text-content">
-              <span className="specialty-kicker">RESILIENCIA & CONTINUIDAD DE NEGOCIO</span>
+              <span className="specialty-kicker">{lang === 'en' ? 'RESILIENCE & BUSINESS CONTINUITY' : 'RESILIENCIA & CONTINUIDAD DE NEGOCIO'}</span>
               <h4 className="specialty-title">{lang === 'en' ? 'Backup & Disaster Recovery' : 'Backup & Recuperación DR'}</h4>
               <p className="specialty-desc">{lang === 'en' ? '3-2-1-1 backup strategy, immutable storage, LTO tape isolation & recovery drills.' : 'Estrategia de copia 3-2-1-1, almacenamiento inmutable, cinta LTO y simulacros de DR.'}</p>
             </div>
