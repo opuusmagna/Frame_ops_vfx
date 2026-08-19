@@ -111,29 +111,49 @@ export const Navbar: React.FC = () => {
     },
   ];
 
+  const leaveTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const handleMouseEnterItem = (key: string) => {
+    if (leaveTimeoutRef.current) {
+      clearTimeout(leaveTimeoutRef.current);
+      leaveTimeoutRef.current = null;
+    }
+    setActiveDropdownKey(key);
+  };
+
+  const handleMouseLeaveItem = () => {
+    if (leaveTimeoutRef.current) {
+      clearTimeout(leaveTimeoutRef.current);
+    }
+    leaveTimeoutRef.current = setTimeout(() => {
+      setActiveDropdownKey(null);
+    }, 220);
+  };
+
   const handleNavClick = (path: string) => {
+    if (leaveTimeoutRef.current) clearTimeout(leaveTimeoutRef.current);
     setMobileOpen(false);
     setActiveDropdownKey(null);
     navigatePath(path);
   };
 
-  const handleSolutionNavClick = (_target: string) => {
+  const handleSolutionNavClick = (targetId: string) => {
+    if (leaveTimeoutRef.current) clearTimeout(leaveTimeoutRef.current);
     setMobileOpen(false);
     setActiveDropdownKey(null);
-    const routePath = currentPath.split('?')[0].split('#')[0];
-    const cleanPath = routePath.endsWith('/') ? routePath : `${routePath}/`;
-    const isHome = cleanPath === '/es/' || cleanPath === '/en/' || cleanPath === '/';
-
-    if (isHome) {
-      const el = document.getElementById('solutions');
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      const homePath = isEs ? '/es/#solutions' : '/en/#solutions';
-      navigatePath(homePath);
+    if (currentPath !== '/es/' && currentPath !== '/en/' && currentPath !== '/') {
+      navigatePath(lang === 'en' ? '/en/' : '/es/');
       setTimeout(() => {
-        const el = document.getElementById('solutions');
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-      }, 120);
+        const el = document.getElementById(targetId);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 200);
+    } else {
+      const el = document.getElementById(targetId);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 
@@ -179,8 +199,8 @@ export const Navbar: React.FC = () => {
                   <li 
                     key={item.key} 
                     className={`nav-item nav-item-has-dropdown ${isOpen ? 'dropdown-active' : ''}`}
-                    onMouseEnter={() => setActiveDropdownKey(item.key)}
-                    onMouseLeave={() => setActiveDropdownKey(null)}
+                    onMouseEnter={() => handleMouseEnterItem(item.key)}
+                    onMouseLeave={handleMouseLeaveItem}
                   >
                     <a
                       href={item.path}
