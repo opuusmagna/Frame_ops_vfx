@@ -1,5 +1,5 @@
 import React from 'react';
-import { Cpu, ShieldCheck, Activity, Database, Wrench, FileCheck, Users, ArrowRight, Info } from 'lucide-react';
+import { Cpu, ShieldCheck, Activity, Database, Wrench, FileCheck, Users, LifeBuoy, ArrowRight, Info } from 'lucide-react';
 import { useLanguage } from '../context/useLanguage';
 import './ManagedServicesPage.css';
 
@@ -20,6 +20,7 @@ export const ManagedServicesPage: React.FC = () => {
     { icon: Cpu, text: m.s5 },
     { icon: FileCheck, text: m.s6 },
     { icon: Users, text: m.s7 },
+    { icon: LifeBuoy, text: (m as any).s8 },
   ];
 
   return (

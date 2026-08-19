@@ -21,37 +21,61 @@
 
 .ms-services-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 1.5rem;
 }
 
 .ms-service-card {
   display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-  padding: 1.25rem;
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(0, 180, 255, 0.15);
-  border-radius: 6px;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1.75rem 1.25rem;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(0, 180, 255, 0.18);
+  border-radius: 8px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  min-height: 190px;
+}
+
+.ms-service-card:hover {
+  border-color: rgba(56, 189, 248, 0.5);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(0, 102, 255, 0.15);
 }
 
 .ms-icon-wrap {
-  width: 40px;
-  height: 40px;
-  border-radius: 6px;
-  background: rgba(0, 229, 255, 0.1);
-  color: var(--accent-cyan, #00e5ff);
+  width: 46px;
+  height: 46px;
+  border-radius: 8px;
+  background: rgba(0, 229, 255, 0.12);
+  color: #38bdf8;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  margin: 0 auto 1.25rem auto;
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.15);
 }
 
 .ms-service-text {
-  font-size: 0.95rem;
+  font-size: 0.925rem;
   color: rgba(255, 255, 255, 0.85);
-  line-height: 1.5;
+  line-height: 1.55;
   margin: 0;
+}
+
+@media (max-width: 1200px) {
+  .ms-services-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .ms-services-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .highlight-box {

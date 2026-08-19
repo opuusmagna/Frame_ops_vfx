@@ -294,6 +294,7 @@ export const es: TranslationKeys = {
     s5: 'Soporte técnico especializado para infraestructura de render farm y Deadline cuando esté incluido en el alcance.',
     s6: 'Pruebas y simulacros de restauración de datos según plan y periodicidad acordados.',
     s7: 'Informes con la frecuencia definida en el servicio sobre rendimiento y estado del datacenter.',
+    s8: 'Gestión de incidencias, escalado técnico y documentación operacional del datacenter.',
     opsTitle: 'Modalidades de soporte acordadas',
     opsDesc: 'Soporte técnico operado de forma remota y presencial cuando sea acordado formalmente en el alcance del proyecto.',
     commercialNote: 'La cobertura, los horarios, los canales de soporte, los tiempos de respuesta, las exclusiones y las responsabilidades se definen en la propuesta y, cuando corresponda, en el SLA contratado.',

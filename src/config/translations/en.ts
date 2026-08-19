@@ -292,6 +292,7 @@ export const en = {
     s5: 'Specialized technical support for render farm & Deadline infrastructure when included in scope.',
     s6: 'Data restoration tests and simulation drills according to the agreed schedule.',
     s7: 'Periodic performance and datacenter health reporting at the agreed frequency.',
+    s8: 'Incident management, technical escalation, and datacenter operational documentation.',
     opsTitle: 'Agreed Support Operations',
     opsDesc: 'Technical operations provided remotely and on-site as formally agreed within project scopes.',
     commercialNote: 'Coverage, schedule, support channels, response times, exclusions, and responsibilities are defined in the proposal and, where applicable, in the contracted SLA.',
