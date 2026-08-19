@@ -5,7 +5,7 @@ import type { Language } from '../context/LanguageContext';
 import './Footer.css';
 
 export const Footer: React.FC = () => {
-  const { t, lang, switchLanguage, navigatePath } = useLanguage();
+  const { t, lang, switchLanguage, navigatePath, currentPath } = useLanguage();
   const f = t.footer;
 
   const handleToggleLang = () => {
@@ -14,6 +14,40 @@ export const Footer: React.FC = () => {
   };
 
   const isEs = lang === 'es';
+
+  const handleNavTarget = (targetSection: string) => {
+    if (targetSection === 'services') {
+      navigatePath(isEs ? '/es/servicios/' : '/en/services/');
+      return;
+    }
+
+    if (targetSection === 'contact') {
+      navigatePath(isEs ? '/es/contacto/' : '/en/contact/');
+      return;
+    }
+
+    const routePath = currentPath.split('?')[0].split('#')[0];
+    const cleanPath = routePath.endsWith('/') ? routePath : `${routePath}/`;
+    const isHome = cleanPath === '/es/' || cleanPath === '/en/' || cleanPath === '/';
+
+    if (isHome) {
+      const el = document.getElementById(targetSection);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        window.location.hash = targetSection;
+      }
+    } else {
+      const homePath = isEs ? `/es/#${targetSection}` : `/en/#${targetSection}`;
+      navigatePath(homePath);
+      setTimeout(() => {
+        const el = document.getElementById(targetSection);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 120);
+    }
+  };
 
   return (
     <footer className="master-footer">
@@ -34,11 +68,31 @@ export const Footer: React.FC = () => {
           <div className="footer-col">
             <h4 className="footer-col-title">{isEs ? 'Navegación' : 'Navigation'}</h4>
             <ul className="footer-links">
-              <li><a href="#services">{isEs ? 'Servicios' : 'Services'}</a></li>
-              <li><a href="#solutions">{isEs ? 'Soluciones' : 'Solutions'}</a></li>
-              <li><a href="#analyzer">{isEs ? 'Analizador' : 'Analyzer'}</a></li>
-              <li><a href="#estimator">{isEs ? 'Estimador' : 'Estimator'}</a></li>
-              <li><a href="#contact">{isEs ? 'Contacto' : 'Contact'}</a></li>
+              <li>
+                <button type="button" className="footer-nav-btn" onClick={() => handleNavTarget('services')}>
+                  {isEs ? 'Servicios' : 'Services'}
+                </button>
+              </li>
+              <li>
+                <button type="button" className="footer-nav-btn" onClick={() => handleNavTarget('solutions')}>
+                  {isEs ? 'Soluciones' : 'Solutions'}
+                </button>
+              </li>
+              <li>
+                <button type="button" className="footer-nav-btn" onClick={() => handleNavTarget('analyzer')}>
+                  {isEs ? 'Analizador' : 'Analyzer'}
+                </button>
+              </li>
+              <li>
+                <button type="button" className="footer-nav-btn" onClick={() => handleNavTarget('estimator')}>
+                  {isEs ? 'Estimador' : 'Estimator'}
+                </button>
+              </li>
+              <li>
+                <button type="button" className="footer-nav-btn" onClick={() => handleNavTarget('contact')}>
+                  {isEs ? 'Contacto' : 'Contact'}
+                </button>
+              </li>
             </ul>
           </div>
 
