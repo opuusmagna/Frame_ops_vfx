@@ -137,23 +137,35 @@ export const Navbar: React.FC = () => {
     navigatePath(path);
   };
 
+  const scrollToTarget = (targetId: string) => {
+    const el = document.getElementById(targetId) || document.getElementById('solutions');
+    if (el) {
+      const navOffset = 90;
+      const elementPosition = el.getBoundingClientRect().top + window.scrollY;
+      const offsetPosition = elementPosition - navOffset;
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   const handleSolutionNavClick = (targetId: string) => {
     if (leaveTimeoutRef.current) clearTimeout(leaveTimeoutRef.current);
     setMobileOpen(false);
     setActiveDropdownKey(null);
-    if (currentPath !== '/es/' && currentPath !== '/en/' && currentPath !== '/') {
-      navigatePath(lang === 'en' ? '/en/' : '/es/');
-      setTimeout(() => {
-        const el = document.getElementById(targetId);
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 200);
+    const routePath = currentPath.split('?')[0].split('#')[0];
+    const cleanPath = routePath.endsWith('/') ? routePath : `${routePath}/`;
+    const isHome = cleanPath === '/es/' || cleanPath === '/en/' || cleanPath === '/';
+
+    if (isHome) {
+      scrollToTarget(targetId);
     } else {
-      const el = document.getElementById(targetId);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
-      }
+      const homePath = isEs ? '/es/' : '/en/';
+      navigatePath(homePath);
+      setTimeout(() => {
+        scrollToTarget(targetId);
+      }, 200);
     }
   };
 

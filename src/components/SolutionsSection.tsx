@@ -21,7 +21,7 @@ export const SolutionsSection: React.FC = () => {
         </div>
 
         <div className="solutions-grid">
-          <div className="solution-card corp-panel">
+          <div id="solutions-mid-tier" className="solution-card corp-panel">
             <div className="solution-icon-wrap"><Server size={28} /></div>
             <h3 className="solution-card-title">{s.small.title}</h3>
             <p className="solution-card-desc">{s.small.desc}</p>
@@ -31,7 +31,7 @@ export const SolutionsSection: React.FC = () => {
             </button>
           </div>
 
-          <div className="solution-card corp-panel highlight-solution">
+          <div id="solutions-enterprise" className="solution-card corp-panel highlight-solution">
             <div className="solution-icon-wrap"><Building2 size={28} /></div>
             <h3 className="solution-card-title">{s.enterprise.title}</h3>
             <p className="solution-card-desc">{s.enterprise.desc}</p>
