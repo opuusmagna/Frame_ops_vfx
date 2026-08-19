@@ -76,7 +76,7 @@
   max-width: 200px !important;
   object-fit: contain !important;
   opacity: 1 !important;
-  filter: none !important;
+  filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.45)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.8)) !important;
   transition: all 0.3s ease;
 }
 
@@ -85,7 +85,7 @@
   max-height: 42px !important;
   width: auto !important;
   max-width: 160px !important;
-  filter: none !important;
+  filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.45)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.8)) !important;
 }
 
 
@@ -338,7 +338,7 @@
     max-height: 40px !important;
     width: auto !important;
     max-width: 150px !important;
-    filter: none !important;
+    filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.45)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.8)) !important;
   }
 
   .master-navbar.scrolled .brand-logo-img {
@@ -346,6 +346,6 @@
     max-height: 36px !important;
     width: auto !important;
     max-width: 130px !important;
-    filter: none !important;
+    filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.45)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.8)) !important;
   }
 }

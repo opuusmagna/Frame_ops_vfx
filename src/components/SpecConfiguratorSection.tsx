@@ -247,7 +247,7 @@ export const SpecConfiguratorSection: React.FC = () => {
 
                 {/* Scratch / Cache Range */}
                 <div className="result-card">
-                  <span className="result-card-label">{isEs ? 'Capa Scratch / Caché NVMe Requerida:' : 'Recommended NVMe Scratch & Cache Tier:'}</span>
+                  <span className="result-card-label">{isEs ? 'Capa Scratch / Caché NVMe Estimada:' : 'Estimated NVMe Scratch & Cache Tier:'}</span>
                   <div className="result-card-value">
                     {minScratchNVMeTB} TB — {maxScratchNVMeTB} TB NVMe Tier-0
                   </div>

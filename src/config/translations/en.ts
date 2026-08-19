@@ -183,8 +183,8 @@ export const en = {
     resolutionLabel: 'Dominant resolution & format:',
     dataGrowthLabel: 'Daily data ingestion / growth:',
     estStorage: 'Estimated Storage Tier:',
-    estNetwork: 'Recommended Network Class:',
-    estRender: 'Recommended Render Management:',
+    estNetwork: 'Indicative Network Class:',
+    estRender: 'Indicative Render Management:',
     cta: 'REQUEST DETAILED TECHNICAL AUDIT',
   },
   solutions: {

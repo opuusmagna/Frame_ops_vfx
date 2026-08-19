@@ -185,8 +185,8 @@ export const es: TranslationKeys = {
     resolutionLabel: 'Formato y resolución dominante:',
     dataGrowthLabel: 'Ingesta / crecimiento de datos diario:',
     estStorage: 'Almacenamiento orientativo:',
-    estNetwork: 'Clase de red recomendada:',
-    estRender: 'Gestión de render recomendada:',
+    estNetwork: 'Clase de red orientativa:',
+    estRender: 'Gestión de render orientativa:',
     cta: 'SOLICITAR AUDITORÍA TÉCNICA DETALLADA',
   },
   solutions: {

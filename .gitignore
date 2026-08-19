@@ -26,6 +26,8 @@ dist-ssr
 # Evidence ZIP and scripts
 temp_verify_r2_4/
 temp_verify_r2_4_1/
+temp_verify_r2_5/
+temp_verify_r2_6/
 generate_r2_4_evidence.cjs
 package_r2_4.cjs
 verify_r2_4_evidence.cjs
@@ -36,6 +38,19 @@ package_r2_4_1.cjs
 verify_r2_4_1_evidence.cjs
 capturas_checkpoint_r2_4_1.zip
 capturas_checkpoint_r2_4_1.zip.sha256
+generate_r2_5_evidence.cjs
+package_r2_5.cjs
+verify_r2_5_evidence.cjs
+capturas_checkpoint_r2_5.zip
+capturas_checkpoint_r2_5.zip.sha256
+generate_r2_6_evidence.cjs
+package_r2_6.cjs
+verify_r2_6_evidence.cjs
+capturas_checkpoint_r2_6.zip
+capturas_checkpoint_r2_6.zip.sha256
+scratch_debug_scroll.cjs
+scratch_test_matrix.cjs
+debug_pos_*.png
 test_est.png
 generate_r2_1_final_evidence.cjs
 package_r2_1_final.cjs
