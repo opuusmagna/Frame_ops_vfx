@@ -59,7 +59,7 @@ export const Navbar: React.FC = () => {
           }}
         >
           <img
-            src="/images/brand/Logo_Solo.png"
+            src="/images/brand/Logo_Frame_OPS_VFX.png"
             alt="Frame Ops VFX Official Logo"
             className="brand-logo-img dark-mode-logo"
           />
