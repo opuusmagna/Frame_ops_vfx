@@ -1,5 +1,5 @@
 import React from 'react';
-import { Globe, Mail } from 'lucide-react';
+import { Globe, Mail, ArrowUp } from 'lucide-react';
 import { useLanguage } from '../context/useLanguage';
 import type { Language } from '../context/LanguageContext';
 import './Footer.css';
@@ -11,6 +11,12 @@ export const Footer: React.FC = () => {
   const handleToggleLang = () => {
     const nextLang: Language = lang === 'es' ? 'en' : 'es';
     switchLanguage(nextLang);
+  };
+
+  const handleScrollToTop = () => {
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   const isEs = lang === 'es';
@@ -156,15 +162,10 @@ export const Footer: React.FC = () => {
         {/* Footer Bottom Bar */}
         <div className="footer-bottom">
           <p>© {new Date().getFullYear()} Frame Ops VFX. {f.rights}</p>
-          <div className="footer-legal-inline">
-            <button type="button" className="legal-footer-link" onClick={() => navigatePath(isEs ? '/es/privacidad/' : '/en/privacy/')}>
-              {f.privacy}
-            </button>
-            <span className="legal-sep">•</span>
-            <button type="button" className="legal-footer-link" onClick={() => navigatePath(isEs ? '/es/terminos/' : '/en/terms/')}>
-              {f.terms}
-            </button>
-          </div>
+          <button type="button" className="btn-back-to-top" onClick={handleScrollToTop} aria-label="Volver arriba">
+            <span>{isEs ? 'Volver arriba' : 'Back to top'}</span>
+            <ArrowUp size={14} />
+          </button>
         </div>
       </div>
     </footer>
