@@ -35,7 +35,11 @@ const MainContent: React.FC = () => {
   const isHome = cleanPath === '/es/' || cleanPath === '/en/' || cleanPath === '/';
   const isAbout = cleanPath === '/es/nosotros/' || cleanPath === '/en/about/';
   const isServices = cleanPath === '/es/servicios/' || cleanPath === '/en/services/';
-  const isBackupDR = cleanPath === '/es/servicios/backup-disaster-recovery/' || cleanPath === '/en/services/backup-disaster-recovery/';
+  const isBackupDR = 
+    cleanPath === '/es/backup-disaster-recovery/' || 
+    cleanPath === '/en/backup-disaster-recovery/' ||
+    cleanPath === '/es/servicios/backup-disaster-recovery/' || 
+    cleanPath === '/en/services/backup-disaster-recovery/';
   const isManagedServices = cleanPath === '/es/servicios-gestionados/' || cleanPath === '/en/managed-services/';
   const isContact = cleanPath === '/es/contacto/' || cleanPath === '/en/contact/';
   const isPrivacy = cleanPath === '/es/privacidad/' || cleanPath === '/en/privacy/';
