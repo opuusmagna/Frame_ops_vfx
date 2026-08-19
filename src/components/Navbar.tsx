@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Globe, ChevronDown, Layers, Cpu, ShieldCheck, Lock, Workflow } from 'lucide-react';
+import { Menu, X, Globe, ChevronDown, Layers, Cpu, ShieldCheck, Lock, Workflow, Network, HardDrive } from 'lucide-react';
 import { useLanguage } from '../context/useLanguage';
 import type { Language } from '../context/LanguageContext';
 import './Navbar.css';
@@ -56,6 +56,24 @@ export const Navbar: React.FC = () => {
       icon: Cpu,
     },
     {
+      key: 'networking',
+      title: isEs ? 'Redes de Alto Rendimiento' : 'High-Performance Networking',
+      path: isEs ? '/es/redes-alto-rendimiento/' : '/en/high-performance-networking/',
+      icon: Network,
+    },
+    {
+      key: 'storage',
+      title: isEs ? 'Almacenamiento y Datos' : 'Storage & Data Systems',
+      path: isEs ? '/es/almacenamiento-datos/' : '/en/storage-data-systems/',
+      icon: HardDrive,
+    },
+    {
+      key: 'orchestration',
+      title: t.nav.navDropdown?.orchestrationTitle || (isEs ? 'Orquestación VFX' : 'VFX Pipeline Orchestration'),
+      path: isEs ? '/es/orquestacion-vfx/' : '/en/vfx-orchestration/',
+      icon: Workflow,
+    },
+    {
       key: 'backup',
       title: t.nav.navDropdown?.backupDrTitle || (isEs ? 'Backup & Recuperación DR' : 'Backup & Disaster Recovery'),
       path: isEs ? '/es/backup-disaster-recovery/' : '/en/backup-disaster-recovery/',
@@ -66,12 +84,6 @@ export const Navbar: React.FC = () => {
       title: t.nav.navDropdown?.zeroTrustTitle || (isEs ? 'Seguridad Zero Trust' : 'Zero Trust Security'),
       path: isEs ? '/es/ciberseguridad-zero-trust/' : '/en/zero-trust-security/',
       icon: Lock,
-    },
-    {
-      key: 'orchestration',
-      title: t.nav.navDropdown?.orchestrationTitle || (isEs ? 'Orquestación VFX' : 'VFX Pipeline Orchestration'),
-      path: isEs ? '/es/orquestacion-vfx/' : '/en/vfx-orchestration/',
-      icon: Workflow,
     },
   ];
 

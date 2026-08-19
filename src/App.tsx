@@ -22,6 +22,8 @@ import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
 import { TermsPage } from './pages/TermsPage';
 import { SecurityZeroTrustPage } from './pages/SecurityZeroTrustPage';
 import { VfxOrchestrationPage } from './pages/VfxOrchestrationPage';
+import { HighPerformanceNetworkingPage } from './pages/HighPerformanceNetworkingPage';
+import { StorageDataSystemsPage } from './pages/StorageDataSystemsPage';
 
 import './styles/global.css';
 import './styles/effects.css';
@@ -45,11 +47,21 @@ const MainContent: React.FC = () => {
   const isManagedServices = cleanPath === '/es/servicios-gestionados/' || cleanPath === '/en/managed-services/';
   const isSecurity = cleanPath === '/es/ciberseguridad-zero-trust/' || cleanPath === '/en/zero-trust-security/' || cleanPath === '/es/seguridad-zero-trust/';
   const isOrchestration = cleanPath === '/es/orquestacion-vfx/' || cleanPath === '/en/vfx-orchestration/';
+  const isNetworking = 
+    cleanPath === '/es/redes-alto-rendimiento/' || 
+    cleanPath === '/en/high-performance-networking/' ||
+    cleanPath === '/es/servicios/redes-alto-rendimiento/' || 
+    cleanPath === '/en/services/high-performance-networking/';
+  const isStorage = 
+    cleanPath === '/es/almacenamiento-datos/' || 
+    cleanPath === '/en/storage-data-systems/' ||
+    cleanPath === '/es/servicios/almacenamiento-datos/' || 
+    cleanPath === '/en/services/storage-data-systems/';
   const isContact = cleanPath === '/es/contacto/' || cleanPath === '/en/contact/';
   const isPrivacy = cleanPath === '/es/privacidad/' || cleanPath === '/en/privacy/';
   const isTerms = cleanPath === '/es/terminos/' || cleanPath === '/en/terms/';
 
-  const isKnownRoute = isHome || isAbout || isServices || isBackupDR || isManagedServices || isSecurity || isOrchestration || isContact || isPrivacy || isTerms;
+  const isKnownRoute = isHome || isAbout || isServices || isBackupDR || isManagedServices || isSecurity || isOrchestration || isNetworking || isStorage || isContact || isPrivacy || isTerms;
 
   return (
     <div className="app-main">
@@ -84,6 +96,10 @@ const MainContent: React.FC = () => {
           <SecurityZeroTrustPage />
         ) : isOrchestration ? (
           <VfxOrchestrationPage />
+        ) : isNetworking ? (
+          <HighPerformanceNetworkingPage />
+        ) : isStorage ? (
+          <StorageDataSystemsPage />
         ) : isContact ? (
           <div style={{ paddingTop: '5rem' }}>
             <ContactSection />

@@ -25,8 +25,8 @@ export const ServicesSection: React.FC = () => {
       subtitle: s.highNetworks.subtitle,
       description: s.highNetworks.description,
       capabilities: s.highNetworks.capabilities,
-      link: lang === 'en' ? '/en/contact/?service=networks' : '/es/contacto/?service=redes',
-      btnLabel: t.hero.ctaSecondary,
+      link: lang === 'en' ? '/en/high-performance-networking/' : '/es/redes-alto-rendimiento/',
+      btnLabel: lang === 'en' ? 'EXPLORE NETWORK ENGINEERING' : 'VER INGENIERÍA DE REDES',
     },
     {
       id: 'storage-data',
@@ -35,8 +35,8 @@ export const ServicesSection: React.FC = () => {
       subtitle: s.storageData.subtitle,
       description: s.storageData.description,
       capabilities: s.storageData.capabilities,
-      link: lang === 'en' ? '/en/contact/?service=storage' : '/es/contacto/?service=almacenamiento',
-      btnLabel: t.hero.ctaSecondary,
+      link: lang === 'en' ? '/en/storage-data-systems/' : '/es/almacenamiento-datos/',
+      btnLabel: lang === 'en' ? 'EXPLORE ZFS/NVME STORAGE' : 'VER ARQUITECTURAS ZFS/NVME',
     },
     {
       id: 'render-pipeline',
@@ -45,8 +45,8 @@ export const ServicesSection: React.FC = () => {
       subtitle: s.renderPipeline.subtitle,
       description: s.renderPipeline.description,
       capabilities: s.renderPipeline.capabilities,
-      link: lang === 'en' ? '/en/contact/?service=render' : '/es/contacto/?service=render',
-      btnLabel: t.hero.ctaSecondary,
+      link: lang === 'en' ? '/en/vfx-orchestration/' : '/es/orquestacion-vfx/',
+      btnLabel: lang === 'en' ? 'VFX PIPELINE ORCHESTRATION' : 'ORQUESTACIÓN PIPELINE VFX',
     },
     {
       id: 'backup-disaster-recovery',
@@ -65,8 +65,8 @@ export const ServicesSection: React.FC = () => {
       subtitle: s.cybersecurity.subtitle,
       description: s.cybersecurity.description,
       capabilities: s.cybersecurity.capabilities,
-      link: lang === 'en' ? '/en/contact/?service=security' : '/es/contacto/?service=seguridad',
-      btnLabel: t.hero.ctaSecondary,
+      link: lang === 'en' ? '/en/zero-trust-security/' : '/es/ciberseguridad-zero-trust/',
+      btnLabel: lang === 'en' ? 'ZERO TRUST SECURITY' : 'SEGURIDAD ZERO TRUST',
     },
   ];
 

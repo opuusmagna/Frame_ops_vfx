@@ -1,0 +1,139 @@
+.high-networking-page {
+  padding-bottom: 4rem;
+}
+
+.net-section {
+  padding: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.net-section-title {
+  font-family: var(--font-heading, sans-serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.net-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.75rem;
+}
+
+.net-card {
+  background: rgba(8, 12, 22, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 1.75rem;
+  transition: all 0.25s ease;
+}
+
+.net-card:hover {
+  border-color: rgba(0, 229, 255, 0.3);
+  box-shadow: 0 4px 20px rgba(0, 229, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.net-icon-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: rgba(0, 229, 255, 0.1);
+  border: 1px solid rgba(0, 229, 255, 0.3);
+  border-radius: 8px;
+  color: var(--accent-cyan, #00e5ff);
+  margin-bottom: 1.25rem;
+}
+
+.net-card-title {
+  font-family: var(--font-heading, sans-serif);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.65rem;
+}
+
+.net-card-desc {
+  font-size: 0.9rem;
+  color: #94a3b8;
+  line-height: 1.6;
+}
+
+.net-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+}
+
+.net-metric-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: rgba(8, 12, 22, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 1.5rem 1rem;
+}
+
+.net-metric-card .metric-label {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.75rem;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.net-metric-card .metric-val {
+  font-family: var(--font-heading, sans-serif);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--accent-cyan, #00e5ff);
+}
+
+.net-cta-banner {
+  background: radial-gradient(circle at 50% 50%, rgba(0, 102, 255, 0.15) 0%, rgba(8, 12, 22, 0.8) 100%);
+  border: 1px solid rgba(0, 180, 255, 0.3);
+  border-radius: 12px;
+  padding: 3rem 2rem;
+}
+
+.net-cta-banner h3 {
+  font-family: var(--font-heading, sans-serif);
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+}
+
+.net-cta-banner p {
+  font-size: 1rem;
+  color: #94a3b8;
+  max-width: 650px;
+  margin: 0 auto 1.75rem auto;
+}
+
+@media (max-width: 900px) {
+  .net-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .net-metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .net-metrics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .net-section {
+    padding: 1.5rem;
+  }
+}
