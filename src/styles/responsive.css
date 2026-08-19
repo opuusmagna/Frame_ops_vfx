@@ -48,6 +48,11 @@ html, body {
   .contact-layout {
     grid-template-columns: 1fr !important;
   }
+
+  section {
+    padding-top: 4.5rem !important;
+    padding-bottom: 4.5rem !important;
+  }
 }
 
 /* Mobile Layout for Smartphones (<= 768px, Galaxy S10+, iPhones, Android) */
