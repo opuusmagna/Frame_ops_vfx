@@ -23,7 +23,7 @@ export const Footer: React.FC = () => {
           <div className="footer-col footer-col-brand">
             <div className="footer-logo-row">
               <img 
-                src="/images/brand/Logo_Solo.png" 
+                src="/images/brand/Logo_Footer.png" 
                 alt="Frame Ops VFX Logo" 
                 className="footer-logo-img" 
               />
