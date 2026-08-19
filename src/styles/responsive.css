@@ -1,9 +1,13 @@
 /* Master Global Responsive Styling for Frame Ops VFX Web - 100% Fluid Mobile Support (Galaxy S10+, iPhones, Android) */
 
 /* Global Anti-Overflow Rules */
-html, body, #root {
+html, body {
   overflow-x: hidden !important;
-  max-width: 100vw !important;
+  max-width: 100% !important;
+}
+
+#root {
+  overflow: visible !important;
 }
 
 /* Typography Scaling with Clamp */

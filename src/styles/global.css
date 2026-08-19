@@ -10,6 +10,8 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: calc(var(--navbar-height) + 1.5rem);
+  background-color: var(--bg-0) !important;
+  color-scheme: dark !important;
 }
 
 :root {
@@ -27,9 +29,6 @@ html, body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
-  overflow-y: auto !important;
-  overscroll-behavior-y: none;
   color-scheme: dark !important;
 }
 
@@ -45,6 +44,7 @@ section[id] {
   width: 100%;
   min-height: 100vh;
   background-color: var(--bg-0) !important;
+  overflow: visible !important;
 }
 
 /* Custom Scrollbar */
