@@ -62,10 +62,10 @@ export const CommercialModelsSection: React.FC = () => {
             return (
               <div key={model.id} className="model-card corp-panel">
                 <div className="model-header">
-                  <span className="model-tag">{model.tag}</span>
                   <div className="model-icon-wrap">
                     <IconComp size={24} />
                   </div>
+                  <span className="model-tag">{model.tag}</span>
                 </div>
 
                 <h3 className="model-title">{model.title}</h3>
