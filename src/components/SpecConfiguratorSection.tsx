@@ -102,9 +102,9 @@ export const SpecConfiguratorSection: React.FC = () => {
               {/* Software Distribution Breakdown */}
               <div className="software-breakdown-box">
                 <span className="breakdown-label">{isEs ? 'Distribución estimada por software (puestos):' : 'Estimated seat breakdown by software:'}</span>
-                <div className="breakdown-inputs-grid">
+                <div className="breakdown-inputs-grid" translate="no">
                   <div>
-                    <span className="mini-lbl">Nuke:</span>
+                    <span className="mini-lbl notranslate">Nuke:</span>
                     <input
                       type="number"
                       min={0}
@@ -115,7 +115,7 @@ export const SpecConfiguratorSection: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <span className="mini-lbl">Houdini:</span>
+                    <span className="mini-lbl notranslate">Houdini:</span>
                     <input
                       type="number"
                       min={0}
@@ -126,7 +126,7 @@ export const SpecConfiguratorSection: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <span className="mini-lbl">Maya/Arnold:</span>
+                    <span className="mini-lbl notranslate">Maya/Arnold:</span>
                     <input
                       type="number"
                       min={0}
@@ -137,7 +137,7 @@ export const SpecConfiguratorSection: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <span className="mini-lbl">Unreal VP:</span>
+                    <span className="mini-lbl notranslate">Unreal VP:</span>
                     <input
                       type="number"
                       min={0}
