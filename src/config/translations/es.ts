@@ -113,7 +113,7 @@ export const es: TranslationKeys = {
     highNetworks: {
       title: 'Redes de Alto Rendimiento',
       subtitle: 'Conmutación y Red Troncal 10/25/40/100GbE',
-      description: 'Backbones de conmutación de baja latencia diseñados para reducir cuellos de botella durante la reproducción concurrente de secuencias 4K/8K sin compresión.',
+      description: 'Backbones de conmutación de baja latencia diseñados para reducir cuellos de botella durante la reproducción concurrente de secuencias máster EXR/DPX sin compresión.',
       capabilities: ['Conmutación 10/25/40/100GbE', 'Trunking MLAG & LACP', 'VLAN & Segmentación de Tráfico', 'Diagnóstico de Cuellos de Botella'],
     },
     storageData: {
@@ -273,7 +273,7 @@ export const es: TranslationKeys = {
     milestone1Title: 'Redes Troncales 10/25/40/100GbE',
     milestone1Desc: 'Arquitecturas Spine-Leaf de ultra baja latencia para transporte continuo de secuencias EXR y caché distribuida.',
     milestone2Title: 'Almacenamiento Tier-0 ZFS / NVMe',
-    milestone2Desc: 'Pools de alto rendimiento en IOPS y ancho de banda secuencial para edición 4K/8K y almacenamiento centralizado.',
+    milestone2Desc: 'Pools de alto rendimiento en IOPS y ancho de banda secuencial para edición y acabado en máxima resolución y almacenamiento centralizado.',
     milestone3Title: 'Orquestación de Render Clustered',
     milestone3Desc: 'Despliegue y optimización de granjas Deadline CPU/GPU con integración híbrida en la nube cuando se requiera escalar.',
     milestone4Title: 'Backup Inmutable y DR SLA',

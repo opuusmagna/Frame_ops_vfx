@@ -8,7 +8,6 @@ import { WorkflowSection } from './components/WorkflowSection';
 import { ServicesSection } from './components/ServicesSection';
 import { BottleneckAnalyzerSection } from './components/BottleneckAnalyzerSection';
 import { SpecConfiguratorSection } from './components/SpecConfiguratorSection';
-import { WorkloadIntelligenceSection } from './components/WorkloadIntelligenceSection';
 import { SolutionsSection } from './components/SolutionsSection';
 import { ArchitectureFlowSection } from './components/ArchitectureFlowSection';
 import { SecurityMatrixSection } from './components/SecurityMatrixSection';
@@ -84,8 +83,8 @@ const MainContent: React.FC = () => {
           <AboutPage onNavigateContact={() => navigatePath(lang === 'en' ? '/en/contact/' : '/es/contacto/')} />
         ) : isServices ? (
           <div style={{ paddingTop: '5rem' }}>
-            <CommercialModelsSection />
             <ServicesSection />
+            <CommercialModelsSection />
             <SolutionsSection />
           </div>
         ) : isBackupDR ? (
@@ -109,18 +108,16 @@ const MainContent: React.FC = () => {
         ) : isTerms ? (
           <TermsPage />
         ) : (
-          /* Home Landing */
+          /* Home Landing - Streamlined 6 Narrative Phases */
           <>
             <Hero />
-            <CommercialModelsSection />
-            <WorkflowSection />
             <ServicesSection />
             <BottleneckAnalyzerSection />
             <SpecConfiguratorSection />
-            <WorkloadIntelligenceSection />
             <SolutionsSection />
             <ArchitectureFlowSection />
             <SecurityMatrixSection />
+            <WorkflowSection />
             <WhyFrameOpsSection />
             <ContactSection />
           </>

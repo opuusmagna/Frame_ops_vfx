@@ -12,8 +12,8 @@ export const HighPerformanceNetworkingPage: React.FC = () => {
     kicker: isEs ? 'INGENIERÍA DE REDES VFX & POST' : 'VFX & POST NETWORK ENGINEERING',
     title: isEs ? 'Redes de Alto Rendimiento para Producción VFX y Acabado' : 'High-Performance Networking for VFX & Post-Production',
     subtitle: isEs
-      ? 'Backbones de conmutación 10/25/40/100GbE de ultra baja latencia diseñados para eliminar la caída de fotogramas durante la reproducción concurrente de secuencias 4K/8K EXR y DPX.'
-      : 'Ultra-low latency 10/25/40/100GbE switching backbones engineered to eliminate frame drops during concurrent 4K/8K EXR and DPX playback.',
+      ? 'Backbones de conmutación 10/25/40/100GbE de ultra baja latencia diseñados para eliminar la caída de fotogramas durante la reproducción concurrente de secuencias máster EXR y DPX sin compresión.'
+      : 'Ultra-low latency 10/25/40/100GbE switching backbones engineered to eliminate frame drops during concurrent uncompressed EXR and DPX master playback.',
     scopeTitle: isEs ? 'Arquitectura de Red para Pipelines Exigentes' : 'Network Architecture for High-Concurrency Pipelines',
     p1Title: isEs ? 'Conmutación Spine-Leaf 10/25/40/100GbE' : '10/25/40/100GbE Spine-Leaf Switching',
     p1Desc: isEs ? 'Topologías de alta densidad con latencia de puerto a puerto inferior a 300ns (Arista/Mellanox) para transferencia sin cuellos de botella.' : 'High-density topologies with sub-300ns port-to-port latency (Arista/Mellanox) for bottleneck-free throughput.',
@@ -29,10 +29,10 @@ export const HighPerformanceNetworkingPage: React.FC = () => {
     k2Label: isEs ? 'Ancho de Banda Troncal' : 'Backbone Throughput',
     k2Val: isEs ? '25GbE a Puestos / 100GbE Core' : '25GbE Workstations / 100GbE Core',
     k3Label: isEs ? 'Reproducción Concurrente' : 'Concurrent Playback',
-    k3Val: isEs ? '4K/8K EXR 16-bit Uncompressed' : '4K/8K EXR 16-bit Uncompressed',
+    k3Val: isEs ? 'EXR 16-bit Float Uncompressed' : 'EXR 16-bit Float Uncompressed',
     k4Label: isEs ? 'Cumplimiento Seguridad' : 'Security Compliance',
     k4Val: isEs ? 'Microsegmentación TPN / MPA' : 'TPN / MPA Micro-segmentation',
-    ctaTitle: isEs ? '¿Tu red sufre parones durante la reproducción de secuencias 4K/8K?' : 'Does your network suffer frame drops during 4K/8K playback?',
+    ctaTitle: isEs ? '¿Tu red sufre parones durante la reproducción de secuencias máster?' : 'Does your network suffer frame drops during uncompressed master playback?',
     ctaSubtitle: isEs ? 'Diseñamos e implantamos backbones de red de alta velocidad optimizados para estudios VFX.' : 'We design and deploy high-speed network backbones tailored for VFX studios.',
     ctaBtn: isEs ? 'SOLICITAR CONSULTORÍA DE RED' : 'REQUEST A NETWORK ASSESSMENT',
   };

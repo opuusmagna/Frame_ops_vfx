@@ -109,9 +109,9 @@ export const en = {
       capabilities: ['High-Performance Workstations', 'Virtualization Clusters', 'Rack & Power Density Design', 'Real-time System Monitoring'],
     },
     highNetworks: {
-      title: 'High-Performance Networks',
-      subtitle: '10/25/40/100GbE Switching & Core',
-      description: 'Low-latency switching backbones designed to reduce bottlenecks during multi-user 4K/8K uncompressed video playback and render transfers.',
+      title: 'High-Performance Networking',
+      subtitle: '10/25/40/100GbE Switching & Backbone',
+      description: 'Low-latency switching backbones engineered to reduce throughput bottlenecks during concurrent uncompressed EXR and DPX master playback.',
       capabilities: ['10/25/40/100GbE Switching', 'MLAG & LACP Trunking', 'VLAN & Traffic Segmentation', 'Bottleneck Diagnostics'],
     },
     storageData: {
