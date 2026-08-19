@@ -26,7 +26,7 @@ export const VfxOrchestrationPage: React.FC = () => {
     k3Label: 'Eficiencia de Nodos',
     k3Val: 'Telemetry & Auto-healing',
     k4Label: 'Soporte Software',
-    k4Val: 'Deadline, Houdini, Nuke, Maya',
+    k4Val: 'Multi-Engine & Cross-Platform',
     ctaTitle: '¿Tu render farm se satura durante los cierres de proyecto?',
     ctaSubtitle: 'Diseñamos e implantamos orquestación de render híbrida y escalable.',
     ctaBtn: 'SOLICITAR CONSULTORÍA DE PIPELINE',

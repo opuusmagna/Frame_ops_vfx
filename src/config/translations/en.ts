@@ -115,8 +115,8 @@ export const en = {
     renderPipeline: {
       title: 'Render & Pipeline',
       subtitle: 'Deadline, CPU/GPU Farms & Automation',
-      description: 'Scalable CPU/GPU render farm integration managed via AWS Thinkbox Deadline, optimized for Nuke, Houdini, Maya, Arnold, and V-Ray workflows.',
-      capabilities: ['AWS Thinkbox Deadline Integration', 'CPU & GPU Render Farm Tuning', 'Pool, Limit & License Control', 'Nuke / Houdini / Maya Pipeline Support'],
+      description: 'Integration and optimization of hybrid CPU/GPU render farms, dynamic floating license management, and multi-engine orchestration for demanding production pipelines.',
+      capabilities: ['AWS Thinkbox Deadline / OpenCue Integration', 'CPU & GPU Render Farm Tuning', 'Pool, Limit & License Control', 'Multi-Engine Orchestration & 3D/VFX Pipeline'],
     },
     backupDr: {
       title: 'Backup & Disaster Recovery',
@@ -386,7 +386,7 @@ export const en = {
     k3Label: 'Node Efficiency',
     k3Val: 'Telemetry & Auto-healing',
     k4Label: 'Software Stack',
-    k4Val: 'Deadline, Houdini, Nuke, Maya',
+    k4Val: 'Multi-Engine & Cross-Platform',
     ctaTitle: 'Is your render farm bottlenecked during final delivery closures?',
     ctaSubtitle: 'We design and implement hybrid, scalable render orchestration.',
     ctaBtn: 'REQUEST PIPELINE CONSULTING',

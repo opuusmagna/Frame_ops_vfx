@@ -117,8 +117,8 @@ export const es: TranslationKeys = {
     renderPipeline: {
       title: 'Renderizado y pipeline',
       subtitle: 'Deadline, Granjas CPU/GPU y Automatización',
-      description: 'Integración y optimización de granjas de renderizado CPU/GPU gestionadas mediante AWS Thinkbox Deadline para Nuke, Houdini, Maya, Arnold y V-Ray.',
-      capabilities: ['Integración de AWS Thinkbox Deadline', 'Ajuste de Granjas de Render CPU/GPU', 'Control de Pools, Límites y Licencias', 'Soporte de Pipeline Nuke / Houdini / Maya'],
+      description: 'Integración y optimización de granjas de renderizado CPU/GPU híbridas, gestión dinámica de licencias flotantes y orquestación multi-engine para pipelines de producción exigentes.',
+      capabilities: ['Integración de AWS Thinkbox Deadline / OpenCue', 'Ajuste de Granjas de Render CPU/GPU', 'Control de Pools, Límites y Licencias', 'Orquestación Multi-Engine & Pipeline 3D/VFX'],
     },
     backupDr: {
       title: 'Copias de seguridad y recuperación ante desastres',
@@ -388,7 +388,7 @@ export const es: TranslationKeys = {
     k3Label: 'Eficiencia de Nodos',
     k3Val: 'Telemetry & Auto-healing',
     k4Label: 'Soporte Software',
-    k4Val: 'Deadline, Houdini, Nuke, Maya',
+    k4Val: 'Multi-Engine & Cross-Platform',
     ctaTitle: '¿Tu render farm se satura durante los cierres de proyecto?',
     ctaSubtitle: 'Diseñamos e implantamos orquestación de render híbrida y escalable.',
     ctaBtn: 'SOLICITAR CONSULTORÍA DE PIPELINE',

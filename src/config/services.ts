@@ -37,8 +37,8 @@ export const servicesData: ServiceItem[] = [
     iconName: 'Cpu',
     title: 'Render & Pipeline',
     subtitle: 'Deadline, CPU/GPU Farms & Automation',
-    description: 'Scalable CPU/GPU render farm integration managed via AWS Thinkbox Deadline, optimized for Nuke, Houdini, Maya, Arnold, and V-Ray workflows.',
-    capabilities: ['AWS Thinkbox Deadline Integration', 'CPU & GPU Render Farm Tuning', 'Pool, Limit & License Control', 'Nuke / Houdini / Maya Pipeline Support'],
+    description: 'Scalable CPU/GPU render farm integration managed via AWS Thinkbox Deadline, optimized for multi-engine render workloads and automated 3D/VFX production pipelines.',
+    capabilities: ['AWS Thinkbox Deadline Integration', 'CPU & GPU Render Farm Tuning', 'Pool, Limit & License Control', 'Multi-Engine Orchestration & 3D/VFX Pipeline'],
   },
   {
     id: 'backup-disaster-recovery',
