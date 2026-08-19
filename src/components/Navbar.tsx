@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Globe, ChevronDown, Layers, Cpu, ShieldCheck, ArrowRight } from 'lucide-react';
+import { Menu, X, Globe, ChevronDown, Layers, Cpu, ShieldCheck } from 'lucide-react';
 import { useLanguage } from '../context/useLanguage';
 import type { Language } from '../context/LanguageContext';
 import './Navbar.css';
@@ -40,24 +40,19 @@ export const Navbar: React.FC = () => {
   const servicesSubItems = [
     {
       key: 'overview',
-      title: t.nav.navDropdown?.allServicesTitle || (lang === 'en' ? 'All Core Services (Overview)' : 'Todos los Servicios (Visión General)'),
-      desc: t.nav.navDropdown?.allServicesDesc || (lang === 'en' ? '6 engineering areas for VFX pipelines' : '6 áreas de ingeniería para pipelines VFX'),
+      title: t.nav.navDropdown?.allServicesTitle || (lang === 'en' ? 'Services Overview' : 'Visión General de Servicios'),
       path: lang === 'en' ? '/en/services/' : '/es/servicios/',
       icon: Layers,
     },
     {
       key: 'managed',
       title: t.nav.navDropdown?.managedServicesTitle || (lang === 'en' ? 'B2B Managed Services' : 'Servicios Gestionados B2B'),
-      desc: t.nav.navDropdown?.managedServicesDesc || (lang === 'en' ? '24/7 operations, specialized support & SLAs' : 'Operación 24/7, soporte especializado y SLAs'),
-      badge: t.nav.navDropdown?.managedServicesBadge || 'SLA & 24/7',
       path: lang === 'en' ? '/en/managed-services/' : '/es/servicios-gestionados/',
       icon: Cpu,
     },
     {
       key: 'backup',
       title: t.nav.navDropdown?.backupDrTitle || (lang === 'en' ? 'Backup & Disaster Recovery' : 'Backup & Recuperación DR'),
-      desc: t.nav.navDropdown?.backupDrDesc || (lang === 'en' ? '3-2-1-1 strategy & LTO immutability' : 'Estrategia 3-2-1-1 e inmutabilidad LTO'),
-      badge: t.nav.navDropdown?.backupDrBadge || '3-2-1-1 DR',
       path: lang === 'en' ? '/en/backup-disaster-recovery/' : '/es/backup-disaster-recovery/',
       icon: ShieldCheck,
     },
@@ -118,9 +113,6 @@ export const Navbar: React.FC = () => {
 
                     {/* Desktop Dropdown Card */}
                     <div className="nav-dropdown-menu">
-                      <div className="nav-dropdown-header">
-                        <span className="dropdown-header-title">{item.label}</span>
-                      </div>
                       <div className="nav-dropdown-grid">
                         {servicesSubItems.map((sub) => {
                           const IconComp = sub.icon;
@@ -136,16 +128,9 @@ export const Navbar: React.FC = () => {
                               }}
                             >
                               <div className="sub-icon-box">
-                                <IconComp size={18} />
+                                <IconComp size={16} />
                               </div>
-                              <div className="sub-content">
-                                <div className="sub-title-row">
-                                  <span className="sub-title-text">{sub.title}</span>
-                                  {sub.badge && <span className="sub-badge">{sub.badge}</span>}
-                                </div>
-                                <p className="sub-desc-text">{sub.desc}</p>
-                              </div>
-                              <ArrowRight size={14} className="sub-arrow" />
+                              <span className="sub-title-text">{sub.title}</span>
                             </a>
                           );
                         })}
@@ -237,7 +222,6 @@ export const Navbar: React.FC = () => {
                               }}
                             >
                               <span>{sub.title}</span>
-                              {sub.badge && <span className="mobile-sub-badge">{sub.badge}</span>}
                             </a>
                           ))}
                         </div>
