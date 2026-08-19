@@ -138,7 +138,7 @@ const MainContent: React.FC = () => {
       </main>
 
       <Footer />
-      {import.meta.env.DEV && <VisualCustomizer />}
+      <VisualCustomizer />
     </div>
   );
 };
