@@ -9,6 +9,7 @@ export const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+  const [desktopDropdownOpen, setDesktopDropdownOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -72,6 +73,7 @@ export const Navbar: React.FC = () => {
 
   const handleNavClick = (path: string) => {
     setMobileOpen(false);
+    setDesktopDropdownOpen(false);
     navigatePath(path);
   };
 
@@ -105,11 +107,16 @@ export const Navbar: React.FC = () => {
             {navLinks.map((item) => {
               const active = currentPath === item.path || 
                 (item.key === 'home' && (currentPath === '/es/' || currentPath === '/en/')) ||
-                (item.key === 'services' && (currentPath.includes('/servicios') || currentPath.includes('/services') || currentPath.includes('/backup-disaster-recovery')));
+                (item.key === 'services' && (currentPath.includes('/servicios') || currentPath.includes('/services') || currentPath.includes('/backup-disaster-recovery') || currentPath.includes('/zero-trust') || currentPath.includes('/orquestacion')));
               
               if (item.hasDropdown) {
                 return (
-                  <li key={item.key} className="nav-item nav-item-has-dropdown">
+                  <li 
+                    key={item.key} 
+                    className={`nav-item nav-item-has-dropdown ${desktopDropdownOpen ? 'dropdown-active' : ''}`}
+                    onMouseEnter={() => setDesktopDropdownOpen(true)}
+                    onMouseLeave={() => setDesktopDropdownOpen(false)}
+                  >
                     <a
                       href={item.path}
                       className={`nav-link-text ${active ? 'active' : ''}`}
