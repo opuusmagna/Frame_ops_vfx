@@ -15,6 +15,14 @@ export const es: TranslationKeys = {
       zeroTrustTitle: 'Seguridad Zero Trust',
       orchestrationTitle: 'Orquestación VFX',
     },
+    solutionsDropdown: {
+      overviewTitle: 'Modelos de Arquitectura',
+      overviewSubtitle: 'Visión Global de Soluciones Adaptativas',
+      midTierTitle: 'Infraestructura Mid-Tier',
+      midTierSubtitle: 'Soluciones para 10 a 30 Nodos de Trabajo',
+      enterpriseTitle: 'Infraestructura Enterprise',
+      enterpriseSubtitle: 'Arquitectura Multisede y Alta Disponibilidad (30+ Nodos)',
+    },
     breadcrumbs: {
       home: 'Inicio',
       services: 'Servicios',

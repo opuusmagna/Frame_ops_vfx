@@ -13,6 +13,14 @@ export const en = {
       zeroTrustTitle: 'Zero Trust Security',
       orchestrationTitle: 'VFX Pipeline Orchestration',
     },
+    solutionsDropdown: {
+      overviewTitle: 'Architecture Models',
+      overviewSubtitle: 'Global Adaptive Solutions Overview',
+      midTierTitle: 'Mid-Tier Infrastructure',
+      midTierSubtitle: 'Solutions for 10 to 30 Workstation Nodes',
+      enterpriseTitle: 'Enterprise Infrastructure',
+      enterpriseSubtitle: 'Multi-Site & High-Availability Architecture (30+ Nodes)',
+    },
     breadcrumbs: {
       home: 'Home',
       services: 'Services',
