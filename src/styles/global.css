@@ -12,16 +12,23 @@ html {
   scroll-padding-top: calc(var(--navbar-height) + 1.5rem);
 }
 
-html, body {
+:root,
+html,
+body,
+#root {
   width: 100%;
   min-height: 100%;
-  background-color: var(--bg-0);
+  background-color: var(--bg-0) !important;
+  background: var(--bg-0) !important;
   color: var(--text-white);
   font-family: var(--font-body);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  overscroll-behavior: none !important;
+  overscroll-behavior-y: none !important;
+  color-scheme: dark !important;
 }
 
 section[id] {
