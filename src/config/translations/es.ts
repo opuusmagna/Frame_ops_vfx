@@ -254,7 +254,7 @@ export const es: TranslationKeys = {
     milestone3Title: 'Orquestación de Render Clustered',
     milestone3Desc: 'Despliegue y optimización de granjas Deadline CPU/GPU con integración híbrida en la nube cuando se requiera escalar.',
     milestone4Title: 'Backup Inmutable y DR SLA',
-    milestone4Desc: 'Protección contra ranso mware con copias de seguridad aisladas en cinta LTO, almacenamiento inmutable y réplicas externas.',
+    milestone4Desc: 'Protección contra ransomware con copias de seguridad aisladas en cinta LTO, almacenamiento inmutable y réplicas externas.',
     ctaTitle: '¿Tu Infraestructura VFX Está Lista para la Próxima Producción?',
     ctaSubtitle: 'Realizamos diagnósticos técnicos exhaustivos para identificar cuellos de botella de red o almacenamiento y dimensionar la arquitectura ideal.',
   },
