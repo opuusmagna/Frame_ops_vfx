@@ -236,7 +236,7 @@ export const es: TranslationKeys = {
   },
   aboutPage: {
     kicker: 'SOBRE FRAME OPS VFX',
-    title: 'Ingeniería de Infraestructura IT Exclusiva para Producción VFX',
+    title: 'Ingeniería de Infraestructura IT Exclusiva para VFX y Postproducción',
     subtitle: 'Diseñamos, implantamos y operamos redes de alto rendimiento, almacenamiento NVMe/ZFS, granjas de render, continuidad operativa y seguridad TPN/MPA.',
     bioHeading: 'Especialización Técnica sin Compromisos',
     bioText1: 'En Frame Ops VFX no ofrecemos servicios de IT genérica para oficinas corporativas. Nos dedicamos exclusivamente a resolver los cuellos de botella de ancho de banda, IOPS de almacenamiento y tiempos de renderizado que frenan las entregas en estudios de cine, series y publicidad.',
