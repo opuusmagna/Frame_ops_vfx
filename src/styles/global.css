@@ -12,12 +12,14 @@ html {
   scroll-padding-top: calc(var(--navbar-height) + 1.5rem);
 }
 
-:root,
-html,
-body,
-#root {
+:root {
+  background-color: var(--bg-0) !important;
+  color-scheme: dark !important;
+}
+
+html, body {
   width: 100%;
-  min-height: 100%;
+  min-height: 100vh;
   background-color: var(--bg-0) !important;
   background: var(--bg-0) !important;
   color: var(--text-white);
@@ -26,8 +28,8 @@ body,
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
-  overscroll-behavior: none !important;
-  overscroll-behavior-y: none !important;
+  overflow-y: auto !important;
+  overscroll-behavior-y: none;
   color-scheme: dark !important;
 }
 
@@ -42,6 +44,7 @@ section[id] {
 #root {
   width: 100%;
   min-height: 100vh;
+  background-color: var(--bg-0) !important;
 }
 
 /* Custom Scrollbar */
