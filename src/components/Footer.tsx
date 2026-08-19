@@ -1,5 +1,5 @@
 import React from 'react';
-import { Globe, Mail, ShieldCheck } from 'lucide-react';
+import { Globe, Mail } from 'lucide-react';
 import { useLanguage } from '../context/useLanguage';
 import type { Language } from '../context/LanguageContext';
 import './Footer.css';
@@ -27,12 +27,6 @@ export const Footer: React.FC = () => {
                 alt="Frame Ops VFX Logo" 
                 className="footer-logo-img" 
               />
-              <span className="footer-brand-title">FRAME OPS VFX</span>
-            </div>
-            <p className="footer-tagline">{f.tagline}</p>
-            <div className="footer-tpn-badge">
-              <ShieldCheck size={14} className="tpn-icon" />
-              <span>TPN & MPA Alignment Support</span>
             </div>
           </div>
 
